@@ -416,7 +416,7 @@ sudo fail2ban-client status sshd
 
 Lessons Learned:
 - Fail2Ban monitors logs for suspicious authentication behavior
-- Repeated failed login attempts can trigger automatic bans
+- Repeated failed login attempts can trigger automatic alerts
 - Security services can run continuously in the background
 - Defense-in-depth improves overall security posture
 
@@ -435,3 +435,36 @@ Notes:
 Fail2Ban adds an additional defensive layer to The Citadel by automatically responding to repeated failed authentication attempts.
 
 ---
+---
+# Authentication Failure Observation
+
+Observed failed authentication attempts in:
+
+```bash
+/var/log/auth.log
+```
+
+Observed Events:
+- failed su authentication
+- PAM authentication failures
+- user privilege escalation attempts
+
+Example Log Indicators:
+- authentication failure
+- FAILED SU
+- session opened
+- session closed
+
+Lessons Learned:
+Linux systems generate detailed authentication telemetry which can be monitored for suspicious behavior and privilege escalation attempts.
+# Lessons Learned
+
+- Learned the difference between `su - username` and incorrect syntax like `su -Maks1012`
+- Observed failed authentication attempts directly in `/var/log/auth.log`
+- Learned how sudo sessions appear in Linux logs
+- Discovered GitHub no longer accepts account passwords for Git pushes and requires Personal Access Tokens
+- Learned that terminal commands are sensitive to spacing (`cd~` vs `cd ~`)
+- Configured and verified Fail2Ban SSH jail protection
+- Learned how Git tracks infrastructure/documentation changes with commits
+- Successfully pushed homelab documentation to GitHub repository
+- Learned how to verify Git synchronization with git status
