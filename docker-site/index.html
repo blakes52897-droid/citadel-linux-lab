@@ -386,6 +386,30 @@ loadStatus();
 setInterval(loadStatus, 10000);
 loadStatus();
 
+async function loadTextFeed(path, elementId, fallbackText, lines = 12) {
+    try {
+        const response = await fetch(path + '?t=' + Date.now());
+        const text = await response.text();
+
+        document.getElementById(elementId).textContent =
+            text.split('\n').filter(Boolean).slice(-lines).join('\n') || fallbackText;
+
+    } catch (err) {
+        document.getElementById(elementId).textContent = fallbackText;
+        console.error(err);
+    }
+}
+
+function loadDefenseFeeds() {
+    loadTextFeed('/status/auth-live.log', 'authlog', 'No authentication events detected.', 12);
+
+    loadTextFeed('/threats/threat-feed.log', 'threat-feed', 'No Fail2Ban events detected.', 12);
+}
+
+loadDefenseFeeds();
+
+setInterval(loadDefenseFeeds, 5000);
+
 setInterval(loadStatus, 10000);
 
 async function loadAuthLog() {
@@ -469,6 +493,24 @@ setInterval(loadAuthLog, 5000);
 
 <pre id="authlog">
 Loading authentication telemetry...
+</pre>
+
+</div>
+
+</section>
+
+<section class="panel">
+
+<div class="terminal">
+
+<p><span class="prompt">system@citadel:~$</span> defense-monitor</p>
+
+<pre id="authlog">
+Loading authentication telemetry...
+</pre>
+
+<pre id="threat-feed">
+Loading Fail2Ban threat feed...
 </pre>
 
 </div>

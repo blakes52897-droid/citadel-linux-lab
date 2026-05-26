@@ -1,0 +1,9 @@
+2026-05-26 06:14:26,210 fail2ban.actions        [1627]: NOTICE  [sshd] Flush ticket(s) with nftables
+2026-05-26 06:16:58,382 fail2ban.actions        [7217]: NOTICE  [sshd] Flush ticket(s) with nftables
+2026-05-26 06:18:53,730 fail2ban.actions        [7316]: NOTICE  [sshd] Flush ticket(s) with nftables
+2026-05-26 06:19:02,383 fail2ban.actions        [7316]: NOTICE  [sshd] Flush ticket(s) with nftables
+2026-05-26 06:26:44,763 fail2ban.filter         [7459]: INFO    [sshd] Found 10.0.0.102 - 2026-05-26 06:26:44
+2026-05-26 06:26:51,417 fail2ban.filter         [7459]: INFO    [sshd] Found 10.0.0.102 - 2026-05-26 06:26:51
+2026-05-26 06:28:18,011 fail2ban.filter         [7459]: INFO    [sshd] Found 10.0.0.102 - 2026-05-26 06:28:17
+2026-05-26 06:28:18,164 fail2ban.actions        [7459]: NOTICE  [sshd] Ban 10.0.0.102
+2026-05-26 06:33:59,616 fail2ban.actions        [7459]: NOTICE  [sshd] Unban 10.0.0.102
