@@ -22,7 +22,7 @@ body {
     min-height: 100vh;
 }
 
-/* Luxury ambient lighting */
+/* Ambient lighting */
 
 body::before {
     content: "";
@@ -43,7 +43,7 @@ body::before {
     z-index: -2;
 }
 
-/* Subtle tactical grid */
+/* Tactical grid */
 
 body::after {
     content: "";
@@ -114,11 +114,11 @@ nav {
 
 .hero {
     text-align: center;
-    padding-top: 90px;
+    padding-top: 40px;
 }
 
 .rook {
-    font-size: 120px;
+    font-size: clamp(60px, 12vw, 120px);
 
     color: white;
 
@@ -128,9 +128,12 @@ nav {
 }
 
 h1 {
-    font-size: 88px;
-    letter-spacing: 14px;
+    font-size: clamp(42px, 10vw, 88px);
+
+    letter-spacing: 6px;
+
     margin-top: 10px;
+
     font-weight: 900;
 
     color: white;
@@ -144,9 +147,9 @@ h1 {
 
     color: #b3b3b3;
 
-    letter-spacing: 7px;
+    letter-spacing: 4px;
 
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .panel {
@@ -170,14 +173,17 @@ h1 {
 
 .terminal {
     font-family: monospace;
-
     color: #e7e7e7;
-
     line-height: 1.9;
-
     font-size: 16px;
-
     text-align: left;
+}
+
+#authlog {
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    max-width: 100%;
 }
 
 .prompt {
@@ -251,8 +257,153 @@ footer {
     font-size: 13px;
 }
 
+@media (max-width: 768px) {
+
+    nav {
+        flex-direction: column;
+        gap: 18px;
+        padding: 18px;
+    }
+
+    .logo {
+        font-size: 18px;
+        letter-spacing: 3px;
+        text-align: center;
+    }
+
+    .links {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+    }
+
+    .links div {
+        font-size: 10px;
+        letter-spacing: 2px;
+    }
+
+    .hero {
+        padding-top: 40px;
+    }
+
+    .rook {
+        font-size: clamp(60px, 12vw, 120px);
+    }
+
+    h1 {
+        font-size: clamp(42px, 10vw, 88px);
+        letter-spacing: 6px;
+    }
+
+    .tagline {
+        letter-spacing: 4px;
+        font-size: 14px;
+        text-align: center;
+        padding: 0 12px;
+    }
+
+.panel {
+    width: 92%;
+    max-width: 92%;
+    overflow-x: hidden;
+}
+
+.terminal {
+    font-size: 12px;
+    overflow-x: hidden;
+}
+
+#authlog {
+    font-size: 11px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+    }
+
+    .grid {
+        width: 92%;
+        gap: 18px;
+    }
+
+    .card {
+        min-height: auto;
+        padding: 24px;
+    }
+
+    .card h3 {
+        font-size: 18px;
+        letter-spacing: 3px;
+    }
+
+    .card p {
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+    footer {
+        font-size: 11px;
+        letter-spacing: 1px;
+        padding: 24px;
+    }
+}
+
 </style>
 </head>
+
+<script>
+async function loadStatus() {
+    try {
+        const response = await fetch('/status/status.json');
+        const data = await response.json();
+
+        document.getElementById('hostname').innerText =
+            'Hostname: ' + data.hostname;
+
+        document.getElementById('uptime').innerText =
+            'Uptime: ' + data.uptime;
+
+        document.getElementById('ip').innerText =
+            'IP: ' + data.ip;
+
+        document.getElementById('disk').innerText =
+            'Disk Usage: ' + data.disk;
+
+        document.getElementById('memory').innerText =
+            'Memory Usage: ' + data.memory;
+
+        document.getElementById('containers').innerText =
+            'Running Containers: ' + data.containers;
+
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+loadStatus();
+
+setInterval(loadStatus, 10000);
+loadStatus();
+
+setInterval(loadStatus, 10000);
+
+async function loadAuthLog() {
+    try {
+        const response = await fetch('/status/auth-live.log');
+        const text = await response.text();
+
+        document.getElementById('authlog').innerText = text;
+
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+loadAuthLog();
+
+setInterval(loadAuthLog, 5000);	
+</script>
 
 <body>
 
@@ -285,21 +436,42 @@ footer {
 
         <p><span class="prompt">system@citadel:~$</span> status</p>
 
-        <p>OS: Ubuntu Linux</p>
+<p>OS: Ubuntu Linux</p>
 
-        <p>Role: Security & Infrastructure Lab</p>
+<p id="hostname">Hostname: loading...</p>
 
-        <p>Firewall: ACTIVE</p>
+<p id="uptime">Uptime: loading...</p>
 
-        <p>SSH: HARDENED</p>
+<p id="ip">IP: loading...</p>
 
-        <p>Monitoring: ONLINE</p>
+<p id="disk">Disk: loading...</p>
 
-        <p>Threat Detection: ENABLED</p>
+<p id="memory">Memory: loading...</p>
 
-        <p>Position Integrity: STABLE</p>
+<p id="containers">Containers: loading...</p>
+
+<p>Firewall: ACTIVE</p>
+
+<p>SSH: HARDENED</p>
+
+<p>Threat Detection: ENABLED</p>
+
+<p>Position Integrity: STABLE</p>
 
     </div>
+
+</section>
+<section class="panel">
+
+<div class="terminal">
+
+<p><span class="prompt">system@citadel:~$</span> auth-monitor</p>
+
+<pre id="authlog">
+Loading authentication telemetry...
+</pre>
+
+</div>
 
 </section>
 
