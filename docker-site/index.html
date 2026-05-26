@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Citadel</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background:
+        linear-gradient(135deg, #000000 0%, #050505 40%, #0d0d0d 100%);
+    color: #ffffff;
+    font-family: "Segoe UI", Arial, sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Luxury ambient lighting */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background:
+        radial-gradient(circle at top center,
+        rgba(255,255,255,0.08),
+        transparent 40%),
+
+        linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,255,255,0.03) 50%,
+        transparent 100%);
+
+    z-index: -2;
+}
+
+/* Subtle tactical grid */
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+
+    background-size: 80px 80px;
+
+    mask-image: radial-gradient(circle at center,
+    black 20%,
+    transparent 80%);
+
+    opacity: 0.35;
+
+    z-index: -1;
+}
+
+nav {
+    width: 92%;
+    margin: 28px auto 0 auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 22px 34px;
+
+    background: rgba(12,12,12,0.82);
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 0 40px rgba(255,255,255,0.04),
+        inset 0 0 12px rgba(255,255,255,0.02);
+}
+
+.logo {
+    font-size: 24px;
+    letter-spacing: 6px;
+    font-weight: 700;
+}
+
+.logo span {
+    color: #9f9f9f;
+}
+
+.links {
+    display: flex;
+    gap: 34px;
+}
+
+.links div {
+    color: #9d9d9d;
+    font-size: 13px;
+    letter-spacing: 3px;
+    transition: 0.3s;
+}
+
+.links div:hover {
+    color: white;
+}
+
+.hero {
+    text-align: center;
+    padding-top: 90px;
+}
+
+.rook {
+    font-size: 120px;
+
+    color: white;
+
+    text-shadow:
+        0 0 12px rgba(255,255,255,0.3),
+        0 0 30px rgba(255,255,255,0.08);
+}
+
+h1 {
+    font-size: 88px;
+    letter-spacing: 14px;
+    margin-top: 10px;
+    font-weight: 900;
+
+    color: white;
+
+    text-shadow:
+        0 0 12px rgba(255,255,255,0.18);
+}
+
+.tagline {
+    margin-top: 12px;
+
+    color: #b3b3b3;
+
+    letter-spacing: 7px;
+
+    font-size: 18px;
+}
+
+.panel {
+    width: 82%;
+    max-width: 980px;
+
+    margin: 55px auto;
+
+    background: rgba(10,10,10,0.75);
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    padding: 38px;
+
+    backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 0 50px rgba(255,255,255,0.04),
+        inset 0 0 25px rgba(255,255,255,0.02);
+}
+
+.terminal {
+    font-family: monospace;
+
+    color: #e7e7e7;
+
+    line-height: 1.9;
+
+    font-size: 16px;
+
+    text-align: left;
+}
+
+.prompt {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.grid {
+    width: 88%;
+
+    margin: 0 auto 70px auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 22px;
+}
+
+.card {
+    min-height: 180px;
+
+    padding: 28px;
+
+    background: rgba(14,14,14,0.84);
+
+    border: 1px solid rgba(255,255,255,0.07);
+
+    transition: 0.3s;
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        inset 0 0 20px rgba(255,255,255,0.02);
+}
+
+.card:hover {
+    transform: translateY(-6px);
+
+    border-color: rgba(255,255,255,0.18);
+
+    box-shadow:
+        0 0 30px rgba(255,255,255,0.05);
+}
+
+.card h3 {
+    margin-bottom: 18px;
+
+    letter-spacing: 4px;
+
+    font-size: 20px;
+}
+
+.card p {
+    color: #b5b5b5;
+
+    line-height: 1.7;
+}
+
+footer {
+    text-align: center;
+
+    padding: 30px;
+
+    border-top: 1px solid rgba(255,255,255,0.06);
+
+    color: #777;
+
+    letter-spacing: 2px;
+
+    font-size: 13px;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">♜ <span>THE</span> CITADEL</div>
+
+    <div class="links">
+        <div>DEFENSE</div>
+        <div>MONITORING</div>
+        <div>CONTROL</div>
+        <div>STRATEGY</div>
+    </div>
+</nav>
+
+<section class="hero">
+
+    <div class="rook">♜</div>
+
+    <h1>THE CITADEL</h1>
+
+    <div class="tagline">
+        FORTIFY THE POSITION
+    </div>
+
+</section>
+
+<section class="panel">
+
+    <div class="terminal">
+
+        <p><span class="prompt">system@citadel:~$</span> status</p>
+
+        <p>OS: Ubuntu Linux</p>
+
+        <p>Role: Security & Infrastructure Lab</p>
+
+        <p>Firewall: ACTIVE</p>
+
+        <p>SSH: HARDENED</p>
+
+        <p>Monitoring: ONLINE</p>
+
+        <p>Threat Detection: ENABLED</p>
+
+        <p>Position Integrity: STABLE</p>
+
+    </div>
+
+</section>
+
+<section class="grid">
+
+    <div class="card">
+        <h3>DEFENSE</h3>
+        <p>
+            Linux hardening, firewall rules,
+            SSH controls, and disciplined access management.
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>MONITORING</h3>
+        <p>
+            Authentication logs, telemetry,
+            service visibility, and system awareness.
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>CONTROL</h3>
+        <p>
+            Managed entirely through the Linux terminal
+            with repeatable administrative practices.
+        </p>
+    </div>
+
+    <div class="card">
+        <h3>STRATEGY</h3>
+        <p>
+            Security through structure,
+            patience, defensive depth, and positioning.
+        </p>
+    </div>
+
+</section>
+
+<footer>
+    THE CITADEL • UBUNTU SECURITY LAB
+</footer>
+
+</body>
+</html>

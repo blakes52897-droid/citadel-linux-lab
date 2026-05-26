@@ -1,4 +1,4 @@
-# The Citadel - Ubuntu Security Lab
+		# The Citadel - Ubuntu Security Lab
 
 Started:
 # 2026-05-23
@@ -468,3 +468,254 @@ Linux systems generate detailed authentication telemetry which can be monitored 
 - Learned how Git tracks infrastructure/documentation changes with commits
 - Successfully pushed homelab documentation to GitHub repository
 - Learned how to verify Git synchronization with git status
+
+---
+
+# 2026-05-25 Notes
+
+# Git + GitHub Integration
+
+## Completed
+- Installed and verified Git
+- Configured global Git username and email
+- Initialized local Git repository inside `~/citadel-linux-lab`
+- Created initial commit
+- Created private GitHub repository
+- Connected local repository to GitHub remote
+- Renamed default branch from `master` → `main`
+- Successfully pushed project to GitHub
+- Verified synchronization with:
+  ```bash
+  git status
+  ```
+
+## Commands Learned
+
+### Configure Git Identity
+```bash
+git config --global user.name "Blake Swartz"
+git config --global user.email "bswartz52897@gmail.com"
+```
+
+### Initialize Repository
+```bash
+git init
+```
+
+### Stage Files
+```bash
+git add .
+```
+
+### Commit Changes
+```bash
+git commit -m "Initial Citadel homelab commit"
+```
+
+### Add Remote Repository
+```bash
+git remote add origin https://github.com/blakes52897-droid/citadel-linux-lab.git
+```
+
+### Rename Branch
+```bash
+git branch -M main
+```
+
+### Push To GitHub
+```bash
+git push -u origin main
+```
+
+### Verify Sync Status
+```bash
+git status
+```
+
+### View Commit History
+```bash
+git log --oneline
+```
+
+---
+
+# Important Git Concepts Learned
+
+- `git add .`
+  - stages modified files for commit
+
+- `git commit`
+  - creates a snapshot/checkpoint of the project
+
+- `git push`
+  - uploads local commits to GitHub
+
+- `git status`
+  - checks synchronization state between local machine and GitHub
+
+- `working tree clean`
+  - means no unsaved Git changes exist
+
+- `origin/main`
+  - refers to the GitHub remote repository branch
+
+---
+
+# Notes File Discovery
+
+## Learned
+Discovered there were TWO copies of `citadel-notes.md`
+
+### Untracked Notes File
+```bash
+~/citadel-docs/citadel-notes.md
+```
+
+### Git-Tracked Notes File
+```bash
+~/citadel-linux-lab/notes/citadel-notes.md
+```
+
+## Commands Learned
+
+### Locate Files
+```bash
+find ~ -iname "citadel-notes.md"
+```
+
+### Open Tracked Notes File
+```bash
+nano ~/citadel-linux-lab/notes/citadel-notes.md
+```
+
+---
+
+# SSH Hardening + Key Authentication
+
+## Completed
+- Generated ED25519 SSH keypair
+- Added public key to authorized keys
+- Configured proper SSH permissions
+- Successfully SSH'd into localhost
+- Learned how encrypted remote sessions work
+
+## Commands Learned
+
+### Generate SSH Key
+```bash
+ssh-keygen -t ed25519 -C "Blake Citadel Key"
+```
+
+### View Public Key
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+### Add Public Key To Authorized Keys
+```bash
+cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
+```
+
+### Secure SSH Permissions
+```bash
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+```
+
+### SSH Into Local Machine
+```bash
+ssh localhost
+```
+
+---
+
+# SSH Security Concepts Learned
+
+## SSH Purpose
+SSH encrypts:
+- commands
+- authentication
+- terminal sessions
+- transferred data
+
+This protects against:
+- packet sniffing
+- credential theft
+- session interception
+
+## Important Realization
+Logging directly into a physical machine does NOT encrypt local keyboard/display activity.
+
+SSH specifically protects:
+- network communications
+- remote administration traffic
+
+---
+
+# SSH Hardening Troubleshooting
+
+## Learned
+- `sshd -t`
+  validates SSH configuration before restart
+
+- Syntax errors in config files can break SSH service startup
+
+- Parse error encountered:
+```text
+no argument after keyword "w"
+```
+
+- Troubleshooting involved:
+  - editing `/etc/ssh/sshd_config`
+  - locating malformed entries
+  - validating syntax safely before restarting service
+
+## Commands Used
+
+### Open SSH Config
+```bash
+sudo nano /etc/ssh/sshd_config
+```
+
+### Search Inside Nano
+```text
+Ctrl + W
+```
+
+### Validate SSH Config
+```bash
+sudo sshd -t
+```
+
+### Restart SSH Service
+```bash
+sudo systemctl restart ssh
+```
+
+---
+
+# Lessons Learned
+
+- Always verify which file is actually tracked by Git
+- `git status` is one of the most important troubleshooting tools
+- Validate configs BEFORE restarting services
+- SSH keys are more secure than passwords
+- Tiny typos in Linux configs can break services
+- Version control creates safe recovery checkpoints
+- Real sysadmin work involves troubleshooting, not memorization
+
+## SSH Remote Administration Lab
+
+### Objective
+Successfully SSH into Ubuntu VM from iPhone using Termius over local network.
+
+### Initial Issue
+- SSH connection timed out from iPhone
+- Ubuntu VM initially used NAT-style addressing
+- SSH service was installed but inactive
+
+### Troubleshooting Steps
+- Verified VM IP with:
+  ```bash
+  hostname -I
+  ip addr
