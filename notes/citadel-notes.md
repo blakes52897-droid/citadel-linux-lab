@@ -719,3 +719,432 @@ Successfully SSH into Ubuntu VM from iPhone using Termius over local network.
   ```bash
   hostname -I
   ip addr
+# The Citadel Build Log
+
+## Project
+The Citadel is a self-hosted Linux security lab landing page hosted from an Ubuntu VM and exposed publicly through Cloudflare Tunnel.
+
+Domain:
+rootandrook.com
+
+## Stack
+- Windows host machine
+- Oracle VirtualBox
+- Ubuntu Linux VM
+- Apache2 web server
+- Cloudflare DNS
+- Cloudflare Tunnel
+- UFW firewall
+- SSH enabled
+- Custom HTML/CSS frontend
+
+## Working Components
+- Apache serving from /var/www/html/index.html
+- Cloudflare Tunnel connected
+- DNS records configured:
+  - rootandrook.com
+  - www.rootandrook.com
+- Public HTTPS access working
+- UFW enabled
+- SSH allowed on port 22
+- Windows sleep disabled so VM stays online
+
+## Key Commands Used
+
+Check Apache:
+```bash
+sudo systemctl status apache2
+curl localhost
+# THE CITADEL - SESSION NOTES
+Date: 2026-05-26 / 2026-05-27
+
+Author: Blake Swartz
+
+====================================================
+MISSION
+====================================================
+
+Goal:
+Restore and stabilize The Citadel public cyber lab environment.
+
+Domain:
+rootandrook.com
+
+Infrastructure:
+- Ubuntu VM
+- Apache2
+- Cloudflare Tunnel
+- Cloudflare DNS
+- GitHub-backed project
+- Docker-enabled environment
+- SIEM-style telemetry interface
+
+====================================================
+PROJECT STATUS
+====================================================
+
+The Citadel is now:
+- Publicly accessible
+- Tunnel-connected
+- GitHub committed
+- Cloudflare integrated
+- Persistent across sessions
+- Structured as a real cyber lab portfolio project
+
+====================================================
+TECH STACK
+====================================================
+
+Host:
+- Windows 11
+
+Virtualization:
+- Oracle VirtualBox
+
+Guest OS:
+- Ubuntu Linux
+
+Web Stack:
+- Apache2
+- HTML
+- CSS
+- JavaScript
+
+Infrastructure:
+- Cloudflare Tunnel
+- Cloudflare DNS
+- GitHub
+- Docker
+
+Security:
+- UFW Firewall
+- Hardened SSH
+- Fail2Ban telemetry
+- Authentication logging
+- SIEM-style dashboard concepts
+
+====================================================
+CLOUDFLARE CONFIGURATION
+====================================================
+
+Cloudflare successfully connected to:
+rootandrook.com
+
+DNS Records:
+
+ROOT RECORD
+Type:
+CNAME
+
+Name:
+@
+
+Target:
+9d67b9ff-0fa1-402b-b0c7-9e54103e3233.cfargotunnel.com
+
+Proxy:
+Enabled
+
+----------------------------------------------------
+
+WWW RECORD
+Type:
+CNAME
+
+Name:
+www
+
+Target:
+9d67b9ff-0fa1-402b-b0c7-9e54103e3233.cfargotunnel.com
+
+Proxy:
+Enabled
+
+====================================================
+TUNNEL CONFIGURATION
+====================================================
+
+Tunnel destination:
+http://localhost:80
+
+Published Application Routes:
+
+- rootandrook.com
+- www.rootandrook.com
+
+Catch-all rule:
+http_status:404
+
+====================================================
+ERRORS ENCOUNTERED
+====================================================
+
+ERROR:
+HTTP 404
+
+CAUSE:
+Tunnel routing issue.
+
+FIX:
+Reconfigured DNS and published routes.
+
+----------------------------------------------------
+
+ERROR:
+Cloudflare Error 1016
+Origin DNS error
+
+CAUSE:
+WWW record missing.
+
+FIX:
+Created explicit WWW CNAME entry.
+
+----------------------------------------------------
+
+ERROR:
+curl: (6) Could not resolve host
+
+CAUSE:
+DNS propagation + deleted root record.
+
+FIX:
+Re-added proper DNS configuration.
+
+----------------------------------------------------
+
+ERROR:
+Tunnel server stopped
+
+CAUSE:
+cloudflared process terminated.
+
+FIX:
+Tunnel restarted and DNS corrected.
+
+====================================================
+LINUX COMMANDS USED
+====================================================
+
+Check public response:
+
+curl -I https://rootandrook.com
+
+----------------------------------------------------
+
+DNS diagnostics:
+
+resolvectl query rootandrook.com
+
+----------------------------------------------------
+
+Set DNS manually:
+
+sudo resolvectl dns enp0s3 1.1.1.1 8.8.8.8
+
+----------------------------------------------------
+
+Flush DNS cache:
+
+sudo resolvectl flush-caches
+
+----------------------------------------------------
+
+Firewall rules:
+
+sudo ufw allow 22/tcp
+sudo ufw reload
+
+----------------------------------------------------
+
+Check SSH listener:
+
+ss -tulnp | grep :22
+
+----------------------------------------------------
+
+Disk usage:
+
+df -h
+
+====================================================
+WINDOWS HOST POWER CONFIGURATION
+====================================================
+
+Problem:
+Windows host entered sleep mode when away from home.
+
+Impact:
+- Ubuntu VM shut down
+- Apache inaccessible
+- Tunnel disconnected
+- Website offline
+
+Settings changed:
+
+Power Mode:
+Best Performance
+
+Screen Timeout:
+Never
+
+Sleep Timeout:
+Never
+
+Hibernate:
+Never
+
+Power Button:
+Do Nothing
+
+Sleep Button:
+Do Nothing
+
+====================================================
+CURRENT WEBSITE STATE
+====================================================
+
+Landing page restored successfully.
+
+Sections restored:
+- Hero section
+- Defense
+- Monitoring
+- Control
+- Strategy
+- Faux telemetry panels
+- SIEM-style monitoring visuals
+- Authentication log displays
+
+Visual Style:
+- Dark cyber aesthetic
+- Grid background
+- White typography
+- Minimalist terminal styling
+- Security operations atmosphere
+
+Tagline:
+FORTIFY THE POSITION
+
+====================================================
+SYSTEM STATUS PANEL
+====================================================
+
+Displayed metrics:
+
+OS:
+Ubuntu Linux
+
+Hostname:
+blakelinuxlab
+
+IP:
+10.0.0.10
+
+Firewall:
+ACTIVE
+
+SSH:
+HARDENED
+
+Threat Detection:
+ENABLED
+
+Position Integrity:
+STABLE
+
+====================================================
+FEATURES ALREADY IMPLEMENTED
+====================================================
+
+COMPLETED:
+- Cloudflare integration
+- GitHub repository integration
+- Docker container environment
+- SIEM-style interface
+- Live authentication logs
+- Public HTTPS deployment
+- Firewall hardening
+- SSH exposure through hardened config
+- Custom telemetry panels
+- Responsive public landing page
+- Persistent public domain
+
+====================================================
+PROJECT STRUCTURE DISCOVERED
+====================================================
+
+Directories:
+
+/home/blakes52897/citadel-docs
+
+/home/blakes52897/citadel-linux-lab
+
+/home/blakes52897/citadel-linux-lab/notes/citadel-notes.md
+
+Backup files:
+- citadel-notes-old-backup.md
+- citadel-notes.md.save
+- .citadel-notes.md.swp
+
+====================================================
+NEXT PHASE OBJECTIVES
+====================================================
+
+1.
+Persistent cloudflared system service
+
+2.
+Dynamic real-time telemetry
+
+3.
+Grafana integration
+
+4.
+Uptime Kuma integration
+
+5.
+Containerized services expansion
+
+6.
+Real fail2ban live event feeds
+
+7.
+Security analytics dashboard
+
+8.
+Subpages:
+- DEFENSE
+- MONITORING
+- CONTROL
+- STRATEGY
+
+9.
+Mobile optimization improvements
+
+10.
+VirtualBox snapshot:
+"CITADEL STABLE BUILD"
+
+====================================================
+FINAL STATUS
+====================================================
+
+The Citadel is operational.
+
+Public URL:
+https://rootandrook.com
+
+The environment survived:
+- DNS failures
+- Tunnel misconfiguration
+- Missing WWW records
+- Cloudflare routing issues
+- VM sleep interruptions
+- Apache restoration
+- Public deployment recovery
+
+Current operational state:
+STABLE
+
+The tunnel lives.
