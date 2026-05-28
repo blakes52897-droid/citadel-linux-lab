@@ -1148,3 +1148,142 @@ Current operational state:
 STABLE
 
 The tunnel lives.
+
+
+Citadel Development Log - 2026-05-27
+
+Docker + NGINX Portfolio Deployment
+
+Objectives
+
+* Transitioned The Citadel from a fake static telemetry dashboard into a real cybersecurity/sysadmin portfolio site
+* Rebuilt frontend structure using HTML/CSS
+* Containerized deployment using Docker + NGINX
+* Improved overall UI/UX and project structure
+
+⸻
+
+Technologies Used
+
+* Ubuntu Linux
+* Docker
+* NGINX
+* HTML
+* CSS
+* Chromium
+* VirtualBox
+
+⸻
+
+Work Completed
+
+Docker Workflow
+
+* Built Docker image:
+
+sudo docker build -t citadel-site .
+
+* Removed old container:
+
+sudo docker rm -f citadel-site
+
+* Deployed new container:
+
+sudo docker run -d -p 8080:80 --name citadel-site citadel-site
+
+⸻
+
+Frontend Improvements
+
+* Replaced fake telemetry dashboard
+* Created professional cybersecurity portfolio homepage
+* Added:
+    * Navigation bar
+    * Hero section
+    * Project cards
+    * Technology stack display
+    * Styled terminal section
+    * Responsive layout
+    * Glassmorphism styling
+    * Hover animations
+
+⸻
+
+Current Portfolio Sections
+
+* Linux Hardening Lab
+* Docker Web Stack
+* Live Authentication Monitor
+* SIEM Sandbox
+* Cloudflare Remote Access
+* Current Operations
+
+⸻
+
+Lessons Learned
+
+* Difference between static HTML and live system telemetry
+* Docker image/container lifecycle
+* Importance of rebuilding containers after frontend changes
+* Using:
+
+cat > index.html <<'EOF'
+
+to overwrite files directly from terminal
+
+* Understanding container port conflicts
+* Troubleshooting Docker container naming conflicts
+* Basic frontend structure using HTML + CSS
+
+⸻
+
+Next Steps
+
+* Build real project pages
+* Add GitHub links
+* Add LinkedIn links
+* Implement live authentication log feed
+* Add real Linux system telemetry
+* Create documentation pages for each project
+* Integrate SIEM tooling
+* Continue Security+ preparation
+
+⸻
+
+Current Focus Areas
+
+* Linux administration
+* Security+
+* Docker
+* SIEM concepts
+* Cloud security
+* Infrastructure hardening
+## 2026-05-28 - Citadel Website Enhancement
+
+### Objective
+Improve the visual presentation and professionalism of the Citadel landing page.
+
+### Changes Made
+- Fixed missing CSS brace issue that broke site styling
+- Added animated glowing rook hero icon
+- Improved hero section layout and spacing
+- Added subtitle:
+  Linux Security • Cloud • Infrastructure
+- Enhanced navigation bar with blur effect and transparency
+- Improved logo styling and branding
+- Added smooth scrolling support
+- Refined visual hierarchy of landing page
+- Verified Docker container deployment
+- Verified Cloudflare public access
+
+### Skills Demonstrated
+- HTML
+- CSS
+- Docker
+- NGINX
+- Linux Administration
+- Git/GitHub
+- Cloudflare Tunnel
+
+### Result
+Landing page now presents as a professional cybersecurity and infrastructure portfolio rather than a simple static website.
