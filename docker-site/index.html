@@ -247,6 +247,42 @@ nav{
     gap:26px;
 }
 
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:24px;
+    margin-top:32px;
+}
+
+.dash-card{
+    border:1px solid rgba(255,255,255,0.12);
+    background:rgba(255,255,255,0.035);
+    border-radius:18px;
+    padding:24px;
+    box-shadow:0 0 30px rgba(255,255,255,0.03);
+}
+
+.dash-card h3{
+    font-size:1.1rem;
+    margin-bottom:12px;
+}
+
+.dash-card p{
+    color:#bbb;
+    line-height:1.6;
+    margin-bottom:18px;
+}
+
+.dash-card span{
+    display:inline-block;
+    font-size:0.75rem;
+    letter-spacing:2px;
+    color:#ddd;
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:999px;
+    padding:8px 12px;
+    background:rgba(255,255,255,0.04);
+}
 .card{
     border:1px solid rgba(255,255,255,0.10);
     background:rgba(255,255,255,0.03);
@@ -384,6 +420,7 @@ nav{
 
     <div class="links">
         <a href="#about">ABOUT</a>
+        <a href="#dashboard">DASHBOARD</a>
         <a href="#projects">PROJECTS</a>
         <a href="#operations">OPERATIONS</a>
         <a href="#roadmap">ROADMAP</a>
@@ -415,6 +452,48 @@ nav{
         The Citadel is a Linux security and infrastructure lab built to document hands-on work in system administration, Docker deployment, SSH hardening, Cloudflare tunneling, authentication monitoring, and security operations.
         <br><br>
         This site is both a professional portfolio and a working operations deck. The goal is to build practical experience, document real troubleshooting, and create a clear record of technical growth toward cybersecurity, systems administration, and cloud infrastructure roles.
+    </div>
+</section>
+
+<section class="section" id="dashboard">
+    <h2>OPERATIONS DASHBOARD</h2>
+
+    <div class="dashboard-grid">
+        <div class="dash-card">
+            <h3>🟢 Website</h3>
+            <p>Public Citadel site served through Docker, NGINX, and Cloudflare Tunnel.</p>
+            <span id="live-updated">STATUS: loading...</span>
+        </div>
+
+        <div class="dash-card">
+            <h3>🟢 Docker</h3>
+            <p>Citadel site container is built, deployed, and running on port 8080.</p>
+            <span id="live-docker">CONTAINER: loading...</span>
+        </div>
+
+        <div class="dash-card">
+            <h3>🟢 GitHub</h3>
+            <p>Source control is active with commit, push, and deployment workflow verified.</p>
+            <span id="live-commit">COMMIT: loading...</span>
+        </div>
+
+        <div class="dash-card">
+            <h3>🟢 Cloudflare</h3>
+            <p>Cloudflare Tunnel provides public access without traditional port forwarding.</p>
+            <span>TUNNEL: ACTIVE</span>
+        </div>
+
+        <div class="dash-card">
+            <h3>🟡 Security</h3>
+            <p>SSH, UFW, and Fail2Ban are configured as the foundation for host hardening.</p>
+            <span>MONITORING: IN PROGRESS</span>
+        </div>
+
+        <div class="dash-card">
+            <h3>🟢 Thermal</h3>
+            <p>Host thermal baseline established using HWiNFO on the Windows host.</p>
+            <span>CPU BASELINE: HEALTHY</span>
+        </div>
     </div>
 </section>
 
@@ -575,6 +654,33 @@ rootandrook.com • THE CITADEL • BUILT BY BLAKE SWARTZ
 </div>
 
 </div>
+
+<script>
+fetch('/status.json')
+  .then(response => response.json())
+  .then(data => {
+    document.getElementById('live-updated').textContent =
+      'UPDATED: ' + data.updated;
+
+    document.getElementById('live-docker').textContent =
+      'DOCKER: ' + data.docker;
+
+    document.getElementById('live-commit').textContent =
+      'COMMIT: ' + data.last_commit;
+
+    document.getElementById('live-uptime').textContent =
+      'UPTIME: ' + data.uptime;
+
+    document.getElementById('live-memory').textContent =
+      'MEMORY: ' + data.memory;
+
+    document.getElementById('live-disk').textContent =
+      'DISK: ' + data.disk;
+  })
+  .catch(error => {
+    console.error('Status load failed:', error);
+  });
+</script>
 
 </body>
 </html>
