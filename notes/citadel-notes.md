@@ -1287,3 +1287,115 @@ Improve the visual presentation and professionalism of the Citadel landing page.
 
 ### Result
 Landing page now presents as a professional cybersecurity and infrastructure portfolio rather than a simple static website.
+# Citadel Notes - 2026-05-29
+
+## Phase 4 - Live Operations Dashboard
+
+### Objective
+
+Transform the static Operations Dashboard into a dynamic status dashboard capable of displaying live system information generated directly from the Linux host.
+
+### Accomplishments
+
+#### Status Generation Script
+
+Created and tested a status generation workflow that produces a JSON file containing:
+
+* Last update timestamp
+* System uptime
+* CPU load
+* Memory utilization
+* Disk utilization
+* Docker status
+* Latest Git commit
+
+Verified output using:
+
+```bash
+curl http://localhost:8080/status.json
+```
+
+#### Dashboard Integration
+
+Implemented JavaScript fetch functionality within the Citadel website to retrieve and display data from status.json.
+
+Added dynamic dashboard fields for:
+
+* Website status
+* Docker status
+* Latest Git commit
+* Last update timestamp
+
+Successfully validated data retrieval through browser developer tools and direct JSON access.
+
+#### Mobile Testing
+
+Performed testing from iPhone using:
+
+* Local network access
+* Public Cloudflare tunnel access
+* RootAndRook.com production site
+
+Confirmed dashboard functionality and responsive layout.
+
+#### Navigation Improvements
+
+Adjusted dashboard anchor behavior using CSS scroll-margin-top to improve mobile navigation and prevent content from hiding behind the navigation bar.
+
+#### GitHub Integration
+
+Implemented live commit display using data generated from the local Git repository.
+
+Dashboard now displays latest commit hash and commit message.
+
+Example:
+
+8346099 - README.md
+
+#### Production Verification
+
+Confirmed successful operation of:
+
+* Ubuntu Linux VM
+* Docker container
+* NGINX web server
+* Cloudflare Tunnel
+* Public domain routing
+* Dynamic dashboard data
+
+Website accessible publicly at:
+
+https://www.rootandrook.com
+
+### Lessons Learned
+
+* JSON endpoints can be consumed directly from client-side JavaScript using fetch().
+* Dynamic dashboards can be created without backend frameworks.
+* Dockerized static sites can still present live operational data through generated JSON files.
+* Cloudflare Tunnel provides secure public access without traditional port forwarding.
+* Small iterative changes are easier to troubleshoot than large deployments.
+
+### Current Citadel Status
+
+Completed:
+
+* Linux VM
+* SSH
+* UFW
+* Docker
+* NGINX
+* Git/GitHub
+* Cloudflare Tunnel
+* Public Domain
+* Dynamic Operations Dashboard
+* Live Git Status Display
+
+In Progress:
+
+* Security Monitoring
+* Threat Dashboard
+* Authentication Telemetry
+* SIEM Expansion
+
+Project Status:
+The Citadel is operational and publicly accessible.
