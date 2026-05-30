@@ -1,8 +1,8 @@
 {
   "hostname": "blakelinuxlab",
-  "uptime": "up 3 hours, 11 minutes",
+  "uptime": "up 2 days, 20 hours, 21 minutes",
   "ip": "10.0.0.10",
-  "disk": "100%",
-  "memory": "1.3Gi / 3.3Gi",
+  "disk": "27%",
+  "memory": "2.9Gi / 7.3Gi",
   "containers": "1"
 }
