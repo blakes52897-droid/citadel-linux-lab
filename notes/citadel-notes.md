@@ -1399,3 +1399,296 @@ In Progress:
 
 Project Status:
 The Citadel is operational and publicly accessible.
+# CITADEL NOTES UPDATE
+**Date:** 2026-05-30
+
+## Session Objective
+Continue development of the Linux Hardening Lab project page, validate live dashboard telemetry, document completed security controls, and improve portfolio presentation.
+
+---
+
+## Security Monitoring Review
+
+Reviewed SSH authentication logs from `/var/log/auth.log`.
+
+Observed:
+
+Failed password for blakes52897
+Failed password for blakes52897
+Accepted password for blakes52897
+
+Confirmed:
+
+- Remote SSH access is functioning through Cloudflare Tunnel.
+- Failed authentication attempts are being logged.
+- Successful authentication events are being logged.
+- Authentication monitoring foundation is operational.
+
+Evidence captured for future documentation.
+
+---
+
+## Authentication Monitoring Investigation
+
+Located existing authentication monitoring components:
+
+scripts/auth-monitor.sh
+logs/auth-monitor.log
+docker-site/status/auth-live.log
+
+Reviewed:
+
+cat scripts/auth-monitor.sh
+
+Confirmed the environment already contained a monitoring script that:
+
+- Watches SSH authentication events
+- Writes entries to local log files
+- Generates data intended for dashboard consumption
+
+Result:
+
+- Authentication monitoring groundwork already existed.
+- Avoided duplicating functionality.
+- Updated project documentation to reflect actual state.
+
+---
+
+## Operations Dashboard Telemetry Review
+
+Located telemetry generation script:
+
+cat scripts/generate-status.sh
+
+Verified live telemetry generation for:
+
+- Hostname
+- Uptime
+- IP address
+- Disk usage
+- Memory utilization
+- Docker container count
+
+Generated updated telemetry:
+
+./scripts/generate-status.sh
+
+Verified output:
+
+cat docker-site/status/status.json
+
+Result:
+
+{
+  "hostname": "blakelinuxlab",
+  "uptime": "up 2 days, 20 hours, 21 minutes",
+  "ip": "10.0.0.10",
+  "disk": "27%",
+  "memory": "2.9Gi / 7.3Gi",
+  "containers": "1"
+}
+
+---
+
+## Dashboard Troubleshooting
+
+Investigated why dashboard telemetry appeared stale.
+
+Discovered:
+
+grep -R "status.json" docker-site
+
+Found two separate telemetry files:
+
+docker-site/status.json
+docker-site/status/status.json
+
+Determined:
+
+- Operations Dashboard reads:
+  docker-site/status.json
+
+- Linux Hardening telemetry reads:
+  docker-site/status/status.json
+
+This explained inconsistent values being displayed.
+
+---
+
+## Docker Container Investigation
+
+Reviewed active container:
+
+sudo docker ps
+
+Inspected container mounts:
+
+sudo docker inspect citadel-site
+
+Confirmed:
+
+- No live bind mounts are configured.
+- Site content is baked directly into the image.
+- Any HTML changes require image rebuilds.
+
+Key lesson:
+
+Changes are not visible until the Docker image is rebuilt and redeployed.
+
+---
+
+## Linux Hardening Project Page Creation
+
+Created and refined:
+
+projects/linux-hardening.html
+
+Connected project card:
+
+<a href="/projects/linux-hardening.html">
+
+Result:
+
+- Linux Hardening Lab now has a dedicated project page.
+- Portfolio projects can now expand independently from the main landing page.
+
+---
+
+## Linux Hardening Project Content Added
+
+### Project Snapshot
+
+- Started: May 2026
+- Status: Active
+- Public Site: rootandrook.com
+
+### Tech Stack
+
+- Ubuntu
+- SSH
+- UFW
+- Fail2Ban
+- Docker
+- NGINX
+- Cloudflare
+
+### Project Overview
+
+Explains:
+
+- Remote administration
+- Public hosting
+- Security operations practice
+- Foundation of The Citadel
+
+### Current Capabilities
+
+Documented:
+
+- SSH remote access
+- UFW firewall controls
+- Fail2Ban deployment
+- Authentication monitoring
+- Dockerized hosting
+- Cloudflare Tunnel
+- Live Operations Dashboard telemetry
+
+### Security Value
+
+Documents practical skills gained through the project.
+
+### Command Areas Practiced
+
+systemctl status ssh
+
+sudo ufw status verbose
+
+journalctl -u ssh
+
+tail -f /var/log/auth.log
+
+sudo docker ps
+
+### Implemented Controls
+
+Documents security measures currently deployed.
+
+### Next Objectives
+
+- Integrate Fail2Ban metrics into dashboard
+- Surface SSH authentication statistics
+- Create authentication dashboard card
+- Organize project evidence
+- Build infrastructure diagrams
+
+Removed outdated references suggesting Fail2Ban had not been implemented.
+
+---
+
+## Mobile Optimization Verification
+
+Tested project page on iPhone.
+
+Verified:
+
+- Responsive layout
+- Readable typography
+- Project sections render correctly
+- Navigation functions correctly
+
+Captured screenshots for future README usage.
+
+---
+
+## Recommended README Screenshots
+
+Priority images:
+
+1. Citadel Homepage
+2. Linux Hardening Project Page
+3. Operations Dashboard Telemetry
+4. Remote SSH Session From iPhone
+5. Authentication Log Monitoring
+6. Cloudflare Tunnel Access Demonstration
+
+---
+
+## Current Linux Hardening Lab Status
+
+### Completed
+
+- Ubuntu Linux deployment
+- SSH configuration
+- UFW firewall
+- Dockerized hosting
+- GitHub workflow
+- Cloudflare Tunnel integration
+- Public website deployment
+- Fail2Ban protection
+- Authentication monitoring groundwork
+- Operations Dashboard telemetry
+- Dedicated project page
+
+### In Progress
+
+- Dashboard security metrics
+- Architecture diagrams
+- Screenshot organization
+- README polishing
+
+### Portfolio Assessment
+
+Linux Hardening Lab has evolved from a basic Linux setup into a documented portfolio project demonstrating:
+
+- Linux Administration
+- Remote Access Security
+- Firewall Management
+- Docker Operations
+- Cloudflare Integration
+- Git-Based Deployment
+- Operational Monitoring
+- Security Documentation
+
+## Milestone Achieved
+
+Linux Hardening Lab project page completed and integrated into The Citadel.
