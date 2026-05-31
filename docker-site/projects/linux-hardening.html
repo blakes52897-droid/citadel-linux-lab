@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux Hardening Lab | The Citadel</title>
+  <style>
+    body {
+      margin: 0;
+      background: #030305;
+      color: #f5f5f5;
+      font-family: Arial, Helvetica, sans-serif;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 70px 70px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 60px 0;
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 50px;
+      letter-spacing: 4px;
+      color: #aaa;
+    }
+
+    h1 {
+      font-size: 4rem;
+      letter-spacing: 8px;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      color: #aaa;
+      letter-spacing: 4px;
+      line-height: 1.8;
+      margin-bottom: 60px;
+    }
+
+    .section {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      padding: 35px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      letter-spacing: 5px;
+      margin-bottom: 20px;
+    }
+
+    p, li {
+      color: #bbb;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    ul {
+      padding-left: 25px;
+    }
+
+    .terminal {
+      font-family: monospace;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 25px;
+      line-height: 1.8;
+      overflow-x: auto;
+      color: #ddd;
+    }
+
+    @media(max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+        letter-spacing: 4px;
+      }
+    }
+.status-badge {
+  display: inline-block;
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 10px 18px;
+  margin: 20px 0 35px;
+  letter-spacing: 4px;
+  color: #fff;
+  background: rgba(255,255,255,0.05);
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.meta-card {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.03);
+  padding: 25px;
+}
+
+.meta-card h3 {
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+}
+
+.meta-card p {
+  margin: 0;
+}
+
+@media(max-width: 768px) {
+  h1 {
+    font-size: 2.6rem;
+    letter-spacing: 4px;
+  }
+
+  .container {
+    padding: 45px 0;
+  }
+
+  .section {
+    padding: 28px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="/">← RETURN TO CITADEL</a>
+
+    <h1>♜ LINUX HARDENING LAB</h1>
+    <p class="subtitle">
+      SSH CONFIGURATION · FIREWALL RULES · ACCESS CONTROL · SECURITY MONITORING
+    </p>
+
+<div class="status-badge">STATUS: ACTIVE</div>
+
+<div class="section">
+  <h2>PROJECT SNAPSHOT</h2>
+  <div class="meta-grid">
+    <div class="meta-card">
+      <h3>STARTED</h3>
+      <p>May 2026</p>
+    </div>
+    <div class="meta-card">
+      <h3>STATUS</h3>
+      <p>Active and operational</p>
+    </div>
+    <div class="meta-card">
+      <h3>PUBLIC SITE</h3>
+      <p>rootandrook.com</p>
+    </div>
+    <div class="meta-card">
+      <h3>TECH STACK</h3>
+      <p>Ubuntu · SSH · UFW · Fail2Ban · Docker · NGINX · Cloudflare</p>
+    </div>
+  </div>
+</div>
+
+    <div class="section">
+      <h2>PROJECT OVERVIEW</h2>
+      <p>
+        The Linux Hardening Lab is the foundation of The Citadel project. It focuses on configuring
+        and securing an Ubuntu Linux environment for remote administration, public hosting, and
+        security operations practice.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>IMPLEMENTED CONTROLS</h2>
+      <ul>
+        <li>Configured SSH for remote Linux administration.</li>
+        <li>Enabled UFW firewall rules to control inbound traffic.</li>
+        <li>Tested public hosting through Apache before migrating to Docker and NGINX.</li>
+        <li>Connected the environment to Cloudflare Tunnel to avoid traditional port forwarding.</li>
+        <li>Started authentication monitoring using Linux SSH logs and journald.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>SECURITY VALUE</h2>
+      <p>
+        This lab demonstrates hands-on Linux administration, basic host hardening, firewall
+        management, remote access control, and the beginning of authentication telemetry.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>COMMAND AREAS PRACTICED</h2>
+      <div class="terminal">
+        systemctl status ssh<br>
+        sudo ufw status verbose<br>
+        journalctl -u ssh<br>
+        tail -f /var/log/auth.log<br>
+        sudo docker ps<br>
+      </div>
+    </div>
+<div class="section">
+  <h2>CURRENT CAPABILITIES</h2>
+  <ul>
+    <li>SSH access configured for remote Linux administration.</li>
+    <li>UFW firewall enabled to control inbound traffic.</li>
+    <li>Fail2Ban protection configured for SSH hardening.</li>
+    <li>Authentication logs monitored through journald and auth.log.</li>
+    <li>Dockerized NGINX web stack deployed locally.</li>
+    <li>Cloudflare Tunnel used for public access without traditional port forwarding.</li>
+    <li>Operations Dashboard displaying live uptime, CPU, memory, disk, Docker, and Git telemetry.</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>STATUS</h2>
+  <p>
+    Active and operational. The Linux Hardening Lab serves as the foundation of The Citadel,
+    providing secure remote administration, firewall enforcement, containerized hosting,
+    Cloudflare connectivity, and operational monitoring.
+  </p>
+</div>
+
+<div class="section">
+  <h2>CURRENT CAPABILITIES</h2>
+  <ul>
+    <li>SSH access configured for remote Linux administration.</li>
+    <li>UFW firewall enabled to control inbound traffic.</li>
+    <li>Fail2Ban protection configured for SSH hardening.</li>
+    <li>SSH authentication events monitored through journald and auth.log.</li>
+    <li>Dockerized NGINX web stack deployed locally.</li>
+    <li>Cloudflare Tunnel used for public access without traditional port forwarding.</li>
+    <li>Operations Dashboard displaying live uptime, CPU, memory, disk, Docker, and Git telemetry.</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>NEXT OBJECTIVES</h2>
+  <ul>
+    <li>Integrate live Fail2Ban metrics into the Operations Dashboard.</li>
+    <li>Surface SSH authentication metrics including successful logins, failed attempts, and source IPs.</li>
+    <li>Create a dedicated authentication monitoring dashboard card.</li>
+    <li>Organize screenshots and milestone evidence into formal documentation.</li>
+    <li>Create architecture diagrams for infrastructure and traffic flow.</li>
+  </ul>
+</div>
+  </div>
+</body>
+</html>
