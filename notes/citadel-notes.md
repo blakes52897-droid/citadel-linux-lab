@@ -1877,3 +1877,16 @@ Benefits:
 
 Operational Validation:
 Cloudflared has remained active continuously for multiple days without interruption.
+
+Maintenance:
+- Cloudflared managed through APT package repository.
+- Updates performed through package management.
+- Upgrade path:
+  sudo apt update
+  sudo apt install cloudflared
+
+Current Version:
+2026.5.1
+
+Available Upgrade:
+2026.5.2
