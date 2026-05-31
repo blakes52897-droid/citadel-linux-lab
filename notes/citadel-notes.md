@@ -1692,3 +1692,188 @@ Linux Hardening Lab has evolved from a basic Linux setup into a documented portf
 ## Milestone Achieved
 
 Linux Hardening Lab project page completed and integrated into The Citadel.
+SSH CONFIGURATION
+
+Verified OpenSSH server is enabled and running.
+
+Security Settings:
+- PasswordAuthentication disabled
+- Keyboard-interactive authentication disabled
+- SSH key authentication required
+- PAM enabled for account/session management
+- X11 forwarding currently enabled (candidate for future hardening)
+
+Security Impact:
+- Eliminates password-based brute force attacks
+- Forces use of SSH key authentication
+- Reduces attack surface for remote administration
+
+
+========================================
+UFW FIREWALL CONFIGURATION
+========================================
+
+Command:
+sudo ufw status verbose
+
+Current Status:
+- UFW enabled and active
+- Logging enabled (low)
+- Default incoming policy: DENY
+- Default outgoing policy: ALLOW
+- Routed traffic: DENY
+
+Allowed Rules:
+- TCP/22 (SSH)
+- Tailscale interface traffic (tailscale0)
+
+Configuration:
+Default: deny incoming
+Default: allow outgoing
+Default: deny routed
+
+Security Impact:
+- Blocks unsolicited inbound traffic by default
+- Restricts public exposure to approved services only
+- Allows remote administration through SSH
+- Permits secure Tailscale mesh network access
+- Provides baseline host firewall protection
+
+Observed Output:
+
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), deny (routed)
+
+22/tcp ALLOW IN Anywhere
+Anywhere on tailscale0 ALLOW IN Anywhere
+22/tcp (v6) ALLOW IN Anywhere (v6)
+Anywhere (v6) on tailscale0 ALLOW IN Anywhere (v6)
+
+========================================
+FAIL2BAN CONFIGURATION
+========================================
+
+Commands:
+sudo fail2ban-client status
+sudo fail2ban-client status sshd
+
+Current Status:
+- Fail2Ban service active
+- SSH protection jail enabled
+- Monitoring SSH authentication logs
+- Automatic IP banning configured
+
+Jails:
+- sshd
+
+Observed Statistics:
+- Total failed login attempts detected: 31
+- Total IP addresses banned: 3
+- Currently banned: 0
+- Log source: /var/log/auth.log
+
+Security Impact:
+- Detects repeated SSH authentication failures
+- Automatically blocks suspicious source IPs
+- Reduces risk of brute-force attacks
+- Provides automated response to malicious login activity
+
+Observed Output:
+
+Number of Jail: 1
+Jail list: sshd
+
+Currently failed: 0
+Total failed: 31
+
+Currently banned: 0
+Total banned: 3
+
+Log source:
+- /var/log/auth.log
+
+
+========================================
+CLOUDFLARE TUNNEL CONFIGURATION
+========================================
+
+Command:
+cloudflared tunnel list
+
+Current Tunnel:
+- Name: citadel-tunnel
+- Tunnel ID: 9d67b9ff-0fa1-402b-b0c7-9e54103e3233
+- Created: 2026-05-26T06:09:32Z
+- Active connections:
+  - ord02
+  - ord06
+  - ord07
+  - ord11
+
+Current Version:
+- cloudflared version: 2026.5.1
+- Update available: 2026.5.2
+
+Purpose:
+Cloudflare Tunnel provides public access to The Citadel website without traditional router port forwarding.
+
+Traffic Flow:
+Visitor
+↓
+Cloudflare
+↓
+Cloudflare Tunnel
+↓
+Ubuntu Host
+↓
+Docker container
+↓
+NGINX
+↓
+Citadel website
+
+Security Impact:
+- Avoids opening inbound ports on the home router.
+- Places Cloudflare in front of the public endpoint.
+- Allows the local Docker-hosted NGINX site to be reached publicly.
+- Supports a safer public exposure model for a home lab.
+
+Recovery Notes:
+If rebuilding the lab on a new VM, Cloudflare Tunnel must be reinstalled, authenticated, and configured to point back to the local Citadel service.
+
+Observed Output:
+ID: 9d67b9ff-0fa1-402b-b0c7-9e54103e3233
+NAME: citadel-tunnel
+CREATED: 2026-05-26T06:09:32Z
+CONNECTIONS: 1xord02, 1xord06, 1xord07, 1xord11
+
+
+========================================
+CLOUDFLARE TUNNEL SERVICE
+========================================
+
+Command:
+systemctl status cloudflared --no-pager
+
+Service Status:
+- Installed as a systemd service
+- Enabled at boot
+- Currently running
+- Operational uptime: 3+ days
+
+Observed Configuration:
+Loaded: enabled
+Active: running
+
+Purpose:
+Provides persistent secure outbound tunnel connectivity from the Ubuntu host to Cloudflare.
+
+Benefits:
+- Automatically starts after system reboot
+- Maintains public website availability
+- Eliminates need for router port forwarding
+- Supports secure remote access architecture
+
+Operational Validation:
+Cloudflared has remained active continuously for multiple days without interruption.
