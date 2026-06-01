@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloudflare Tunnel | The Citadel</title>
+  <style>
+    body {
+      margin: 0;
+      background: #030305;
+      color: #f5f5f5;
+      font-family: Arial, Helvetica, sans-serif;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 70px 70px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 60px 0;
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 50px;
+      letter-spacing: 4px;
+      color: #aaa;
+    }
+
+    h1 {
+      font-size: 4rem;
+      letter-spacing: 8px;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      color: #aaa;
+      letter-spacing: 4px;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 10px 18px;
+      margin: 20px 0 35px;
+      letter-spacing: 4px;
+      color: #fff;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .section {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      padding: 35px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      letter-spacing: 5px;
+      margin-bottom: 20px;
+    }
+
+    p, li {
+      color: #bbb;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    ul {
+      padding-left: 25px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .meta-card {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      padding: 25px;
+    }
+
+    .meta-card h3 {
+      letter-spacing: 4px;
+      margin-bottom: 12px;
+    }
+
+    .meta-card p {
+      margin: 0;
+    }
+
+    .terminal {
+      font-family: monospace;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 25px;
+      line-height: 1.8;
+      overflow-x: auto;
+      color: #ddd;
+    }
+
+    @media(max-width: 768px) {
+      h1 {
+        font-size: 2.6rem;
+        letter-spacing: 4px;
+      }
+
+      .container {
+        padding: 45px 0;
+      }
+
+      .section {
+        padding: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="/">← RETURN TO CITADEL</a>
+
+    <h1>♜ CLOUDFLARE TUNNEL</h1>
+    <p class="subtitle">
+      PUBLIC ACCESS · ZERO PORT FORWARDING · SYSTEMD SERVICE · SECURE ROUTING
+    </p>
+
+    <div class="status-badge">STATUS: ACTIVE</div>
+
+    <div class="section">
+      <h2>PROJECT SNAPSHOT</h2>
+      <div class="meta-grid">
+        <div class="meta-card">
+          <h3>STARTED</h3>
+          <p>May 2026</p>
+        </div>
+        <div class="meta-card">
+          <h3>STATUS</h3>
+          <p>Active and operational</p>
+        </div>
+        <div class="meta-card">
+          <h3>TUNNEL</h3>
+          <p>citadel-tunnel</p>
+        </div>
+        <div class="meta-card">
+          <h3>TECH STACK</h3>
+          <p>Cloudflare · cloudflared · Apache · Ubuntu · systemd</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>PROJECT OVERVIEW</h2>
+      <p>
+        The Cloudflare Tunnel project provides public access to The Citadel without traditional
+        router port forwarding. Instead of exposing inbound ports directly to the internet,
+        the Ubuntu host maintains an outbound tunnel connection to Cloudflare.
+      </p>
+      <p>
+        This allows rootandrook.com to reach the Citadel platform while keeping the local network
+        architecture cleaner and reducing direct exposure of the home lab environment.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>TRAFFIC FLOW</h2>
+      <div class="terminal">
+        Visitor<br>
+        ↓<br>
+        rootandrook.com<br>
+        ↓<br>
+        Cloudflare Edge<br>
+        ↓<br>
+        Cloudflare Tunnel<br>
+        ↓<br>
+        Ubuntu Host<br>
+        ↓<br>
+        Apache on Port 80<br>
+        ↓<br>
+        The Citadel Website
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>CURRENT CONFIGURATION</h2>
+      <ul>
+        <li>Cloudflare Tunnel is configured and operational.</li>
+        <li>Tunnel name: citadel-tunnel.</li>
+        <li>Cloudflared is installed and managed through the APT package manager.</li>
+        <li>Cloudflared runs as a systemd service.</li>
+        <li>The service is enabled at boot.</li>
+        <li>Apache serves The Citadel on port 80.</li>
+        <li>Cloudflare forwards public traffic to the local Apache frontend.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>SECURITY VALUE</h2>
+      <p>
+        Cloudflare Tunnel avoids traditional inbound router port forwarding while still allowing
+        the Citadel platform to be publicly accessible. This creates a cleaner exposure model for
+        a home lab and places Cloudflare in front of the public endpoint.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>COMMAND AREAS PRACTICED</h2>
+      <div class="terminal">
+        cloudflared tunnel list<br>
+        systemctl status cloudflared --no-pager<br>
+        cloudflared version<br>
+        apt policy cloudflared<br>
+        sudo apt update<br>
+        sudo apt install cloudflared
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>MAINTENANCE ACTIVITY</h2>
+      <ul>
+        <li>Verified cloudflared version through package manager.</li>
+        <li>Confirmed installed version and available candidate version.</li>
+        <li>Updated cloudflared using APT instead of the built-in updater.</li>
+        <li>Confirmed the cloudflared service remained active after update.</li>
+        <li>Validated public connectivity after service restart.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>LESSONS LEARNED</h2>
+      <ul>
+        <li>Cloudflare Tunnel can publish local services without router port forwarding.</li>
+        <li>Systemd keeps cloudflared running persistently across reboots.</li>
+        <li>Package-managed software should be updated through its package manager.</li>
+        <li>Changing the frontend architecture requires careful routing validation.</li>
+        <li>Public routing, local services, and document roots must stay aligned.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>NEXT OBJECTIVES</h2>
+      <ul>
+        <li>Create a formal architecture diagram for public traffic flow.</li>
+        <li>Document recovery steps for rebuilding the tunnel on a new VM.</li>
+        <li>Clarify Apache routing for Citadel, Odysseus, Argus, and Sentinel.</li>
+        <li>Evaluate whether future modules should be routed by Apache or containerized behind it.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
