@@ -1948,3 +1948,176 @@ Available Upgrade:
 - Log analysis
 - Reverse proxy troubleshooting
 - Local AI deployment
+
+CITADEL NOTES UPDATE
+
+Date: 2026-05-31
+
+Session Objective
+
+Correct the active public web architecture so Apache serves the Git-tracked Citadel site directory, restore access to the Linux Hardening project page, and document the troubleshooting process.
+
+⸻
+
+Architecture Correction
+
+Previous confusion existed between multiple possible Citadel web paths:
+
+/var/www/html
+~/citadel-linux-lab/docker-site
+
+Confirmed Apache was still configured with:
+
+DocumentRoot /var/www/html
+
+This meant public traffic through Cloudflare Tunnel was being served from /var/www/html, while the current Citadel project files were being maintained inside the Git-tracked repository at:
+
+/home/blakes52897/citadel-linux-lab/docker-site
+
+This caused the project page route to fail:
+
+/projects/linux-hardening.html
+
+because Apache was looking for the file under /var/www/html/projects/ instead of the repository’s docker-site/projects/ directory.
+
+⸻
+
+Corrected Architecture
+
+The active architecture was corrected to:
+
+Cloudflare Tunnel
+↓
+Apache on port 80
+↓
+/home/blakes52897/citadel-linux-lab/docker-site
+↓
+rootandrook.com
+
+This keeps Apache as the public front door while allowing the Git-tracked docker-site directory to act as the live website source.
+
+⸻
+
+Apache Configuration Update
+
+Apache site configuration was updated in:
+
+/etc/apache2/sites-available/000-default.conf
+
+The DocumentRoot was changed to:
+
+DocumentRoot /home/blakes52897/citadel-linux-lab/docker-site
+
+A matching directory block was added:
+
+<Directory /home/blakes52897/citadel-linux-lab/docker-site>
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+</Directory>
+
+Apache config was tested with:
+
+sudo apache2ctl configtest
+
+Apache was restarted with:
+
+sudo systemctl restart apache2
+
+⸻
+
+Permission Issue Identified
+
+After updating Apache, the Linux Hardening page returned:
+
+403 Forbidden
+
+This confirmed Apache could find the route but could not access the file due to Linux permissions.
+
+The path was inspected with:
+
+namei -l /home/blakes52897/citadel-linux-lab/docker-site/projects/linux-hardening.html
+
+The blocking directory was identified as:
+
+/home/blakes52897
+
+Original permission:
+
+drwxr-x---
+
+Apache runs as www-data, so it could not traverse the user home directory.
+
+⸻
+
+Permission Fix
+
+The home directory was updated to allow traversal without exposing file contents:
+
+chmod o+x /home/blakes52897
+
+After the fix, permissions showed:
+
+drwxr-x--x blakes52897 blakes52897 blakes52897
+
+This allows Apache to pass through the home directory to reach the public site files while preserving read restrictions on the home directory itself.
+
+The website directories were already readable:
+
+citadel-linux-lab
+docker-site
+projects
+linux-hardening.html
+
+⸻
+
+Validation
+
+The Linux Hardening project page was tested locally:
+
+curl http://localhost/projects/linux-hardening.html | head
+
+Successful result:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+This confirmed Apache is now successfully serving the project page from the Git-tracked docker-site directory.
+
+⸻
+
+Current State
+
+* Apache remains the public web server on port 80.
+* Cloudflare Tunnel forwards public traffic to Apache.
+* Apache now serves the Citadel website from the Git-tracked repository path:
+    /home/blakes52897/citadel-linux-lab/docker-site
+* Linux Hardening project page is accessible locally through Apache.
+* Future edits to docker-site are now aligned with the live public web source.
+* This reduces confusion between /var/www/html and the repository version of the site.
+
+⸻
+
+Security / Operations Lesson
+
+This troubleshooting session clarified the difference between:
+
+Web server process
+DocumentRoot
+File location
+Linux permissions
+Public routing
+
+Key lesson:
+
+A web server can be correctly routed to a file path but still fail if the Linux permissions prevent the web server user from traversing the directory tree.
+
+This was fixed by allowing execute/traverse permission on the home directory while keeping the repository files readable.
+
+⸻
+
+Interview Talking Point
+
+While integrating Odysseus and Cloudflare routing, the Citadel site had multiple possible web roots. I traced the issue by checking Apache’s active DocumentRoot, testing the failing route locally, identifying a 403 permission error, inspecting the full path permissions with namei -l, and correcting the directory traversal permission. This restored Apache access to the Git-tracked site while preserving a cleaner deployment workflow.
