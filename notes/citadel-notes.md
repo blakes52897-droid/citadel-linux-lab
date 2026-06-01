@@ -2165,3 +2165,77 @@ There were multiple possible web roots:
 ```text
 /var/www/html
 /home/blakes52897/citadel-linux-lab/docker-site
+
+
+---
+
+# CITADEL SESSION UPDATE
+**Date:** 2026-05-31
+
+## Completed
+
+- Updated Operations Dashboard card to reflect current Apache frontend architecture.
+- Replaced old Docker status display with server status display.
+- Updated frontend JavaScript from `data.docker` to `data.apache`.
+- Updated dashboard status output to show `SERVER: active`.
+- Confirmed issue showing `SERVER: undefined` was caused by browser cache.
+- Resolved browser display issue with hard refresh using `Ctrl + Shift + R`.
+
+## Project Pages Completed / Wired
+
+All major project cards now route to dedicated documentation pages:
+
+- Linux Hardening Lab
+- Docker Deployment Lab
+- Cloudflare Tunnel
+- Auth Monitor
+- SIEM Sandbox
+- Auto Deploy Pipeline
+
+## Validation
+
+Validated all six project pages locally with curl:
+
+- `/projects/linux-hardening.html`
+- `/projects/docker-deployment-lab.html`
+- `/projects/cloudflare-tunnel.html`
+- `/projects/auth-monitor.html`
+- `/projects/siem-sandbox.html`
+- `/projects/auto-deploy-pipeline.html`
+
+Each route returned valid HTML and correct page titles.
+
+## Current Architecture Note
+
+Current public architecture:
+
+Cloudflare Tunnel  
+↓  
+Apache on port 80  
+↓  
+`~/citadel-linux-lab/docker-site`  
+↓  
+rootandrook.com
+
+Docker Deployment Lab remains documented as a containerized NGINX deployment prototype, while Apache currently serves the live frontend.
+
+## AI / Odysseus Work
+
+- Began downloading `nomic-embed-text` through Ollama.
+- Future goal: build Odysseus Memory Core / RAG system using Citadel notes and documentation as the knowledge base.
+
+## Next Goals
+
+- Confirm `nomic-embed-text` download completed.
+- Create `notes/odysseus-briefing.md`.
+- Begin simple local RAG structure.
+- Move Citadel screenshots from phone into:
+  - `docs/screenshots/raw/`
+  - `docs/screenshots/readme/`
+  - `docs/screenshots/milestones/`
+  - `docs/screenshots/troubleshooting/`
+- Continue documenting project architecture and recovery process.
+
+## Milestone
+
+All major Citadel homepage project cards now route to dedicated project documentation pages.
