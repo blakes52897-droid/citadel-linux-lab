@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Docker Deployment Lab | The Citadel</title>
+  <style>
+    body {
+      margin: 0;
+      background: #030305;
+      color: #f5f5f5;
+      font-family: Arial, Helvetica, sans-serif;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 70px 70px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 60px 0;
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 50px;
+      letter-spacing: 4px;
+      color: #aaa;
+    }
+
+    h1 {
+      font-size: 4rem;
+      letter-spacing: 8px;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      color: #aaa;
+      letter-spacing: 4px;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 10px 18px;
+      margin: 20px 0 35px;
+      letter-spacing: 4px;
+      color: #fff;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .section {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      padding: 35px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      letter-spacing: 5px;
+      margin-bottom: 20px;
+    }
+
+    p, li {
+      color: #bbb;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    ul {
+      padding-left: 25px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .meta-card {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      padding: 25px;
+    }
+
+    .meta-card h3 {
+      letter-spacing: 4px;
+      margin-bottom: 12px;
+    }
+
+    .meta-card p {
+      margin: 0;
+    }
+
+    .terminal {
+      font-family: monospace;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 25px;
+      line-height: 1.8;
+      overflow-x: auto;
+      color: #ddd;
+    }
+
+    @media(max-width: 768px) {
+      h1 {
+        font-size: 2.6rem;
+        letter-spacing: 4px;
+      }
+
+      .container {
+        padding: 45px 0;
+      }
+
+      .section {
+        padding: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="/">← RETURN TO CITADEL</a>
+
+    <h1>♜ DOCKER DEPLOYMENT LAB</h1>
+    <p class="subtitle">
+      CONTAINERIZATION · NGINX · IMAGE BUILDS · PORT MAPPING · REBUILD WORKFLOWS
+    </p>
+
+    <div class="status-badge">STATUS: DOCUMENTED PROTOTYPE</div>
+
+    <div class="section">
+      <h2>PROJECT SNAPSHOT</h2>
+      <div class="meta-grid">
+        <div class="meta-card">
+          <h3>STARTED</h3>
+          <p>May 2026</p>
+        </div>
+        <div class="meta-card">
+          <h3>STATUS</h3>
+          <p>Documented deployment lab</p>
+        </div>
+        <div class="meta-card">
+          <h3>ROLE</h3>
+          <p>Containerized Citadel prototype</p>
+        </div>
+        <div class="meta-card">
+          <h3>TECH STACK</h3>
+          <p>Docker · NGINX · HTML · CSS · Bash · Git</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>PROJECT OVERVIEW</h2>
+      <p>
+        The Docker Deployment Lab documents the containerized deployment path built during
+        The Citadel project. This lab used Docker and NGINX to package and serve the Citadel
+        website through a repeatable build and run workflow.
+      </p>
+      <p>
+        The current public frontend later shifted to Apache on port 80 during Odysseus and local AI
+        integration work, but the Docker deployment remains an important part of the project history
+        and demonstrates containerization, image builds, and web service deployment.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>ARCHITECTURE</h2>
+      <div class="terminal">
+        Git Repository<br>
+        ↓<br>
+        docker-site/<br>
+        ↓<br>
+        Dockerfile<br>
+        ↓<br>
+        Docker Image: citadel-site<br>
+        ↓<br>
+        Docker Container<br>
+        ↓<br>
+        NGINX Web Server<br>
+        ↓<br>
+        Port Mapping: 8080 → 80
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>SKILLS DEMONSTRATED</h2>
+      <ul>
+        <li>Created a Dockerfile for a static NGINX web deployment.</li>
+        <li>Built a custom Docker image for The Citadel site.</li>
+        <li>Ran a containerized web service with host-to-container port mapping.</li>
+        <li>Inspected container state using Docker commands.</li>
+        <li>Debugged stale dashboard data caused by build-time file copies.</li>
+        <li>Documented the difference between build-time assets and runtime telemetry.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>COMMAND AREAS PRACTICED</h2>
+      <div class="terminal">
+        sudo docker build -t citadel-site ./docker-site<br>
+        sudo docker run -d -p 8080:80 --name citadel-site citadel-site<br>
+        sudo docker ps<br>
+        sudo docker ps -a<br>
+        sudo docker inspect citadel-site<br>
+        sudo docker rm -f citadel-site
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>LESSONS LEARNED</h2>
+      <ul>
+        <li>Docker packages an application and its dependencies into a repeatable container.</li>
+        <li>NGINX serves the static website files inside the container.</li>
+        <li>Docker makes rebuilds more predictable than manual server configuration.</li>
+        <li>Static files copied into an image do not update live unless rebuilt or mounted.</li>
+        <li>Architecture can evolve as new services like Odysseus are integrated.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>CURRENT ROLE IN THE CITADEL</h2>
+      <p>
+        Docker is currently documented as a deployment lab and containerization milestone.
+        Apache now acts as the active public frontend while The Citadel expands toward
+        Odysseus, Argus, and Sentinel.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>NEXT OBJECTIVES</h2>
+      <ul>
+        <li>Decide whether future Citadel modules should run Docker-first or Apache-routed.</li>
+        <li>Create a clean architecture diagram showing Apache, Docker, Odysseus, and Ollama.</li>
+        <li>Document container recovery steps for rebuilding the site on a new VM.</li>
+        <li>Evaluate Docker Compose for managing future Citadel services.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
