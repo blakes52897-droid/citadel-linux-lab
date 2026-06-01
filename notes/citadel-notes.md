@@ -2239,3 +2239,34 @@ Docker Deployment Lab remains documented as a containerized NGINX deployment pro
 ## Milestone
 
 All major Citadel homepage project cards now route to dedicated project documentation pages.
+
+
+## Odysseus Memory Core Update
+
+- Pulled `nomic-embed-text` through Ollama successfully.
+- This model will be used as the embedding model for the future Odysseus Memory Core / RAG system.
+- RAG foundation is now ready for next steps:
+  - Create `notes/odysseus-briefing.md`
+  - Create `rag/` project folder
+  - Build first ingestion script
+  - Chunk Citadel notes and docs
+  - Store embeddings locally
+  - Query Citadel knowledge from terminal
+## Odysseus Memory Core Setup
+
+Created initial RAG project folder:
+
+- `rag/`
+- `rag/ingest.py`
+- `rag/query.py`
+
+Installed local Ollama models:
+
+- `qwen3:8b`
+- `llama3.1:8b`
+- `nomic-embed-text`
+
+Status:
+- Local model stack is ready.
+- RAG folder structure has been started.
+- Next step is to build terminal-based ingestion and query scripts.
