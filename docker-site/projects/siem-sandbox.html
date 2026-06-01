@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIEM Sandbox | The Citadel</title>
+  <style>
+    body {
+      margin: 0;
+      background: #030305;
+      color: #f5f5f5;
+      font-family: Arial, Helvetica, sans-serif;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 70px 70px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 60px 0;
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 50px;
+      letter-spacing: 4px;
+      color: #aaa;
+    }
+
+    h1 {
+      font-size: 4rem;
+      letter-spacing: 8px;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      color: #aaa;
+      letter-spacing: 4px;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 10px 18px;
+      margin: 20px 0 35px;
+      letter-spacing: 4px;
+      color: #fff;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .section {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      padding: 35px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      letter-spacing: 5px;
+      margin-bottom: 20px;
+    }
+
+    p, li {
+      color: #bbb;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    ul {
+      padding-left: 25px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .meta-card {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      padding: 25px;
+    }
+
+    .meta-card h3 {
+      letter-spacing: 4px;
+      margin-bottom: 12px;
+    }
+
+    .meta-card p {
+      margin: 0;
+    }
+
+    .terminal {
+      font-family: monospace;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 25px;
+      line-height: 1.8;
+      overflow-x: auto;
+      color: #ddd;
+    }
+
+    @media(max-width: 768px) {
+      h1 {
+        font-size: 2.6rem;
+        letter-spacing: 4px;
+      }
+
+      .container {
+        padding: 45px 0;
+      }
+
+      .section {
+        padding: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="/">← RETURN TO CITADEL</a>
+
+    <h1>♜ SIEM SANDBOX</h1>
+    <p class="subtitle">
+      LOG AGGREGATION · EVENT REVIEW · SECURITY VISIBILITY · SENTINEL ROADMAP
+    </p>
+
+    <div class="status-badge">STATUS: PLANNED MODULE</div>
+
+    <div class="section">
+      <h2>PROJECT SNAPSHOT</h2>
+      <div class="meta-grid">
+        <div class="meta-card">
+          <h3>STATUS</h3>
+          <p>Planned</p>
+        </div>
+        <div class="meta-card">
+          <h3>ROLE</h3>
+          <p>Security event visibility</p>
+        </div>
+        <div class="meta-card">
+          <h3>FOUNDATION</h3>
+          <p>Auth Monitor · Fail2Ban · Linux logs</p>
+        </div>
+        <div class="meta-card">
+          <h3>FUTURE STACK</h3>
+          <p>Logs · Dashboards · Alerts · Detection logic</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>PROJECT OVERVIEW</h2>
+      <p>
+        The SIEM Sandbox will become the security event review layer of The Citadel. Its purpose is
+        to collect, organize, and visualize security-relevant activity from Linux logs, SSH events,
+        Fail2Ban activity, and future monitoring sources.
+      </p>
+      <p>
+        This page currently documents the planned direction for transforming raw authentication and
+        system logs into searchable security intelligence.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>PLANNED DATA SOURCES</h2>
+      <ul>
+        <li>SSH authentication events from auth.log and journald.</li>
+        <li>Fail2Ban jail activity and banned IP counts.</li>
+        <li>Apache access and error logs.</li>
+        <li>System health telemetry from Argus.</li>
+        <li>Suspicious activity events from Sentinel.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>FUTURE ARCHITECTURE</h2>
+      <div class="terminal">
+        Linux Logs<br>
+        ↓<br>
+        Auth Monitor<br>
+        ↓<br>
+        SIEM Sandbox<br>
+        ↓<br>
+        Sentinel Detection Logic<br>
+        ↓<br>
+        Security Dashboard / Alerts
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>NEXT OBJECTIVES</h2>
+      <ul>
+        <li>Collect authentication events into a structured log format.</li>
+        <li>Surface failed and successful SSH login counts.</li>
+        <li>Integrate Fail2Ban telemetry into the dashboard.</li>
+        <li>Create searchable event views for authentication activity.</li>
+        <li>Build Sentinel detection rules for suspicious behavior.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

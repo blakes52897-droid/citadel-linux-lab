@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Deploy Pipeline | The Citadel</title>
+  <style>
+    body {
+      margin: 0;
+      background: #030305;
+      color: #f5f5f5;
+      font-family: Arial, Helvetica, sans-serif;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 70px 70px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 60px 0;
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 50px;
+      letter-spacing: 4px;
+      color: #aaa;
+    }
+
+    h1 {
+      font-size: 4rem;
+      letter-spacing: 8px;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      color: #aaa;
+      letter-spacing: 4px;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 10px 18px;
+      margin: 20px 0 35px;
+      letter-spacing: 4px;
+      color: #fff;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .section {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      padding: 35px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      letter-spacing: 5px;
+      margin-bottom: 20px;
+    }
+
+    p, li {
+      color: #bbb;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    ul {
+      padding-left: 25px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .meta-card {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      padding: 25px;
+    }
+
+    .meta-card h3 {
+      letter-spacing: 4px;
+      margin-bottom: 12px;
+    }
+
+    .meta-card p {
+      margin: 0;
+    }
+
+    .terminal {
+      font-family: monospace;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 25px;
+      line-height: 1.8;
+      overflow-x: auto;
+      color: #ddd;
+    }
+
+    @media(max-width: 768px) {
+      h1 {
+        font-size: 2.6rem;
+        letter-spacing: 4px;
+      }
+
+      .container {
+        padding: 45px 0;
+      }
+
+      .section {
+        padding: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="/">← RETURN TO CITADEL</a>
+
+    <h1>♜ AUTO DEPLOY PIPELINE</h1>
+    <p class="subtitle">
+      GIT WORKFLOW · DEPLOYMENT SCRIPTING · STATUS GENERATION · CHANGE CONTROL
+    </p>
+
+    <div class="status-badge">STATUS: ACTIVE WORKFLOW</div>
+
+    <div class="section">
+      <h2>PROJECT SNAPSHOT</h2>
+      <div class="meta-grid">
+        <div class="meta-card">
+          <h3>STATUS</h3>
+          <p>Active</p>
+        </div>
+        <div class="meta-card">
+          <h3>ROLE</h3>
+          <p>Repository-driven deployment workflow</p>
+        </div>
+        <div class="meta-card">
+          <h3>SOURCE CONTROL</h3>
+          <p>Git · GitHub</p>
+        </div>
+        <div class="meta-card">
+          <h3>TECH STACK</h3>
+          <p>Bash · Git · Apache · JSON · Linux</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>PROJECT OVERVIEW</h2>
+      <p>
+        The Auto Deploy Pipeline documents the Git-based workflow used to update The Citadel.
+        It includes source control, deployment scripting, telemetry generation, and operational
+        validation after changes are made.
+      </p>
+      <p>
+        This workflow helps turn The Citadel from a manually edited website into a more structured
+        systems administration and portfolio deployment process.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>CURRENT WORKFLOW</h2>
+      <div class="terminal">
+        Edit files<br>
+        ↓<br>
+        Generate status.json<br>
+        ↓<br>
+        git status<br>
+        ↓<br>
+        git add .<br>
+        ↓<br>
+        git commit<br>
+        ↓<br>
+        git push origin main<br>
+        ↓<br>
+        Validate rootandrook.com
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>CURRENT CAPABILITIES</h2>
+      <ul>
+        <li>Project files are tracked through Git.</li>
+        <li>GitHub stores the Citadel project history.</li>
+        <li>Commit history documents infrastructure and documentation changes.</li>
+        <li>Status telemetry is generated through Bash and exposed through status.json.</li>
+        <li>Public site changes are validated through rootandrook.com.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>COMMAND AREAS PRACTICED</h2>
+      <div class="terminal">
+        git status<br>
+        git add .<br>
+        git commit -m "message"<br>
+        git push origin main<br>
+        ./scripts/generate-status.sh<br>
+        curl http://localhost/status.json
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>LESSONS LEARNED</h2>
+      <ul>
+        <li>Git history creates a clear record of project growth.</li>
+        <li>Deployment scripts reduce repetitive manual steps.</li>
+        <li>Status endpoints help validate operational state after changes.</li>
+        <li>Documentation should be committed alongside infrastructure changes.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>NEXT OBJECTIVES</h2>
+      <ul>
+        <li>Improve deployment automation and reduce manual steps.</li>
+        <li>Document recovery steps for rebuilding The Citadel on a new VM.</li>
+        <li>Add architecture checks before deployment.</li>
+        <li>Explore GitHub Actions or local hooks for future automation.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

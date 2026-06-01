@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth Monitor | The Citadel</title>
+  <style>
+    body {
+      margin: 0;
+      background: #030305;
+      color: #f5f5f5;
+      font-family: Arial, Helvetica, sans-serif;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 70px 70px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: auto;
+      padding: 60px 0;
+    }
+
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .back {
+      display: inline-block;
+      margin-bottom: 50px;
+      letter-spacing: 4px;
+      color: #aaa;
+    }
+
+    h1 {
+      font-size: 4rem;
+      letter-spacing: 8px;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      color: #aaa;
+      letter-spacing: 4px;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 10px 18px;
+      margin: 20px 0 35px;
+      letter-spacing: 4px;
+      color: #fff;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .section {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      padding: 35px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      letter-spacing: 5px;
+      margin-bottom: 20px;
+    }
+
+    p, li {
+      color: #bbb;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    ul {
+      padding-left: 25px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .meta-card {
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.03);
+      padding: 25px;
+    }
+
+    .meta-card h3 {
+      letter-spacing: 4px;
+      margin-bottom: 12px;
+    }
+
+    .meta-card p {
+      margin: 0;
+    }
+
+    .terminal {
+      font-family: monospace;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 25px;
+      line-height: 1.8;
+      overflow-x: auto;
+      color: #ddd;
+    }
+
+    @media(max-width: 768px) {
+      h1 {
+        font-size: 2.6rem;
+        letter-spacing: 4px;
+      }
+
+      .container {
+        padding: 45px 0;
+      }
+
+      .section {
+        padding: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a class="back" href="/">← RETURN TO CITADEL</a>
+
+    <h1>♜ AUTH MONITOR</h1>
+    <p class="subtitle">
+      SSH VISIBILITY · AUTH.LOG · JOURNALD · FAIL2BAN · SENTINEL FOUNDATION
+    </p>
+
+    <div class="status-badge">STATUS: ACTIVE FOUNDATION</div>
+
+    <div class="section">
+      <h2>PROJECT SNAPSHOT</h2>
+      <div class="meta-grid">
+        <div class="meta-card">
+          <h3>STARTED</h3>
+          <p>May 2026</p>
+        </div>
+        <div class="meta-card">
+          <h3>STATUS</h3>
+          <p>Monitoring foundation active</p>
+        </div>
+        <div class="meta-card">
+          <h3>LOG SOURCES</h3>
+          <p>/var/log/auth.log · journald</p>
+        </div>
+        <div class="meta-card">
+          <h3>TECH STACK</h3>
+          <p>Ubuntu · OpenSSH · Fail2Ban · Bash · systemd</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>PROJECT OVERVIEW</h2>
+      <p>
+        Auth Monitor is the authentication visibility layer of The Citadel. It focuses on observing
+        SSH login activity, failed authentication attempts, successful remote sessions, and Fail2Ban
+        activity from the Ubuntu host.
+      </p>
+      <p>
+        This project lays the groundwork for Sentinel, the future detection and alerting module
+        inside The Citadel platform.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>CURRENT CAPABILITIES</h2>
+      <ul>
+        <li>SSH authentication events are logged through auth.log and journald.</li>
+        <li>Successful remote login events can be reviewed from the Linux host.</li>
+        <li>Failed SSH password attempts are visible in authentication logs.</li>
+        <li>Fail2Ban monitors SSH authentication failures through the sshd jail.</li>
+        <li>Fail2Ban has detected failed login attempts and banned offending source IPs.</li>
+        <li>Authentication monitoring scripts exist for future dashboard integration.</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>OBSERVED SECURITY EVENTS</h2>
+      <div class="terminal">
+        Failed password for blakes52897<br>
+        Failed password for blakes52897<br>
+        Accepted password for blakes52897<br>
+        <br>
+        Fail2Ban sshd jail:<br>
+        Total failed: 31<br>
+        Total banned: 3<br>
+        Log source: /var/log/auth.log
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>COMMAND AREAS PRACTICED</h2>
+      <div class="terminal">
+        tail -f /var/log/auth.log<br>
+        journalctl -u ssh --no-pager<br>
+        sudo fail2ban-client status<br>
+        sudo fail2ban-client status sshd<br>
+        systemctl status ssh --no-pager
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>SECURITY VALUE</h2>
+      <p>
+        Authentication monitoring provides visibility into access attempts against the Linux host.
+        This helps identify failed logins, validate successful remote administration, and confirm
+        that Fail2Ban is responding to repeated authentication failures.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>ROLE IN THE CITADEL</h2>
+      <p>
+        Auth Monitor is the bridge between the Linux Hardening Lab and Sentinel. It turns raw
+        authentication logs into security evidence and prepares the platform for future alerting,
+        event review, and suspicious activity detection.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>NEXT OBJECTIVES</h2>
+      <ul>
+        <li>Surface successful SSH login counts in the Operations Dashboard.</li>
+        <li>Surface failed SSH login counts in the Operations Dashboard.</li>
+        <li>Add latest authentication event visibility to status.json.</li>
+        <li>Integrate Fail2Ban ban counts into the dashboard.</li>
+        <li>Create Sentinel alerting logic for suspicious authentication behavior.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
