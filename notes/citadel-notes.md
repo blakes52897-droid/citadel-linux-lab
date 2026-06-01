@@ -1890,3 +1890,61 @@ Current Version:
 
 Available Upgrade:
 2026.5.2
+
+## 2026-05-31 / 2026-06-01 Session
+
+### Odysseus Deployment
+- Deployed Odysseus using Docker Compose.
+- Verified containers:
+  - Odysseus
+  - ChromaDB
+  - SearXNG
+  - ntfy
+- Completed first-run admin account setup.
+- Confirmed web UI accessible remotely through Cloudflare.
+
+### Troubleshooting
+- Investigated Odysseus startup logs.
+- Confirmed FastEmbed fallback functioning correctly.
+- Verified model downloads from HuggingFace.
+- Identified OpenRouter credit limitation causing API failures during testing.
+
+### Cloudflare / Citadel Recovery
+- rootandrook.com began returning HTTP 502 errors.
+- Traced issue to Cloudflare Tunnel configuration pointing at localhost:8080.
+- Confirmed Apache was serving correctly on localhost:80.
+- Updated tunnel configuration and restored website availability.
+- Verified:
+  - Cloudflare tunnel healthy
+  - Apache healthy
+  - rootandrook.com returning HTTP 200
+
+### Citadel Website Investigation
+- Determined Apache DocumentRoot:
+  /var/www/html
+- Located active website files:
+  - /var/www/html/index.html
+  - index-test-backup.html
+  - index-working-tunnel-backup.html
+- Located project copies:
+  - ~/citadel-linux-lab/docker-site/index.html
+  - ~/citadel-linux-lab/website-archive/index.html
+- Discovered live site and project repository may be serving different versions.
+- Identified docker-site version as likely canonical source.
+
+### Local AI Initiative
+- Began Ollama installation.
+- Verified available memory:
+  - 15 GiB total RAM
+  - 13 GiB available
+- Selected Qwen3:8B as initial local model candidate.
+- Planning Odysseus integration with local Ollama endpoint.
+
+### Skills Practiced
+- Docker
+- Cloudflare Tunnels
+- Apache
+- Linux troubleshooting
+- Log analysis
+- Reverse proxy troubleshooting
+- Local AI deployment
