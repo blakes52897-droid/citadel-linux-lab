@@ -2270,3 +2270,57 @@ Status:
 - Local model stack is ready.
 - RAG folder structure has been started.
 - Next step is to build terminal-based ingestion and query scripts.
+
+---
+
+# ODYSSEUS MEMORY CORE UPDATE
+**Date:** 2026-06-01
+
+## Completed
+
+- Installed local Ollama model stack:
+  - `qwen3:8b`
+  - `llama3.1:8b`
+  - `nomic-embed-text`
+
+- Confirmed `nomic-embed-text` downloaded successfully.
+- Created Odysseus briefing file:
+  - `notes/odysseus-briefing.md`
+
+- Created initial RAG project structure:
+  - `rag/`
+  - `rag/ingest.py`
+  - `rag/query.py`
+
+## Purpose
+
+Odysseus Memory Core will allow the local AI assistant to answer questions using Citadel-specific notes, project pages, architecture documentation, and troubleshooting history.
+
+## Target RAG Flow
+
+Citadel notes/docs  
+↓  
+Chunk text  
+↓  
+Embed chunks with `nomic-embed-text`  
+↓  
+Store vectors locally  
+↓  
+Retrieve relevant context  
+↓  
+Send context to local LLM  
+↓  
+Answer with Citadel-specific knowledge
+
+## Next Goals
+
+- Build `rag/ingest.py`
+- Build `rag/query.py`
+- Ingest:
+  - `notes/`
+  - `docs/`
+  - `README.md`
+  - `docker-site/projects/`
+- Test first local query:
+  - "What is The Citadel project?"
+- Confirm local model answers from Citadel context instead of hallucinating unrelated projects.
