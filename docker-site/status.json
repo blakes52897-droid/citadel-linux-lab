@@ -1,9 +1,9 @@
 {
-  "updated": "2026-06-01 11:43:52",
-  "uptime": "up 13 hours, 50 minutes",
-  "cpu_load": "0.21, 0.64, 0.86",
-  "memory": "1526MB / 15476MB",
-  "disk": "62%",
-  "docker": "stopped",
-  "last_commit": "bc58908 - Document Apache repository webroot migration"
+  "updated": "2026-06-01 13:39:19",
+  "uptime": "up 15 hours, 45 minutes",
+  "cpu_load": "0.00, 0.03, 0.75",
+  "memory": "1520MB / 15476MB",
+  "disk": "64%",
+  "apache": "active",
+  "last_commit": "d9dc597 - Document local AI model testing and dashboard troubleshooting"
 }

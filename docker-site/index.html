@@ -470,9 +470,11 @@ nav{
         </div>
 
         <div class="dash-card">
-            <h3>🟢 Docker</h3>
-            <p>Citadel site container is built, deployed, and running on port 8080.</p>
-            <span id="live-docker">CONTAINER: loading...</span>
+        <h3>Apache</h3>
+        <p>
+        Apache is serving The Citadel on port 80 from the project repository.
+        </p>
+            <span id="live-server">SERVER: loading...</span>
         </div>
 
         <div class="dash-card">
@@ -666,8 +668,8 @@ fetch('/status.json')
     document.getElementById('live-updated').textContent =
       'UPDATED: ' + data.updated;
 
-    document.getElementById('live-docker').textContent =
-      'DOCKER: ' + data.docker;
+    document.getElementById('live-server').textContent =
+  'SERVER: ' + data.apache;
 
     document.getElementById('live-commit').textContent =
       'COMMIT: ' + data.last_commit;
