@@ -2121,3 +2121,47 @@ This was fixed by allowing execute/traverse permission on the home directory whi
 Interview Talking Point
 
 While integrating Odysseus and Cloudflare routing, the Citadel site had multiple possible web roots. I traced the issue by checking Apache’s active DocumentRoot, testing the failing route locally, identifying a 403 permission error, inspecting the full path permissions with namei -l, and correcting the directory traversal permission. This restored Apache access to the Git-tracked site while preserving a cleaner deployment workflow.
+
+
+LOCAL AI MODEL TESTING
+
+Installed models:
+- qwen3:8b
+- llama3.1:8b
+
+Qwen3:8B:
+- Successfully loaded and responded.
+- Slower response time.
+- More verbose reasoning behavior.
+
+Llama 3.1:8B:
+- Successfully loaded and responded.
+- Responded quickly to basic prompt.
+- Better candidate for default Odysseus local assistant.
+
+Test prompts:
+- Qwen: "Say exactly: Citadel online."
+- Llama: "Say exactly: Odysseus online."
+
+Result:
+Both local models are operational through Ollama.
+# CITADEL NOTES UPDATE
+**Date:** 2026-06-01
+
+## Session Objective
+
+Continue The Citadel build by correcting the live Apache webroot configuration, restoring project page access, troubleshooting the Operations Dashboard, documenting infrastructure controls, and validating local AI model functionality through Ollama.
+
+---
+
+# 1. Architecture Clarification
+
+## Previous Confusion
+
+During recent Odysseus and AI integration work, The Citadel architecture temporarily became confusing because both Apache and Docker/NGINX existed in the environment.
+
+There were multiple possible web roots:
+
+```text
+/var/www/html
+/home/blakes52897/citadel-linux-lab/docker-site

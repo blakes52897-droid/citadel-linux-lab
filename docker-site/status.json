@@ -1,9 +1,9 @@
 {
-  "updated": "2026-05-30 11:21:13",
-  "uptime": "up 2 days, 20 hours, 28 minutes",
-  "cpu_load": "0.05, 0.20, 0.24",
-  "memory": "2950MB / 7424MB",
-  "disk": "27%",
-  "docker": "running",
-  "last_commit": "6d1da9a - Add live operations dashboard telemetry"
+  "updated": "2026-06-01 11:43:52",
+  "uptime": "up 13 hours, 50 minutes",
+  "cpu_load": "0.21, 0.64, 0.86",
+  "memory": "1526MB / 15476MB",
+  "disk": "62%",
+  "docker": "stopped",
+  "last_commit": "bc58908 - Document Apache repository webroot migration"
 }
