@@ -4,3 +4,5 @@ rag/venv/
 rag/vector-db/
 __pycache__/
 *.pyc
+rag/venv/
+rag/vector-db/
