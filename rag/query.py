@@ -10,7 +10,7 @@ OLLAMA_EMBED_URL = "http://localhost:11434/api/embeddings"
 OLLAMA_CHAT_URL = "http://localhost:11434/api/generate"
 
 EMBED_MODEL = "nomic-embed-text"
-CHAT_MODEL = "llama3.1:8b"
+CHAT_MODEL = "llama3.2:3b"
 
 client = chromadb.PersistentClient(path=DB_DIR)
 
@@ -46,6 +46,9 @@ CITADEL CONTEXT:
 USER QUESTION:
 {question}
 
+Do not use hidden reasoning. Do not think silently. Answer directly in 1-2 short paragraphs.
+
+
 ANSWER:
 """
 
@@ -55,9 +58,11 @@ ANSWER:
     "model": CHAT_MODEL,
     "prompt": prompt,
     "stream": False,
+    "keep_alive": "30m",
     "options": {
-        "num_predict": 200,
-        "temperature": 0.2
+        "num_predict": 80,
+        "temperature": 0.2,
+        "num_thread": 4
     }
 },
         timeout=600
@@ -78,7 +83,7 @@ def main():
 
     results = collection.query(
         query_embeddings=[question_embedding],
-        n_results=3
+        n_results=2
     )
 
     documents = results.get("documents", [[]])[0]

@@ -2324,3 +2324,22 @@ Answer with Citadel-specific knowledge
 - Test first local query:
   - "What is The Citadel project?"
 - Confirm local model answers from Citadel context instead of hallucinating unrelated projects.
+
+## Odysseus Memory Core Performance Tuning
+
+Initial local RAG tests worked but were slow.
+
+Benchmarks:
+- llama3.2:3b warm response with 6 threads: ~39 seconds
+- llama3.2:3b warm response with 4 threads: ~20-21 seconds
+
+Current best configuration:
+- CHAT_MODEL = "llama3.2:3b"
+- n_results = 2
+- num_predict = 80
+- temperature = 0.2
+- num_thread = 4
+- keep_alive = "30m"
+
+Conclusion:
+Using 4 threads performs better than 6 threads in the current VirtualBox Ubuntu VM. Odysseus Memory Core v0.1 is operational and can answer Citadel-specific questions from local notes and project documentation.
