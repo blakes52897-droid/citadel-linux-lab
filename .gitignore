@@ -1,2 +1,6 @@
 *.swp
 *.log
+rag/venv/
+rag/vector-db/
+__pycache__/
+*.pyc
