@@ -2343,3 +2343,21 @@ Current best configuration:
 
 Conclusion:
 Using 4 threads performs better than 6 threads in the current VirtualBox Ubuntu VM. Odysseus Memory Core v0.1 is operational and can answer Citadel-specific questions from local notes and project documentation.
+
+## RAG Retrieval Test
+
+Tested Odysseus query against the Local AI Model Stack source-of-truth section.
+
+Query:
+"According to the Local AI Model Stack source of truth, what models are installed?"
+
+Result:
+Odysseus correctly retrieved `notes/odysseus-briefing.md` chunks and identified:
+
+- `llama3.2:3b`
+- `llama3.1:8b`
+- `qwen3:8b`
+- `nomic-embed-text`
+
+Status:
+Odysseus Memory Core successfully answers local AI stack questions when source-of-truth context is retrieved.

@@ -28,23 +28,33 @@ The purpose of The Citadel is to demonstrate practical experience with:
 - Argus = future monitoring and visibility module
 - Sentinel = future security detection and alerting module
 
-## Current Public Architecture
+## Current Public Architecture - Source of Truth
 
-Current public traffic flow:
+The current live Citadel architecture is:
 
 Cloudflare Tunnel  
 ↓  
 Apache on port 80  
 ↓  
-`~/citadel-linux-lab/docker-site`  
+`/home/blakes52897/citadel-linux-lab/docker-site`  
 ↓  
 rootandrook.com
 
-Apache is currently the active public frontend.
+Apache is the active public frontend.
 
-The `docker-site` folder is the current live site source being served by Apache.
+The live website source is:
 
-Docker was previously used to serve the Citadel site through NGINX on port 8080. That work is now documented as the Docker Deployment Lab.
+`/home/blakes52897/citadel-linux-lab/docker-site`
+
+The older Apache default web root:
+
+`/var/www/html`
+
+is no longer the intended Citadel source of truth.
+
+Docker was previously used to serve The Citadel site through an NGINX container on port 8080. That work is now documented as the Docker Deployment Lab, but Docker is not currently the active public frontend for the main Citadel website.
+
+When answering architecture questions, use this current architecture unless newer notes explicitly say otherwise.
 
 ## Current Lab Environment
 
@@ -58,18 +68,57 @@ Docker was previously used to serve the Citadel site through NGINX on port 8080.
 - GitHub tracks project files and documentation.
 - Ollama is installed for local AI model usage.
 
-## Local AI Model Stack
+## Local AI Model Stack - Source of Truth
 
-Installed through Ollama:
+Ollama is installed and used for local model execution.
 
-- `qwen3:8b`
-  - Candidate reasoning/chat model for Odysseus.
+Ollama is currently started manually with:
+
+`nohup ollama serve > ~/.ollama/ollama.log 2>&1 &`
+
+Ollama is not yet installed as a systemd service. Creating an Ollama systemd service is a future improvement.
+
+Installed local models:
+
+- `llama3.2:3b`
+  - Current primary Odysseus Memory Core response model.
+  - Used for faster local RAG responses.
+  - Current best warm response benchmark: approximately 20-21 seconds after tuning.
 
 - `llama3.1:8b`
-  - General-purpose local chat model.
+  - Larger local general-purpose chat model.
+  - Higher quality potential, but slower on the current VM.
+
+- `qwen3:8b`
+  - Local reasoning/chat model.
+  - Candidate for quality mode, but may be slower or less consistent in the current RAG setup.
 
 - `nomic-embed-text`
-  - Embedding model for future RAG and memory retrieval.
+  - Local embedding model.
+  - Used by Odysseus Memory Core to embed Citadel notes, documentation, and project pages.
+
+Current Odysseus Memory Core configuration:
+
+- Embedding model: `nomic-embed-text`
+- Chat model: `llama3.2:3b`
+- Vector database: ChromaDB
+- Source documents:
+  - `README.md`
+  - `notes/`
+  - `docs/`
+  - `docker-site/projects/`
+- Retrieval count: `n_results = 2`
+- Output limit: `num_predict = 180`
+- Temperature: `0.2`
+- Thread count: `num_thread = 4`
+- Keep alive: `30m`
+
+Performance notes:
+
+- 6 threads performed worse than 4 threads in the current VirtualBox Ubuntu VM.
+- Best current setting is `num_thread = 4`.
+- Warm responses are much faster than cold starts.
+- Ollama should be warmed before benchmarking.
 
 ## Current Project Pages
 
