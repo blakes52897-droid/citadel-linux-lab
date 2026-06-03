@@ -2361,3 +2361,15 @@ Odysseus correctly retrieved `notes/odysseus-briefing.md` chunks and identified:
 
 Status:
 Odysseus Memory Core successfully answers local AI stack questions when source-of-truth context is retrieved.
+
+---
+
+# SELF-HOSTED AI FEASIBILITY CHECKPOINT
+
+Self-hosted AI feasibility testing was completed.
+
+Ollama, local models, Open WebUI, Odysseus UI, and Odysseus Memory Core were installed or tested successfully. The system proved that local AI can run on the current Beelink/Ubuntu VM setup, but performance is too slow for daily AI replacement without stronger hardware.
+
+Self-hosted AI is paused as an active priority. The Citadel will continue focusing on Linux, cybersecurity, monitoring, detection, documentation, and portfolio development.
+
+Future AI plan: revisit Odysseus/self-hosted AI with upgraded hardware, ideally a dedicated NVIDIA GPU system.
