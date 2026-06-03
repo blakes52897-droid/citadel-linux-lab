@@ -60,7 +60,7 @@ ANSWER:
     "stream": False,
     "keep_alive": "30m",
     "options": {
-        "num_predict": 80,
+        "num_predict": 180,
         "temperature": 0.2,
         "num_thread": 4
     }

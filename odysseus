@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Odysseus Memory Core launcher
+# Runs local Citadel RAG queries from anywhere inside the project.
+
+PROJECT_DIR="$HOME/citadel-linux-lab"
+VENV="$PROJECT_DIR/rag/venv/bin/activate"
+QUERY_SCRIPT="$PROJECT_DIR/rag/query.py"
+
+if [ $# -eq 0 ]; then
+  echo "Usage:"
+  echo './odysseus "What is The Citadel project?"'
+  exit 1
+fi
+
+cd "$PROJECT_DIR" || exit 1
+
+# Start Ollama if it is not already listening
+if ! curl -s http://localhost:11434/api/tags > /dev/null; then
+  echo "Starting Ollama..."
+  nohup ollama serve > "$HOME/.ollama/ollama.log" 2>&1 &
+  sleep 3
+fi
+
+source "$VENV"
+
+python3 "$QUERY_SCRIPT" "$@"

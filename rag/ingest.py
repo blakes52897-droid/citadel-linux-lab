@@ -6,8 +6,10 @@ ROOT_DIR = os.path.expanduser("~/citadel-linux-lab")
 DB_DIR = os.path.join(ROOT_DIR, "rag", "vector-db")
 
 SOURCE_PATHS = [
+    "notes/citadel-current-state.md",
+    "notes/odysseus-briefing.md",
+    "notes/citadel-notes.md",
     "README.md",
-    "notes",
     "docs",
     "docker-site/projects",
 ]
