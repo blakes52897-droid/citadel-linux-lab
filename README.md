@@ -1,221 +1,355 @@
-# 🏰 The Citadel
+The Citadel Project
 
-**Fortify the Position**
+The Citadel is a personal Linux, cybersecurity, systems administration, and infrastructure portfolio lab built by Blake Swartz.
 
-The Citadel is a hands-on Linux cybersecurity and infrastructure lab built to develop practical skills in system administration, networking, security hardening, automation, Docker, and cloud technologies.
+The project is designed to demonstrate practical hands-on experience with Linux administration, web hosting, SSH hardening, firewall management, Cloudflare Tunnel, Git/GitHub workflows, Docker deployment concepts, local monitoring, and security operations foundations.
 
-This project serves as both a learning environment and a public portfolio documenting my progression from health insurance operations into IT, cybersecurity, and cloud infrastructure.
+The Citadel is both a live public portfolio site and a private learning lab.
 
----
+⸻
 
-## Mission
+Current Public Architecture
 
-The goal of The Citadel is simple:
+The current live architecture is:
 
-* Build real systems
-* Break and fix them
-* Document everything
-* Learn by doing
+Visitor
+↓
+Cloudflare Tunnel
+↓
+Apache on port 80
+↓
+/home/blakes52897/citadel-linux-lab/docker-site
+↓
+The Citadel website
 
-Rather than relying solely on certifications and coursework, this lab focuses on practical implementation and operational experience.
+Apache is the current active public frontend.
 
----
+Docker was previously used to serve an NGINX-based version of the site on port 8080. That work is now documented as the Docker Deployment Lab, but Docker is not currently the active public frontend.
 
-## Current Environment
+⸻
 
-### Infrastructure
+Live Site
 
-* Ubuntu Linux Virtual Machine
-* Oracle VirtualBox
-* Docker Containers
-* NGINX Web Server
-* Cloudflare Tunnel
-* GitHub Source Control
+The Citadel is publicly accessible through Cloudflare Tunnel.
 
-### Security
+Current public site:
 
-* SSH Remote Administration
-* UFW Firewall Configuration
-* Fail2Ban Intrusion Prevention
-* Linux User and Permission Management
-* Secure Remote Access Testing
+rootandrook.com
 
-### Development & Automation
+⸻
 
-* Git Version Control
-* GitHub Repository Management
-* Bash Deployment Scripts
-* Automated Build and Deployment Workflow
-* Documentation and Change Tracking
+Project Naming
 
----
+The Citadel = main platform
+Odysseus = AI operations assistant / AI workspace concept
+Odysseus Memory Core = local RAG prototype
+Argus = monitoring and visibility module
+Sentinel = future detection and alerting module
 
-## Project Checkpoints
+⸻
 
-### Checkpoint 0 – Foundation
+Current Modules
 
-* Linux VM deployed
-* VirtualBox configured
-* Initial lab environment established
+The Citadel Website
 
-### Checkpoint 1 – Remote Administration
+The live website includes:
 
-* OpenSSH Server installed
-* Remote SSH access validated
-* Local and remote connectivity testing
+* Custom dark Citadel branding
+* Homepage operations dashboard
+* Project cards
+* Dedicated project pages
+* Live status.json telemetry
+* Responsive layout
+* Cloudflare-backed public access
 
-### Checkpoint 2 – Security Hardening
+⸻
 
-* UFW firewall configured
-* SSH traffic permitted
-* Baseline security posture established
+Operations Dashboard / Argus Foundation
 
-### Checkpoint 3 – Web Services
+The homepage includes an operations dashboard powered by:
 
-* NGINX deployed
-* Initial website hosted
-* Local web access verified
+scripts/generate-status.sh
+↓
+docker-site/status.json
+↓
+browser-side JavaScript
+↓
+dashboard cards
 
-### Checkpoint 4 – Containerization
+Current telemetry includes:
 
-* Docker installed
-* Website containerized
-* Docker image creation validated
+* Last updated timestamp
+* System uptime
+* CPU load
+* Memory usage
+* Disk usage
+* Apache status
+* Cloudflare Tunnel status
+* Fail2Ban status
+* Tailscale status
+* Docker status
+* Running Docker container count
+* Failed SSH attempts today
+* Current Fail2Ban banned count
+* Failed systemd units
+* Latest Git commit
 
-### Checkpoint 5 – Source Control
+Argus is the planned monitoring and visibility module that will expand this dashboard into a more complete system health and security visibility layer.
 
-* Git repository created
-* GitHub integration completed
-* Commit and push workflow established
+⸻
 
-### Checkpoint 6 – Public Access
+Linux Hardening Lab
 
-* Cloudflare Tunnel configured
-* Public site exposure achieved
-* DNS routing implemented
+Documents the Linux security foundation for The Citadel.
 
-### Checkpoint 7 – Automation
+Current security controls include:
 
-* Deployment script created
-* Build and deployment process automated
-* Operational workflow documented
+* OpenSSH server
+* SSH key-based remote administration
+* UFW firewall
+* Default deny incoming firewall posture
+* Fail2Ban protection for SSH
+* Authentication log review
+* Tailscale remote administration
+* Cloudflare Tunnel public routing
 
-### Checkpoint 8 – Citadel Rebuild
+⸻
 
-* Original site archived
-* Citadel branding implemented
-* Landing page redesigned
-* Portfolio structure improved
+Docker Deployment Lab
 
-### Checkpoint 9 – Documentation
+Docker was used to prototype a containerized version of The Citadel site.
 
-* Project notes maintained
-* Recovery procedures documented
-* Historical changes preserved
+This lab documents:
 
-### Checkpoint 10 – Operational Pipeline
+* Dockerfile creation
+* NGINX container deployment
+* Port mapping
+* Container lifecycle management
+* Build-time vs runtime file behavior
+* Transition from Docker public frontend to Apache public frontend
 
-Working workflow:
+Docker remains part of the lab and learning environment, but Apache currently serves the live public site.
 
-Build → Commit → Push → Deploy → Verify
+⸻
 
----
+Cloudflare Tunnel
 
-## Skills Demonstrated
+Cloudflare Tunnel provides public access to The Citadel without traditional router port forwarding.
 
-### Linux Administration
+Current state:
 
-* File permissions
-* User management
-* Package management
-* Service management
-* Remote administration
+* Tunnel name: citadel-tunnel
+* Cloudflared installed through APT
+* Cloudflared runs as a system service
+* Cloudflared is enabled at boot
+* Public traffic routes through Cloudflare to Apache
 
-### Networking
+⸻
 
-* SSH
-* DNS
-* Firewall management
-* Public service exposure
-* Cloudflare networking
+Auth Monitor
 
-### Security
+Auth Monitor is the foundation for future security visibility.
 
-* UFW configuration
-* Fail2Ban deployment
-* SSH hardening
-* Access control
-* Security documentation
+Current sources and controls:
 
-### DevOps
+* /var/log/auth.log
+* journald
+* SSH authentication events
+* Fail2Ban activity
+* Failed login visibility
+* Banned IP visibility
 
-* Docker
-* Git
-* GitHub
-* Deployment automation
-* Change management
+Auth Monitor will eventually feed into Sentinel.
 
----
+⸻
 
-## Repository Structure
+SIEM Sandbox
 
-```text
+SIEM Sandbox is a planned project area for log ingestion, detection logic, event review, and analyst workflow practice.
+
+This may eventually integrate with:
+
+* Wazuh
+* Syslog pipelines
+* Auth logs
+* Apache logs
+* Fail2Ban events
+* Sentinel detection rules
+
+⸻
+
+Auto Deploy Pipeline
+
+The Citadel uses Git and GitHub for source control and deployment tracking.
+
+Current deployment workflow includes:
+
+* Editing local site files
+* Generating status telemetry
+* Testing locally
+* Committing changes to Git
+* Pushing to GitHub
+* Apache serving the updated project files
+
+⸻
+
+Odysseus and Self-Hosted AI Status
+
+Odysseus is the planned AI operations assistant for The Citadel.
+
+Self-hosted AI feasibility testing has been completed.
+
+Tested components:
+
+* Ollama
+* llama3.2:3b
+* llama3.1:8b
+* qwen3:8b
+* nomic-embed-text
+* ChromaDB
+* Local RAG
+* Open WebUI
+* Odysseus UI
+* Terminal-based Odysseus Memory Core prototype
+
+The local RAG prototype successfully ingested Citadel notes and project pages, retrieved relevant project context, and answered Citadel-specific questions.
+
+However, CPU-only inference through the current Ubuntu VM is too slow for self-hosted AI to replace paid AI tools right now.
+
+Current decision:
+
+Self-hosted AI expansion is paused as an active priority.
+The Citadel will continue focusing on Linux, cybersecurity, monitoring, detection, documentation, and portfolio development.
+Self-hosted AI will be revisited later with stronger hardware.
+
+Long-term AI goal:
+
+Dedicated AI hardware node
+NVIDIA GPU
+More VRAM
+Private Odysseus assistant
+Persistent memory
+Local knowledge base
+Reduced reliance on external AI subscriptions
+
+⸻
+
+Current Hardware
+
+Host machine:
+
+* AMD Ryzen 7 5825U
+* 8 cores / 16 threads
+* 32 GB DDR4 RAM
+* 1 TB NVMe SSD
+* AMD Radeon integrated graphics
+* No NVIDIA GPU
+
+Current Ubuntu VM:
+
+* 16 GB RAM allocated
+* 6 vCPU allocated
+* Approximately 48 GB root disk
+* Disk usage currently high and should be monitored
+
+Current hardware is sufficient for Linux, Docker, Apache, Cloudflare Tunnel, monitoring, RAG prototypes, and lightweight local AI experiments.
+
+It is not ideal for smooth self-hosted AI assistant performance.
+
+⸻
+
+Repository Structure
+
 citadel-linux-lab/
 ├── docker-site/
-│   ├── Dockerfile
-│   └── index.html
+│   ├── index.html
+│   ├── status.json
+│   └── projects/
+├── docs/
+│   └── screenshots/
 ├── notes/
-│   └── citadel-notes.md
-├── website-archive/
-├── deploy.sh
+│   ├── citadel-notes.md
+│   ├── citadel-current-state.md
+│   └── odysseus-briefing.md
+├── rag/
+│   ├── ingest.py
+│   └── query.py
+├── scripts/
+│   └── generate-status.sh
+├── odysseus
 └── README.md
-```
 
-## Roadmap
+⸻
 
-### Phase 3
+Local Generated Files
 
-* VPS Migration
-* Public Infrastructure Hosting
-* Automated Backups
-* Enhanced Monitoring
+The following local/generated files are intentionally ignored by Git:
 
-### Phase 4
+rag/venv/
+rag/vector-db/
+rag/__pycache__/
+__pycache__/
+*.pyc
 
-* SIEM Integration
-* Log Aggregation
-* Security Alerting
-* Threat Detection
+These can be rebuilt locally and should not be committed.
 
-### Phase 5
+⸻
 
-* Cloud Infrastructure
-* Azure Projects
-* Security Automation
-* Infrastructure as Code
+Current Priorities
 
----
+Active priorities:
 
-## Lessons Learned
+1. Continue building Argus as the monitoring and visibility module.
+2. Improve the operations dashboard with useful live telemetry.
+3. Add focused interactive telemetry to project pages.
+4. Build Sentinel as the future security detection and alerting module.
+5. Organize screenshots and evidence for portfolio documentation.
+6. Add architecture diagrams.
+7. Continue improving project pages and README documentation.
+8. Keep self-hosted AI paused until future hardware upgrades.
 
-One of the biggest goals of this project is documenting not only successes but also mistakes, troubleshooting processes, failed attempts, and recovery procedures.
+⸻
 
-The objective is to demonstrate practical problem-solving and continuous improvement rather than presenting a perfect environment.
+Completed Milestones
 
----
+Completed so far:
 
-## Author
+* Ubuntu VM created
+* SSH configured
+* UFW firewall enabled
+* Apache installed and serving the live site
+* Cloudflare Tunnel configured
+* Git and GitHub workflow established
+* Docker deployment lab created
+* Dockerized NGINX website prototype built
+* Public site routed through Cloudflare
+* Custom Citadel landing page created
+* Operations dashboard created
+* status.json telemetry added
+* Fail2Ban installed and configured
+* Tailscale remote access configured
+* Project pages created
+* Odysseus Memory Core local RAG prototype built
+* Open WebUI tested privately
+* Odysseus UI connected to local Ollama
+* Self-hosted AI feasibility assessed and paused
 
-Blake Swartz
+⸻
 
-Network+ Certified
+Next Major Build
 
-Aspiring Systems Administrator | Cybersecurity Professional | Cloud Infrastructure Enthusiast
+The next major build phase is Argus.
 
----
+Argus will become the all-seeing monitoring and visibility layer for The Citadel.
 
-## Project Status
+Initial Argus goals:
 
-🟢 Active Development
+* Service health checks
+* System health checks
+* Docker/container visibility
+* Fail2Ban visibility
+* SSH authentication signal tracking
+* Status dashboard improvements
+* Project-page telemetry blocks
 
-The Citadel continues to evolve as new technologies, services, security controls, and infrastructure components are added.
+Future Sentinel work will build on Argus by adding security detection and alerting.
