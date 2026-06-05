@@ -669,7 +669,7 @@ fetch('/status.json')
       'UPDATED: ' + data.updated;
 
     document.getElementById('live-server').textContent =
-  'SERVER: ' + data.apache;
+  'SERVER: ' + data.services.apache;
 
     document.getElementById('live-commit').textContent =
       'COMMIT: ' + data.last_commit;

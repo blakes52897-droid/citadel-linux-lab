@@ -456,3 +456,19 @@ Current Citadel priority shifts back to:
 Long-term intent:
 
 Self-hosted AI remains part of the Citadel vision. Odysseus will be revisited later with stronger hardware, ideally a dedicated AI node with an NVIDIA GPU and more VRAM.
+
+
+## Current Active Priorities
+
+Self-hosted AI is paused as an active priority after feasibility testing.
+
+Today’s Citadel priorities are:
+
+1. Stabilize and document the current architecture.
+2. Keep Apache and Cloudflare Tunnel as the active public frontend.
+3. Continue using Docker as a documented deployment lab, not the active public frontend.
+4. Improve the project documentation and source-of-truth notes.
+5. Begin shifting focus toward Argus, the monitoring and visibility module.
+6. Prepare Sentinel as a future security detection and alerting module.
+7. Organize screenshots and evidence for portfolio documentation.
+8. Add architecture diagrams and recruiter-friendly project explanations.
