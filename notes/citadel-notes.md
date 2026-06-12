@@ -2373,3 +2373,19 @@ Ollama, local models, Open WebUI, Odysseus UI, and Odysseus Memory Core were ins
 Self-hosted AI is paused as an active priority. The Citadel will continue focusing on Linux, cybersecurity, monitoring, detection, documentation, and portfolio development.
 
 Future AI plan: revisit Odysseus/self-hosted AI with upgraded hardware, ideally a dedicated NVIDIA GPU system.
+
+
+## Python Health Report Milestone
+
+Created a Python-based Citadel health report script at `~/python/citadel_health.py`.
+
+The script now:
+- Prints a formatted health report to terminal.
+- Creates `~/python/health_reports/` automatically.
+- Saves each run as a timestamped report file.
+- Checks uptime, CPU load, disk usage, memory usage, UFW, Fail2Ban, Apache, Cloudflared, and Citadel online status.
+
+Confirmed output file:
+`~/python/health_reports/2026-06-11_2333_report.txt`
+
+This is the first Python-based building block for Argus monitoring automation.
