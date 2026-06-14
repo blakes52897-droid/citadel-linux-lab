@@ -1,692 +1,1604 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Citadel | Linux Security Lab</title>
 
-<title>The Citadel | Blake Swartz</title>
-
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-#dashboard{
-    scroll-margin-top:180px;
-}
-
-body{
-    background:#000;
-    color:#f5f5f5;
-    font-family:Arial, Helvetica, sans-serif;
-    overflow-x:hidden;
-    background-image:
-        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-    background-size:50px 50px;
-}
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-        radial-gradient(circle at top, rgba(255,255,255,0.06), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(255,255,255,0.04), transparent 25%);
-    pointer-events:none;
-    z-index:-1;
-}
-
-.container{
-    width:90%;
-    max-width:1250px;
-    margin:auto;
-    padding:30px 0 80px;
-}
-
-nav{
-    position:sticky;
-    top:0;
-    z-index:1000;
-
-    width:100%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:30px;
-
-    padding:22px 40px;
-
-    background:rgba(5,5,12,0.92);
-    backdrop-filter:blur(12px);
-
-    border-bottom:1px solid rgba(255,255,255,0.08);
-
-    box-shadow:
-        0 4px 25px rgba(0,0,0,0.35),
-        0 0 30px rgba(255,255,255,0.03);
-}
-.logo{
-    font-size:24px;
-    font-weight:900;
-    letter-spacing:4px;
-    white-space:nowrap;
-
-    text-transform:uppercase;
-    color:#fff;
-    text-shadow:
-        0 0 8px rgba(255,255,255,0.15),
-        0 0 20px rgba(255,255,255,0.08);
-}
-
-.logo span{
-    opacity:0.65;
-}
-
-.links{
-    display:flex;
-    gap:24px;
-    align-items:center;
-    justify-content:flex-end;
-    white-space:nowrap;
-}
-
-.links a{
-    color:#ddd;
-    text-decoration:none;
-    letter-spacing:3px;
-    font-size:12px;
-    transition:0.25s;
-    font-weight:600;
-}
-
-.links a:hover{
-    color:#fff;
-    text-shadow:0 0 10px rgba(255,255,255,0.45);
-}
-
-@media (max-width:650px){
-    nav{
-        flex-direction:column;
-        justify-content:center;
-        gap:18px;
-        padding:24px 20px;
-        text-align:center;
+  <style>
+    :root {
+      --bg: #050607;
+      --bg2: #090a0c;
+      --panel: rgba(8, 9, 10, 0.92);
+      --panel2: rgba(13, 15, 17, 0.94);
+      --line: rgba(255, 255, 255, 0.16);
+      --line2: rgba(255, 255, 255, 0.08);
+      --text: #f3f2ec;
+      --muted: #a5a8a3;
+      --dim: #696f68;
+      --green: #a5c736;
+      --green2: #6d8124;
+      --blue: #5bbcff;
+      --yellow: #d8c157;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
     }
 
-    .logo{
-        font-size:22px;
-        letter-spacing:3px;
+    * {
+      box-sizing: border-box;
     }
 
-    .links{
-        flex-wrap:wrap;
-        justify-content:center;
-        gap:16px 22px;
-        white-space:normal;
+    html {
+      scroll-behavior: smooth;
     }
 
-.links a{
-    color:#ddd;
-    text-decoration:none;
-    transition:0.25s;
-    font-weight:600;
-
-    font-size:12px;
-    letter-spacing:3px;
-}
-
-.links a:hover{
-    color:#fff;
-    text-shadow:0 0 10px rgba(255,255,255,0.45);
-}
-}
-
- .hero{
-    text-align:center;
-    min-height:70vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-}
-
-.rook{
-    font-size:140px;
-    margin-bottom:40px;
-    animation:rookPulse 3s infinite ease-in-out;
-    text-shadow:
-        0 0 12px rgba(255,255,255,0.55),
-        0 0 30px rgba(255,255,255,0.25),
-        0 0 60px rgba(255,255,255,0.12);
-}
-
-@keyframes rookPulse{
-    0%{
-        transform:scale(1);
-        opacity:0.86;
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 68% 8%, rgba(255,255,255,0.07), transparent 16rem),
+        radial-gradient(circle at 76% 30%, rgba(165,199,54,0.10), transparent 23rem),
+        linear-gradient(180deg, #060708 0%, #030404 100%);
+      color: var(--text);
+      font-family: var(--font);
     }
 
-    50%{
-        transform:scale(1.08);
-        opacity:1;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.12;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(to bottom, black 0%, transparent 75%);
     }
 
-    100%{
-        transform:scale(1);
-        opacity:0.86;
-    }
-}
-
-.hero h1{
-    font-size:5.5rem;
-    letter-spacing:12px;
-    text-shadow:0 0 25px rgba(255,255,255,0.25);
-}
-
-.hero p{
-    margin-top:22px;
-    color:#bbb;
-    font-size:1.25rem;
-    letter-spacing:8px;
-}
-
-.hero-subline{
-    margin-top:16px;
-    font-size:1rem;
-    letter-spacing:4px;
-    color:#ddd;
-    opacity:0.85;
-}
-
-.stack{
-    margin-top:34px;
-    display:flex;
-    justify-content:center;
-    gap:12px;
-    flex-wrap:wrap;
-}
-
-.stack span{
-    border:1px solid rgba(255,255,255,0.12);
-    background:rgba(255,255,255,0.035);
-    padding:10px 16px;
-    border-radius:999px;
-    color:#ccc;
-    font-size:0.78rem;
-    letter-spacing:2px;
-}
-
-.section{
-    margin-top:90px;
-}
-
-.section-title{
-    font-size:2.4rem;
-    letter-spacing:7px;
-    margin-bottom:34px;
-    text-align:center;
-}
-
-.about{
-    border:1px solid rgba(255,255,255,0.10);
-    background:rgba(255,255,255,0.025);
-    padding:38px;
-    line-height:1.9;
-    color:#cfcfcf;
-    max-width:950px;
-    margin:auto;
-    box-shadow:0 0 35px rgba(255,255,255,0.035);
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:26px;
-}
-
-.dashboard-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-    gap:24px;
-    margin-top:32px;
-}
-
-.dash-card{
-    border:1px solid rgba(255,255,255,0.12);
-    background:rgba(255,255,255,0.035);
-    border-radius:18px;
-    padding:24px;
-    box-shadow:0 0 30px rgba(255,255,255,0.03);
-}
-
-.dash-card h3{
-    font-size:1.1rem;
-    margin-bottom:12px;
-}
-
-.dash-card p{
-    color:#bbb;
-    line-height:1.6;
-    margin-bottom:18px;
-}
-
-.dash-card span{
-    display:inline-block;
-    font-size:0.75rem;
-    letter-spacing:2px;
-    color:#ddd;
-    border:1px solid rgba(255,255,255,0.12);
-    border-radius:999px;
-    padding:8px 12px;
-    background:rgba(255,255,255,0.04);
-}
-.card{
-    border:1px solid rgba(255,255,255,0.10);
-    background:rgba(255,255,255,0.03);
-    padding:32px;
-    min-height:255px;
-    transition:0.25s;
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-}
-
-.card:hover{
-    transform:translateY(-6px);
-    border-color:rgba(255,255,255,0.25);
-    box-shadow:0 0 30px rgba(255,255,255,0.06);
-}
-
-.card h3{
-    letter-spacing:3px;
-    font-size:1.25rem;
-    margin-bottom:16px;
-}
-
-.card p{
-    color:#aaa;
-    line-height:1.8;
-    font-size:0.95rem;
-}
-
-.card a{
-    display:inline-block;
-    margin-top:22px;
-    color:#fff;
-    text-decoration:none;
-    border:1px solid rgba(255,255,255,0.18);
-    padding:10px 16px;
-    width:max-content;
-    letter-spacing:2px;
-    font-size:0.78rem;
-    transition:0.2s;
-}
-
-.card a:hover{
-    background:#fff;
-    color:#000;
-}
-
-.ops{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:28px;
-}
-
-.panel{
-    border:1px solid rgba(255,255,255,0.10);
-    background:rgba(0,0,0,0.65);
-    padding:30px;
-    box-shadow:0 0 35px rgba(255,255,255,0.035);
-}
-
-.panel-title{
-    font-family:monospace;
-    font-weight:bold;
-    color:#fff;
-    margin-bottom:18px;
-}
-
-.terminal{
-    font-family:monospace;
-    color:#d8d8d8;
-    line-height:1.8;
-    font-size:0.88rem;
-    white-space:pre-wrap;
-}
-
-.status-list{
-    display:grid;
-    gap:13px;
-}
-
-.status-item{
-    display:flex;
-    justify-content:space-between;
-    gap:20px;
-    border-bottom:1px solid rgba(255,255,255,0.08);
-    padding-bottom:10px;
-    font-family:monospace;
-}
-
-.status-item span:first-child{
-    color:#aaa;
-}
-
-.status-good{
-    color:#fff;
-    font-weight:bold;
-}
-
-.footer{
-    margin-top:95px;
-    text-align:center;
-    color:#666;
-    letter-spacing:5px;
-    font-size:0.85rem;
-}
-
-@media(max-width:650px){
-    .hero h1{
-        font-size:3.1rem;
-        letter-spacing:7px;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    .hero p{
-        font-size:0.9rem;
-        letter-spacing:4px;
+    .page {
+      position: relative;
+      z-index: 1;
     }
 
-    .ops{
-        grid-template-columns:1fr;
+    .wrap {
+      width: min(1360px, calc(100% - 84px));
+      margin: 0 auto;
     }
 
-    .logo{
-        font-size:1.4rem;
+    .top {
+      border-bottom: 1px solid var(--line2);
+      background: rgba(4, 5, 6, 0.82);
+      backdrop-filter: blur(16px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
     }
-}
-</style>
+
+    .nav {
+      height: 112px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .crest {
+      width: 48px;
+      height: 58px;
+      clip-path: polygon(50% 0, 91% 14%, 84% 76%, 50% 100%, 16% 76%, 9% 14%);
+      border: 2px solid rgba(255,255,255,0.82);
+      background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.03));
+      display: grid;
+      place-items: center;
+      box-shadow: inset 0 0 28px rgba(255,255,255,0.04);
+    }
+
+    .crest span {
+      font-family: var(--mono);
+      font-size: 26px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .brand-name {
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 850;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    .brand-tag {
+      margin-top: 8px;
+      font-family: var(--mono);
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .navlinks {
+      display: flex;
+      gap: 34px;
+      font-family: var(--mono);
+      color: #c3c5c0;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .navlinks a {
+      padding: 17px 0;
+      border-bottom: 1px solid transparent;
+      transition: 0.18s ease;
+    }
+
+    .navlinks a:hover,
+    .navlinks .active {
+      color: white;
+      border-bottom-color: var(--blue);
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      border: 1px solid var(--line);
+      padding: 18px 20px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.025);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 100%;
+      background: var(--green);
+      box-shadow: 0 0 16px var(--green);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 620px;
+      border-bottom: 1px solid var(--line2);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(90deg, rgba(5,6,7,1) 0%, rgba(5,6,7,0.88) 37%, rgba(5,6,7,0.40) 68%, rgba(5,6,7,0.72) 100%),
+        linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.75) 100%);
+      pointer-events: none;
+    }
+
+    .hero-art {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 62%;
+      height: 100%;
+      opacity: 0.68;
+      filter: grayscale(1) contrast(1.35);
+      background:
+        radial-gradient(circle at 48% 35%, rgba(255,255,255,0.18), transparent 15rem),
+        radial-gradient(circle at 62% 47%, rgba(255,255,255,0.07), transparent 19rem);
+    }
+
+    .hero-art::before {
+      content: "";
+      position: absolute;
+      right: 8%;
+      bottom: 106px;
+      width: 75%;
+      height: 300px;
+      background:
+        linear-gradient(180deg, #23272b 0%, #08090a 78%);
+      clip-path: polygon(
+        0 100%, 4% 64%, 10% 64%, 10% 42%, 16% 42%, 16% 64%,
+        24% 64%, 24% 28%, 30% 28%, 30% 64%,
+        39% 64%, 39% 14%, 47% 14%, 47% 64%,
+        56% 64%, 56% 0%, 66% 0%, 66% 64%,
+        74% 64%, 74% 31%, 81% 31%, 81% 64%,
+        90% 64%, 90% 43%, 96% 43%, 96% 64%, 100% 100%
+      );
+      box-shadow:
+        inset 0 0 70px rgba(255,255,255,0.04),
+        0 0 80px rgba(0,0,0,0.8);
+    }
+
+    .hero-art::after {
+      content: "";
+      position: absolute;
+      right: 3%;
+      bottom: 0;
+      width: 92%;
+      height: 210px;
+      background: #050607;
+      clip-path: polygon(0 100%, 8% 75%, 18% 82%, 29% 42%, 41% 68%, 54% 31%, 69% 62%, 81% 21%, 94% 56%, 100% 49%, 100% 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      min-height: 620px;
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      align-items: center;
+      gap: 48px;
+      padding-top: 24px;
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      color: #9a9e99;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 690px;
+      font-size: clamp(56px, 6.2vw, 94px);
+      line-height: 0.93;
+      letter-spacing: -0.062em;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .green-square {
+      display: inline-block;
+      width: 13px;
+      height: 13px;
+      margin-left: 8px;
+      background: var(--green);
+      box-shadow: 0 0 18px rgba(165,199,54,0.9);
+    }
+
+    .hero-copy {
+      color: #bdc0ba;
+      max-width: 520px;
+      margin: 28px 0 34px;
+      font-size: 15px;
+      line-height: 1.72;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 19px;
+    }
+
+    .btn {
+      min-height: 54px;
+      padding: 0 25px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,0.22);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,0.36);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, #9aac31, #516516);
+      border-color: rgba(165,199,54,0.42);
+      box-shadow: 0 18px 42px rgba(165,199,54,0.10);
+    }
+
+    .hero-callout {
+      align-self: start;
+      justify-self: end;
+      margin-top: 77px;
+      width: 220px;
+      padding: 18px 18px 18px 20px;
+      border-left: 1px solid rgba(165,199,54,0.62);
+      border-top: 1px solid var(--line);
+      background: rgba(3,4,5,0.28);
+      font-family: var(--mono);
+      font-size: 11px;
+      color: #b4b8b0;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .hero-callout strong {
+      display: block;
+      margin-top: 8px;
+      color: var(--green);
+      letter-spacing: 0.16em;
+    }
+
+    section {
+      padding: 26px 0;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: rgba(6,7,8,0.82);
+      box-shadow: 0 26px 80px rgba(0,0,0,0.42);
+    }
+
+    .panel-head {
+      height: 58px;
+      padding: 0 26px;
+      border-bottom: 1px solid var(--line2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-family: var(--mono);
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .small-link {
+      color: #9da29b;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .small-link:hover,
+    .card-link:hover {
+      color: var(--blue);
+    }
+
+    .dashboard {
+      padding: 15px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr) 1.17fr;
+      gap: 14px;
+    }
+
+    .metric {
+      min-height: 184px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 70% 100%, rgba(165,199,54,0.08), transparent 9rem),
+        rgba(255,255,255,0.018);
+      padding: 21px 19px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-label {
+      font-family: var(--mono);
+      color: #a6aaa3;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 27px;
+    }
+
+    .metric-value {
+      font-family: var(--mono);
+      font-size: 34px;
+      line-height: 1;
+      color: #fff;
+      letter-spacing: -0.055em;
+    }
+
+    .metric-sub {
+      margin-top: 12px;
+      font-family: var(--mono);
+      color: #b8bbb5;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .spark {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 21px;
+      height: 37px;
+      opacity: 0.9;
+    }
+
+    .spark svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .spark path {
+      stroke: var(--green);
+      stroke-width: 2;
+      fill: none;
+      opacity: 0.72;
+    }
+
+    .meter {
+      margin-top: 18px;
+      height: 10px;
+      background: #050607;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .meter span {
+      display: block;
+      height: 100%;
+      width: 45%;
+      background: linear-gradient(90deg, var(--green), var(--green2));
+    }
+
+    .services {
+      display: grid;
+      gap: 13px;
+      margin-top: 18px;
+      font-family: var(--mono);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .service {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .service span:last-child {
+      color: var(--green);
+    }
+
+    .status-card {
+      min-height: 184px;
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 50% 40%, rgba(165,199,54,0.11), transparent 10rem),
+        rgba(255,255,255,0.018);
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+
+    .big-crest {
+      width: 92px;
+      height: 106px;
+      margin: 0 auto 22px;
+      clip-path: polygon(50% 0, 91% 14%, 84% 76%, 50% 100%, 16% 76%, 9% 14%);
+      border: 3px solid rgba(165,199,54,0.62);
+      display: grid;
+      place-items: center;
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 34px;
+      font-weight: 900;
+      background: rgba(165,199,54,0.035);
+    }
+
+    .status-label {
+      font-family: var(--mono);
+      color: #c1c5be;
+      font-size: 16px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+
+    .status-live {
+      font-family: var(--mono);
+      color: var(--green);
+      font-size: 23px;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .pillars {
+      padding: 18px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+    }
+
+    .pillar {
+      min-height: 262px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.012));
+      padding: 24px 19px 21px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: 0.18s ease;
+    }
+
+    .pillar:hover {
+      transform: translateY(-4px);
+      border-color: rgba(165,199,54,0.48);
+      background:
+        radial-gradient(circle at 50% 100%, rgba(165,199,54,0.08), transparent 10rem),
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.012));
+    }
+
+    .num {
+      font-family: var(--mono);
+      font-size: 33px;
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      color: rgba(255,255,255,0.18);
+    }
+
+    .ghost-icon {
+      margin: 16px 0 22px;
+      font-size: 36px;
+      color: rgba(255,255,255,0.28);
+    }
+
+    .pillar h3,
+    .story h3 {
+      margin: 0 0 9px;
+      font-family: var(--mono);
+      color: white;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .pillar p {
+      margin: 0;
+      color: #aeb2ab;
+      font-size: 13px;
+      line-height: 1.53;
+    }
+
+    .card-link {
+      margin-top: 18px;
+      display: inline-block;
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 0.93fr 1.17fr 1.07fr;
+      gap: 16px;
+    }
+
+    .story {
+      min-height: 346px;
+      border: 1px solid var(--line);
+      background: rgba(8,9,10,0.82);
+      padding: 29px;
+    }
+
+    .story p {
+      color: #bdc1bb;
+      font-size: 15px;
+      line-height: 1.68;
+      margin: 0 0 22px;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 13px;
+      margin: 22px 0 28px;
+      color: #b5b9b3;
+      font-size: 13px;
+    }
+
+    .checklist div::before {
+      content: "◎";
+      margin-right: 10px;
+      color: #cbd0c7;
+      font-family: var(--mono);
+    }
+
+    .ody-grid {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 24px;
+      align-items: center;
+      margin-top: 14px;
+    }
+
+    .ody-figure {
+      height: 210px;
+      border: 1px solid rgba(165,199,54,0.18);
+      background:
+        radial-gradient(circle at 50% 36%, rgba(255,255,255,0.15), transparent 4rem),
+        radial-gradient(circle at 50% 68%, rgba(165,199,54,0.12), transparent 7rem),
+        linear-gradient(180deg, #171a1d, #050607);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ody-figure::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 32px;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 130px;
+      border-radius: 50% 50% 32% 32%;
+      background: #040506;
+      box-shadow: 0 0 55px rgba(255,255,255,0.08);
+    }
+
+    .ody-figure::after {
+      content: "ODYSSEUS";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 18px;
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-align: center;
+    }
+
+    .ai-status {
+      border: 1px solid rgba(165,199,54,0.38);
+      background: rgba(165,199,54,0.035);
+      padding: 15px 16px;
+      color: var(--yellow);
+      font-family: var(--mono);
+      font-size: 11px;
+      line-height: 1.85;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .report {
+      min-height: 218px;
+      padding: 17px;
+      border: 1px solid var(--line2);
+      background: rgba(0,0,0,0.31);
+      color: #9ea49b;
+      font-family: var(--mono);
+      font-size: 11px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      overflow: auto;
+    }
+
+    .road {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      padding: 26px;
+    }
+
+    .road-step {
+      min-height: 92px;
+      border-top: 1px solid var(--line2);
+      padding-top: 16px;
+      font-family: var(--mono);
+      text-transform: uppercase;
+    }
+
+    .circle {
+      display: inline-grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(165,199,54,0.7);
+      border-radius: 100%;
+      color: var(--green);
+      font-size: 10px;
+      margin-right: 12px;
+    }
+
+    .road-name {
+      font-size: 12px;
+      color: white;
+      letter-spacing: 0.08em;
+    }
+
+    .road-state {
+      margin-top: 14px;
+      color: #939891;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+    }
+
+    .done { color: var(--green); }
+    .progress { color: var(--blue); }
+    .paused { color: var(--yellow); }
+
+    .footer {
+      padding: 35px 0 46px;
+      border-top: 1px solid var(--line2);
+      color: #949991;
+    }
+
+    .foot {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .foot-mid {
+      font-size: 20px;
+      line-height: 1.45;
+      color: #9da29b;
+    }
+
+    .foot-right {
+      text-align: right;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 1160px) {
+      .navlinks {
+        display: none;
+      }
+
+      .hero-content {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-callout {
+        justify-self: start;
+        margin-top: 0;
+      }
+
+      .dashboard,
+      .pillars,
+      .story-grid,
+      .road {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .status-card {
+        grid-column: span 2;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .wrap {
+        width: min(100% - 28px, 1360px);
+      }
+
+      .nav {
+        height: auto;
+        padding: 18px 0;
+      }
+
+      .brand-name {
+        font-size: 17px;
+      }
+
+      .brand-tag {
+        font-size: 8px;
+      }
+
+      .status-pill {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .hero-content {
+        min-height: auto;
+        padding: 64px 0 42px;
+      }
+
+      h1 {
+        font-size: clamp(46px, 15vw, 70px);
+      }
+
+      .hero-art {
+        width: 100%;
+        right: -24%;
+        opacity: 0.30;
+      }
+
+      .dashboard,
+      .pillars,
+      .story-grid,
+      .road,
+      .ody-grid,
+      .foot {
+        grid-template-columns: 1fr;
+      }
+
+      .status-card {
+        grid-column: auto;
+      }
+
+      .panel-head {
+        height: auto;
+        padding: 20px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .foot-right {
+        text-align: left;
+      }
+    }
+  
+
+  
+    /* Real Citadel castle hero image */
+    .hero-art {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 68%;
+      height: 100%;
+      opacity: 0.78;
+      filter: grayscale(1) contrast(1.3) brightness(0.72);
+      background-image:
+        linear-gradient(90deg, rgba(5,6,7,0.88) 0%, rgba(5,6,7,0.40) 28%, rgba(5,6,7,0.12) 58%, rgba(5,6,7,0.58) 100%),
+        linear-gradient(180deg, rgba(5,6,7,0.06) 0%, rgba(5,6,7,0.88) 100%),
+        url("/assets/citadel-castle-hero.png");
+      background-size: cover;
+      background-position: center right;
+      background-repeat: no-repeat;
+    }
+
+    .hero-art::before,
+    .hero-art::after {
+      display: none !important;
+      content: none !important;
+    }
+
+    @media (max-width: 720px) {
+      .hero-art {
+        width: 135%;
+        right: -50%;
+        top: 90px;
+        height: 560px;
+        opacity: 0.48;
+        background-position: center right;
+      }
+    }
+
+  
+    /* Castle visibility tuning */
+    .hero::before {
+      background:
+        linear-gradient(90deg, rgba(5,6,7,0.98) 0%, rgba(5,6,7,0.84) 34%, rgba(5,6,7,0.18) 62%, rgba(5,6,7,0.38) 100%),
+        linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.58) 100%);
+    }
+
+    .hero-art {
+      width: 76% !important;
+      opacity: 1 !important;
+      filter: grayscale(1) contrast(1.24) brightness(0.95) !important;
+      background-image:
+        linear-gradient(90deg, rgba(5,6,7,0.80) 0%, rgba(5,6,7,0.28) 24%, rgba(5,6,7,0.02) 58%, rgba(5,6,7,0.18) 100%),
+        linear-gradient(180deg, rgba(5,6,7,0.00) 0%, rgba(5,6,7,0.50) 100%),
+        url("/assets/citadel-castle-hero.png") !important;
+      background-size: cover !important;
+      background-position: center right !important;
+    }
+
+    .hero-callout {
+      background: rgba(3,4,5,0.42);
+    }
+
+    @media (max-width: 720px) {
+      .hero-art {
+        width: 160% !important;
+        right: -70% !important;
+        top: 120px !important;
+        height: 620px !important;
+        opacity: 0.62 !important;
+        filter: grayscale(1) contrast(1.25) brightness(0.92) !important;
+        background-position: center right !important;
+      }
+
+      .hero::before {
+        background:
+          linear-gradient(90deg, rgba(5,6,7,0.96) 0%, rgba(5,6,7,0.74) 46%, rgba(5,6,7,0.32) 100%),
+          linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.65) 100%);
+      }
+    }
+    /* End castle visibility tuning */
+
+  
+    /* Citadel motion and Odysseus card tuning */
+
+    @keyframes castleSlideIn {
+      from {
+        opacity: 0;
+        transform: translateX(90px) scale(1.04);
+        filter: grayscale(1) contrast(1.1) brightness(0.55);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        filter: grayscale(1) contrast(1.24) brightness(0.95);
+      }
+    }
+
+    @keyframes heroTextSlideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-55px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeRise {
+      from {
+        opacity: 0;
+        transform: translateY(28px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        box-shadow: 0 0 14px rgba(165,199,54,0.45);
+      }
+      50% {
+        box-shadow: 0 0 30px rgba(165,199,54,0.82);
+      }
+    }
+
+    .hero-art {
+      animation: castleSlideIn 1.25s ease-out both;
+      transform-origin: center right;
+    }
+
+    .eyebrow {
+      animation: heroTextSlideIn 0.75s ease-out both;
+      animation-delay: 0.1s;
+    }
+
+    .hero h1 {
+      animation: heroTextSlideIn 0.85s ease-out both;
+      animation-delay: 0.22s;
+    }
+
+    .hero-copy {
+      animation: heroTextSlideIn 0.85s ease-out both;
+      animation-delay: 0.36s;
+    }
+
+    .hero-buttons {
+      animation: fadeRise 0.75s ease-out both;
+      animation-delay: 0.52s;
+    }
+
+    .hero-callout {
+      animation: fadeRise 0.85s ease-out both;
+      animation-delay: 0.78s;
+    }
+
+    .green-square,
+    .status-dot {
+      animation: glowPulse 2.4s ease-in-out infinite;
+    }
+
+    #dashboard .panel {
+      animation: fadeRise 0.8s ease-out both;
+      animation-delay: 0.82s;
+    }
+
+    .pillar,
+    .story,
+    .road-step {
+      animation: fadeRise 0.7s ease-out both;
+    }
+
+    .pillar:nth-child(1) { animation-delay: 0.05s; }
+    .pillar:nth-child(2) { animation-delay: 0.10s; }
+    .pillar:nth-child(3) { animation-delay: 0.15s; }
+    .pillar:nth-child(4) { animation-delay: 0.20s; }
+    .pillar:nth-child(5) { animation-delay: 0.25s; }
+    .pillar:nth-child(6) { animation-delay: 0.30s; }
+
+    .ody-figure {
+      min-height: 230px;
+      border: 1px solid rgba(165,199,54,0.28);
+      background:
+        radial-gradient(circle at 50% 36%, rgba(255,255,255,0.18), transparent 4.5rem),
+        radial-gradient(circle at 50% 68%, rgba(165,199,54,0.16), transparent 7.5rem),
+        linear-gradient(180deg, #171a1d 0%, #08090a 54%, #030404 100%);
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        inset 0 0 60px rgba(255,255,255,0.035),
+        0 0 40px rgba(0,0,0,0.35);
+    }
+
+    .ody-figure::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 26px;
+      transform: translateX(-50%);
+      width: 118px;
+      height: 156px;
+      border-radius: 54% 54% 34% 34%;
+      background:
+        radial-gradient(circle at 50% 28%, rgba(255,255,255,0.10), transparent 2.2rem),
+        linear-gradient(180deg, #22272b 0%, #070809 72%);
+      box-shadow:
+        inset 0 0 38px rgba(255,255,255,0.07),
+        0 0 45px rgba(165,199,54,0.12);
+      clip-path: polygon(50% 0%, 84% 18%, 95% 58%, 75% 100%, 25% 100%, 5% 58%, 16% 18%);
+    }
+
+    .ody-figure::after {
+      content: "ODYSSEUS";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 18px;
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.20em;
+      text-align: center;
+      text-shadow: 0 0 18px rgba(165,199,54,0.55);
+    }
+
+    .ody-figure .scanline {
+      display: none;
+    }
+
+    .ody-grid {
+      align-items: stretch;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .hero-art {
+        animation: castleSlideIn 1s ease-out both;
+      }
+
+      .ody-figure {
+        min-height: 190px;
+      }
+
+      .ody-figure::before {
+        width: 96px;
+        height: 130px;
+      }
+    }
+
+    /* End Citadel motion and Odysseus card tuning */
+
+  </style>
 </head>
 
 <body>
+  <div class="page">
+    <header class="top">
+      <div class="wrap nav">
+        <a class="brand" href="/">
+          <div class="crest"><span>♜</span></div>
+          <div>
+            <div class="brand-name">The Citadel</div>
+            <div class="brand-tag">Build. Harden. Monitor. Defend.</div>
+          </div>
+        </a>
 
-<div class="container">
+        <nav class="navlinks">
+          <a class="active" href="/">Overview</a>
+          <a href="#platform">Platform</a>
+          <a href="#projects">Projects</a>
+          <a href="#dashboard">Dashboards</a>
+          <a href="#roadmap">Roadmap</a>
+          <a href="#about">About</a>
+        </nav>
 
-<nav>
-    <div class="logo">♜ <span>THE</span> CITADEL PROJECT</div>
+        <a class="status-pill" href="#dashboard">
+          Citadel Status <span class="status-dot"></span>
+        </a>
+      </div>
+    </header>
 
-    <div class="links">
-        <a href="#about">ABOUT</a>
-        <a href="#dashboard">DASHBOARD</a>
-        <a href="#projects">PROJECTS</a>
-        <a href="#operations">OPERATIONS</a>
-        <a href="#roadmap">ROADMAP</a>
-        <a href="https://github.com/blakes52897-droid/citadel-linux-lab" target="_blank">GITHUB</a>
-    </div>
-</nav>
+    <main>
+      <section class="hero" id="overview">
+        <div class="hero-art" aria-hidden="true"></div>
 
-<section class="hero">
-    <div class="rook">♜</div>
-    <h1>THE CITADEL</h1>
-    <p>FORTIFY THE POSITION</p>
-    <p class="hero-subline">Linux Security • Cloud • Infrastructure</p>
+        <div class="wrap hero-content">
+          <div>
+            <div class="eyebrow">Root and Rook // The Citadel</div>
 
-    <div class="stack">
-        <span>LINUX</span>
-        <span>DOCKER</span>
-        <span>NGINX</span>
-        <span>CLOUDFLARE</span>
-        <span>SSH</span>
-        <span>FAIL2BAN</span>
-        <span>SECURITY+</span>
-    </div>
-</section>
+            <h1>A Living Linux Security Lab<span class="green-square"></span></h1>
 
-<section class="section" id="about">
-    <h2 class="section-title">ABOUT</h2>
+            <p class="hero-copy">
+              The Citadel is a self-hosted infrastructure lab and cybersecurity operations environment built from the ground up.
+              Every line. Every layer. Every defense.
+            </p>
 
-    <div class="about">
-        The Citadel is a Linux security and infrastructure lab built to document hands-on work in system administration, Docker deployment, SSH hardening, Cloudflare tunneling, authentication monitoring, and security operations.
-        <br><br>
-        This site is both a professional portfolio and a working operations deck. The goal is to build practical experience, document real troubleshooting, and create a clear record of technical growth toward cybersecurity, systems administration, and cloud infrastructure roles.
-    </div>
-</section>
-
-<section class="section" id="dashboard">
-    <h2>OPERATIONS DASHBOARD</h2>
-
-    <div class="dashboard-grid">
-        <div class="dash-card">
-            <h3>🟢 Website</h3>
-            <p>Public Citadel site served through Docker, NGINX, and Cloudflare Tunnel.</p>
-            <span id="live-updated">STATUS: loading...</span>
-        </div>
-
-        <div class="dash-card">
-        <h3>Apache</h3>
-        <p>
-        Apache is serving The Citadel on port 80 from the project repository.
-        </p>
-            <span id="live-server">SERVER: loading...</span>
-        </div>
-
-        <div class="dash-card">
-            <h3>🟢 GitHub</h3>
-            <p>Source control is active with commit, push, and deployment workflow verified.</p>
-            <span id="live-commit">COMMIT: loading...</span>
-        </div>
-
-        <div class="dash-card">
-            <h3>🟢 Cloudflare</h3>
-            <p>Cloudflare Tunnel provides public access without traditional port forwarding.</p>
-            <span>TUNNEL: ACTIVE</span>
-        </div>
-
-        <div class="dash-card">
-            <h3>🟡 Security</h3>
-            <p>SSH, UFW, and Fail2Ban are configured as the foundation for host hardening.</p>
-            <span>MONITORING: IN PROGRESS</span>
-        </div>
-
-        <div class="dash-card">
-            <h3>🟢 Thermal</h3>
-            <p>Host thermal baseline established using HWiNFO on the Windows host.</p>
-            <span>CPU BASELINE: HEALTHY</span>
-        </div>
-    </div>
-</section>
-
-<section class="section" id="projects">
-    <h2 class="section-title">PROJECTS</h2>
-
-    <div class="grid">
-
-        <div class="card">
-            <div>
-                <h3>♜ LINUX HARDENING LAB</h3>
-                <p>
-                    SSH configuration, firewall rules, access control, Fail2Ban protection, and disciplined Linux administration.
-                </p>
+            <div class="hero-buttons">
+              <a class="btn primary" href="#platform">Explore The Citadel →</a>
+              <a class="btn" href="#dashboard">View Dashboard ↗</a>
             </div>
-            <a href="/projects/linux-hardening.html">VIEW PROJECT</a>
-        </div>
+          </div>
 
-        <div class="card">
-            <div>
-                <h3>♜ DOCKER DEPLOYMENT LAB</h3>
-                <p>
-                Containerized NGINX deployment prototype for The Citadel, used to practice Docker builds, container lifecycle management, port mapping, and repeatable web deployments.
-                </p>
+          <aside class="hero-callout">
+            Citadel Status
+            <strong id="hero-status">Checking...</strong>
+          </aside>
+        </div>
+      </section>
+
+      <section id="dashboard">
+        <div class="wrap panel">
+          <div class="panel-head">
+            <h2 class="panel-title">Argus // Operations Dashboard</h2>
+            <a class="small-link" href="#projects">View Full Dashboard →</a>
+          </div>
+
+          <div class="dashboard">
+            <article class="metric">
+              <div class="metric-label">System Uptime</div>
+              <div class="metric-value" id="live-uptime">Loading</div>
+              <div class="metric-sub">Current status</div>
+              <div class="spark">
+                <svg viewBox="0 0 120 34" preserveAspectRatio="none">
+                  <path d="M0 25 L12 23 L22 21 L34 24 L45 20 L56 18 L66 26 L77 15 L88 23 L101 20 L120 14" />
+                </svg>
+              </div>
+            </article>
+
+            <article class="metric">
+              <div class="metric-label">CPU Load</div>
+              <div class="metric-value" id="live-cpu">Loading</div>
+              <div class="metric-sub">1m avg</div>
+              <div class="spark">
+                <svg viewBox="0 0 120 34" preserveAspectRatio="none">
+                  <path d="M0 27 L10 26 L18 24 L28 25 L38 20 L47 26 L58 13 L67 25 L78 18 L88 29 L100 6 L110 23 L120 19" />
+                </svg>
+              </div>
+            </article>
+
+            <article class="metric">
+              <div class="metric-label">Memory Usage</div>
+              <div class="metric-value" id="live-memory-percent">Loading</div>
+              <div class="metric-sub" id="live-memory">Memory data</div>
+              <div class="meter"><span id="memory-bar"></span></div>
+            </article>
+
+            <article class="metric">
+              <div class="metric-label">Disk Usage</div>
+              <div class="metric-value" id="live-disk">Loading</div>
+              <div class="metric-sub" id="live-disk-sub">Root filesystem</div>
+              <div class="meter"><span id="disk-bar"></span></div>
+            </article>
+
+            <article class="metric">
+              <div class="metric-label">Security Services</div>
+              <div class="services">
+                <div class="service"><span>UFW</span><span id="service-ufw">Loading</span></div>
+                <div class="service"><span>Fail2Ban</span><span id="service-fail2ban">Loading</span></div>
+                <div class="service"><span>Apache</span><span id="service-apache">Loading</span></div>
+                <div class="service"><span>Cloudflared</span><span id="service-cloudflared">Loading</span></div>
+              </div>
+            </article>
+
+            <aside class="status-card">
+              <div>
+                <div class="big-crest">♜</div>
+                <div class="status-label">Citadel Status</div>
+                <div class="status-live" id="live-status">Checking</div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="platform">
+        <div class="wrap panel">
+          <div class="panel-head">
+            <h2 class="panel-title">The Citadel // Core Pillars</h2>
+            <a class="small-link" href="#projects">Explore All Modules →</a>
+          </div>
+
+          <div class="pillars">
+            <a class="pillar" href="/projects/linux-hardening.html">
+              <div>
+                <div class="num">01 //</div>
+                <div class="ghost-icon">▤</div>
+                <h3>Platform</h3>
+                <p>Self-hosted on Linux. Secure. Hardened. Always improving.</p>
+              </div>
+              <span class="card-link">View Details →</span>
+            </a>
+
+            <a class="pillar" href="#dashboard">
+              <div>
+                <div class="num">02 //</div>
+                <div class="ghost-icon">◉</div>
+                <h3>Visibility</h3>
+                <p>Argus dashboard for real-time system monitoring.</p>
+              </div>
+              <span class="card-link">View Dashboard →</span>
+            </a>
+
+            <a class="pillar" href="/projects/auth-monitor.html">
+              <div>
+                <div class="num">03 //</div>
+                <div class="ghost-icon">◇</div>
+                <h3>Security</h3>
+                <p>Linux hardening, UFW, Fail2Ban, and layered defense.</p>
+              </div>
+              <span class="card-link">View Details →</span>
+            </a>
+
+            <a class="pillar" href="/projects/cloudflare-tunnel.html">
+              <div>
+                <div class="num">04 //</div>
+                <div class="ghost-icon">◎</div>
+                <h3>Infrastructure</h3>
+                <p>Cloudflare, Apache, Docker, Git. A solid foundation.</p>
+              </div>
+              <span class="card-link">View Details →</span>
+            </a>
+
+            <a class="pillar" href="/projects/auto-deploy-pipeline.html">
+              <div>
+                <div class="num">05 //</div>
+                <div class="ghost-icon">&lt;/&gt;</div>
+                <h3>Automation</h3>
+                <p>Python scripts and automation to keep the Citadel strong.</p>
+              </div>
+              <span class="card-link">View Scripts →</span>
+            </a>
+
+            <a class="pillar" href="/projects/odysseus-memory-core.html">
+              <div>
+                <div class="num">06 //</div>
+                <div class="ghost-icon">⌘</div>
+                <h3>Intelligence</h3>
+                <p>Odysseus AI assistant prototype. Paused until hardware upgrade.</p>
+              </div>
+              <span class="card-link">View Details →</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="wrap story-grid">
+          <article class="story" id="about">
+            <h3>About The Citadel</h3>
+            <p>
+              The Citadel is more than a server. It’s a continuous project of learning, building,
+              and securing. Everything here is built with purpose and intent.
+            </p>
+
+            <div class="checklist">
+              <div>Built from the ground up</div>
+              <div>Security focused</div>
+              <div>Always learning</div>
+              <div>Always evolving</div>
             </div>
-            <a href="/projects/docker-deployment-lab.html">EXPLORE</a>
-        </div>
 
-        <div class="card">
-            <div>
-                <h3>♜ AUTH MONITOR</h3>
+            <a class="btn" href="/projects/linux-hardening.html">Learn More About The Journey →</a>
+          </article>
+
+          <article class="story">
+            <h3>Odysseus // AI Assistant Prototype</h3>
+
+            <div class="ody-grid">
+              <div class="ody-figure"></div>
+              <div>
                 <p>
-                    Authentication telemetry, SSH login visibility, and future live log monitoring from the Linux host.
+                  A local AI operations assistant designed to search Citadel documentation,
+                  explain system state, and support future monitoring workflows.
                 </p>
-            </div>
-            <a href="/projects/auth-monitor.html">OPEN FEED</a>
-        </div>
 
-        <div class="card">
-            <div>
-                <h3>♜ SIEM SANDBOX</h3>
-                <p>
-                    Security monitoring lab focused on log ingestion, detection logic, event review, and analyst workflows.
-                </p>
-            </div>
-            <a href="/projects/siem-sandbox.html">OPEN LAB</a>
-        </div>
-
-        <div class="card">
-            <div>
-                <h3>♜ CLOUDFLARE TUNNEL</h3>
-                <p>
-                    Public access through Cloudflare Tunnel without traditional port forwarding, with systemd service management.
-                </p>
-            </div>
-            <a href="/projects/cloudflare-tunnel.html">DOCUMENTATION</a>
-        </div>
-
-        <div class="card">
-            <div>
-                <h3>♜ AUTO DEPLOY PIPELINE</h3>
-                <p>
-                    GitHub push, cron-based deploy checks, Docker rebuilds, and automated container replacement.
-                </p>
-            </div>
-            <a href="/projects/auto-deploy-pipeline.html">VIEW WORKFLOW</a>
-        </div>
-
-    </div>
-</section>
-
-<section class="section" id="operations">
-    <h2 class="section-title">OPERATIONS</h2>
-
-    <div class="ops">
-
-        <div class="panel">
-            <div class="panel-title">system@citadel:~$ status</div>
-
-            <div class="status-list">
-                <div class="status-item">
-                    <span>Host</span>
-                    <span class="status-good">Ubuntu Linux VM</span>
+                <div class="ai-status">
+                  Status: Prototype tested<br>
+                  Hardware-limited<br>
+                  Paused pending upgrade
                 </div>
-                <div class="status-item">
-                    <span>Web Stack</span>
-                    <span class="status-good">Docker + NGINX</span>
-                </div>
-                <div class="status-item">
-                    <span>Public Access</span>
-                    <span class="status-good">Cloudflare Tunnel</span>
-                </div>
-                <div class="status-item">
-                    <span>Auto Deploy</span>
-                    <span class="status-good">Cron + Git Pull</span>
-                </div>
-                <div class="status-item">
-                    <span>Security Focus</span>
-                    <span class="status-good">SSH / UFW / Fail2Ban</span>
-                </div>
+              </div>
             </div>
+
+            <br>
+            <a class="card-link" href="/projects/odysseus-memory-core.html">View Odysseus Project →</a>
+          </article>
+
+          <article class="story">
+            <h3>Latest Health Report</h3>
+
+            <div class="report" id="latest-report">Loading latest Citadel telemetry...</div>
+
+            <br>
+            <a class="card-link" href="#dashboard">View All Reports →</a>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap panel">
+          <div class="panel-head">
+            <h2 class="panel-title">Project Modules // Clickable Pages</h2>
+            <a class="small-link" href="#platform">Back To Pillars →</a>
+          </div>
+
+          <div class="pillars">
+            <a class="pillar" href="/projects/linux-hardening.html">
+              <div>
+                <div class="num">01 //</div>
+                <div class="ghost-icon">▣</div>
+                <h3>Linux Hardening</h3>
+                <p>SSH, UFW, Fail2Ban, permissions, and operational guardrails.</p>
+              </div>
+              <span class="card-link">Open Page →</span>
+            </a>
+
+            <a class="pillar" href="/projects/cloudflare-tunnel.html">
+              <div>
+                <div class="num">02 //</div>
+                <div class="ghost-icon">◎</div>
+                <h3>Cloudflare Tunnel</h3>
+                <p>Public access through Cloudflare without exposing the VM directly.</p>
+              </div>
+              <span class="card-link">Open Page →</span>
+            </a>
+
+            <a class="pillar" href="/projects/docker-deployment-lab.html">
+              <div>
+                <div class="num">03 //</div>
+                <div class="ghost-icon">⬡</div>
+                <h3>Docker Lab</h3>
+                <p>Containerized deployment practice and infrastructure documentation.</p>
+              </div>
+              <span class="card-link">Open Page →</span>
+            </a>
+
+            <a class="pillar" href="/projects/auth-monitor.html">
+              <div>
+                <div class="num">04 //</div>
+                <div class="ghost-icon">◌</div>
+                <h3>Auth Monitor</h3>
+                <p>Authentication visibility and login monitoring foundation.</p>
+              </div>
+              <span class="card-link">Open Page →</span>
+            </a>
+
+            <a class="pillar" href="/projects/siem-sandbox.html">
+              <div>
+                <div class="num">05 //</div>
+                <div class="ghost-icon">⌁</div>
+                <h3>SIEM Sandbox</h3>
+                <p>Security monitoring lab and future detection engineering space.</p>
+              </div>
+              <span class="card-link">Open Page →</span>
+            </a>
+
+            <a class="pillar" href="/projects/bmak.html">
+              <div>
+                <div class="num">06 //</div>
+                <div class="ghost-icon">⌂</div>
+                <h3>B-MAK</h3>
+                <p>Private ops case study. Public-safe, sanitized, no real data.</p>
+              </div>
+              <span class="card-link">Open Case Study →</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="roadmap">
+        <div class="wrap panel">
+          <div class="panel-head">
+            <h2 class="panel-title">Roadmap // What's Next</h2>
+            <a class="small-link" href="#overview">View Full Roadmap →</a>
+          </div>
+
+          <div class="road">
+            <a class="road-step" href="#dashboard">
+              <span class="circle">01</span><span class="road-name">Argus Dashboard</span>
+              <div class="road-state done">Completed</div>
+            </a>
+
+            <a class="road-step" href="/projects/auth-monitor.html">
+              <span class="circle">02</span><span class="road-name">Sentinel Alerting</span>
+              <div class="road-state progress">In Progress</div>
+            </a>
+
+            <a class="road-step" href="/projects/odysseus-memory-core.html">
+              <span class="circle">03</span><span class="road-name">Odysseus AI</span>
+              <div class="road-state paused">Paused</div>
+            </a>
+
+            <a class="road-step" href="/projects/auto-deploy-pipeline.html">
+              <span class="circle">04</span><span class="road-name">Expanded Automation</span>
+              <div class="road-state">Planned</div>
+            </a>
+
+            <a class="road-step" href="/projects/siem-sandbox.html">
+              <span class="circle">05</span><span class="road-name">Lab Network Expansion</span>
+              <div class="road-state">Planned</div>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap foot">
+        <a class="brand" href="/">
+          <div class="crest"><span>♜</span></div>
+          <div>
+            <div class="brand-name">The Citadel</div>
+            <div class="brand-tag">Build. Harden. Monitor. Defend.</div>
+          </div>
+        </a>
+
+        <div class="foot-mid">
+          Not just a home lab.<br>
+          A stronghold.
         </div>
 
-        <div class="panel">
-            <div class="panel-title">system@citadel:~$ recent-work</div>
-
-            <div class="terminal">[OK] Dockerized portfolio deployed
-[OK] Cloudflare tunnel repaired
-[OK] Token-based tunnel replaced with config.yml service
-[OK] Public domain routed to Docker container
-[OK] Auto-deploy script created
-[OK] Cron job scheduled for deployment checks
-
-Next objective:
-Build clickable project pages and document each lab.</div>
+        <div class="foot-right">
+          © 2026 The Citadel<br>
+          rootandrook.com
         </div>
+      </div>
+    </footer>
+  </div>
 
-    </div>
-</section>
+  <script>
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
 
-<section class="section" id="roadmap">
-    <h2 class="section-title">ROADMAP</h2>
+    function clean(value) {
+      if (!value) return "unknown";
+      return String(value).replace("Status:", "").trim();
+    }
 
-    <div class="grid">
+    function firstCpu(value) {
+      if (!value) return "Unknown";
+      return String(value).split(",")[0].trim();
+    }
 
-        <div class="card">
-            <div>
-                <h3>PHASE 1</h3>
-                <p>
-                    Build project pages, collect screenshots, and document Linux hardening, Docker, and Cloudflare work.
-                </p>
-            </div>
-        </div>
+    function percentFromDisk(value) {
+      if (!value) return 0;
+      const match = String(value).match(/[0-9.]+/);
+      return match ? Number(match[0]) : 0;
+    }
 
-        <div class="card">
-            <div>
-                <h3>PHASE 2</h3>
-                <p>
-                    Add accurate live telemetry through scripts or a backend API instead of fake dashboard values.
-                </p>
-            </div>
-        </div>
+    function memoryPercent(value) {
+      if (!value) return 0;
 
-        <div class="card">
-            <div>
-                <h3>PHASE 3</h3>
-                <p>
-                    Expand into SIEM tooling, log ingestion, Wazuh or Splunk experiments, and detection documentation.
-                </p>
-            </div>
-        </div>
+      const text = String(value);
+      const percentMatch = text.match(/\(([0-9.]+)%\)/);
+      if (percentMatch) return Number(percentMatch[1]);
 
-    </div>
-</section>
+      const mbMatch = text.match(/([0-9.]+)MB\s*\/\s*([0-9.]+)MB/i);
+      if (mbMatch) {
+        const used = Number(mbMatch[1]);
+        const total = Number(mbMatch[2]);
+        if (total > 0) return Math.round((used / total) * 10_000) / 100;
+      }
 
-<div class="footer">
-rootandrook.com • THE CITADEL • BUILT BY BLAKE SWARTZ
-</div>
+      return 0;
+    }
 
-</div>
+    async function loadStatus() {
+      try {
+        const response = await fetch("/status.json", { cache: "no-store" });
+        const data = await response.json();
 
-<script>
-fetch('/status.json')
-  .then(response => response.json())
-  .then(data => {
-    document.getElementById('live-updated').textContent =
-      'UPDATED: ' + data.updated;
+        const services = data.services || {};
+        const security = data.security || {};
 
-    document.getElementById('live-server').textContent =
-  'SERVER: ' + data.services.apache;
+        const apache = clean(services.apache || data.apache);
+        const cloudflared = clean(services.cloudflared || data.cloudflared);
+        const fail2ban = clean(services.fail2ban || data.fail2ban);
+        const ufw = clean(services.ufw || data.ufw || "active");
 
-    document.getElementById('live-commit').textContent =
-      'COMMIT: ' + data.last_commit;
+        const memPct = memoryPercent(data.memory);
+        const diskPct = percentFromDisk(data.disk);
 
-    document.getElementById('live-uptime').textContent =
-      'UPTIME: ' + data.uptime;
+        setText("hero-status", "Online");
+        setText("live-status", "Online");
 
-    document.getElementById('live-memory').textContent =
-      'MEMORY: ' + data.memory;
+        setText("live-uptime", data.uptime || "Unknown");
+        setText("live-cpu", firstCpu(data.cpu_load));
+        setText("live-memory-percent", memPct ? memPct + "%" : "Live");
+        setText("live-memory", data.memory || "Memory data");
+        setText("live-disk", data.disk || "Unknown");
 
-    document.getElementById('live-disk').textContent =
-      'DISK: ' + data.disk;
-  })
-  .catch(error => {
-    console.error('Status load failed:', error);
-  });
-</script>
+        setText("service-ufw", ufw);
+        setText("service-fail2ban", fail2ban);
+        setText("service-apache", apache);
+        setText("service-cloudflared", cloudflared);
 
+        const memoryBar = document.getElementById("memory-bar");
+        const diskBar = document.getElementById("disk-bar");
+
+        if (memoryBar) memoryBar.style.width = Math.min(memPct || 9, 100) + "%";
+        if (diskBar) diskBar.style.width = Math.min(diskPct || 44, 100) + "%";
+
+        const report = [
+          data.updated ? "Generated: " + data.updated : "Generated: Live telemetry",
+          "--------------------------------",
+          "Citadel Health Report",
+          "--------------------------------",
+          "Uptime: " + (data.uptime || "Unknown"),
+          "CPU Load: " + (data.cpu_load || "Unknown"),
+          "Memory: " + (data.memory || "Unknown"),
+          "Disk: " + (data.disk || "Unknown"),
+          "UFW: " + ufw,
+          "Fail2Ban: " + fail2ban,
+          "Apache: " + apache,
+          "Cloudflared: " + cloudflared,
+          "Failed Units: " + (security.failed_systemd_units || "0"),
+          "Banned IPs: " + (security.fail2ban_banned || "0")
+        ].join("\n");
+
+        setText("latest-report", report);
+      } catch (err) {
+        setText("hero-status", "Offline");
+        setText("live-status", "Offline");
+        setText("latest-report", "Unable to load /status.json. The page loaded, but Argus telemetry did not respond.");
+      }
+    }
+
+    loadStatus();
+  </script>
 </body>
 </html>
