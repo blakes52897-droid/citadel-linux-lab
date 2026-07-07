@@ -907,7 +907,7 @@
 
     .hero-art {
       width: 76% !important;
-      opacity: 1 !important;
+      opacity: 0.82 !important;
       filter: grayscale(1) contrast(1.24) brightness(0.95) !important;
       background-image:
         linear-gradient(90deg, rgba(5,6,7,0.80) 0%, rgba(5,6,7,0.28) 24%, rgba(5,6,7,0.02) 58%, rgba(5,6,7,0.18) 100%),
@@ -1120,6 +1120,598 @@
 
     /* End Citadel motion and Odysseus card tuning */
 
+  
+    /* Argus dashboard polish */
+
+    .metric-value {
+      font-size: clamp(28px, 2.7vw, 44px) !important;
+      line-height: 1.08 !important;
+      word-break: normal !important;
+    }
+
+    #live-uptime {
+      font-size: clamp(30px, 3vw, 48px) !important;
+      line-height: 1.08 !important;
+      letter-spacing: -0.06em;
+    }
+
+    .metric-sub {
+      position: relative;
+      z-index: 2;
+    }
+
+    .spark path {
+      stroke-dasharray: 160;
+      stroke-dashoffset: 160;
+      animation: argusLineDraw 2.8s ease-in-out infinite;
+    }
+
+    @keyframes argusLineDraw {
+      0% {
+        stroke-dashoffset: 160;
+        opacity: 0.25;
+      }
+      45% {
+        stroke-dashoffset: 0;
+        opacity: 1;
+      }
+      100% {
+        stroke-dashoffset: -160;
+        opacity: 0.35;
+      }
+    }
+
+    .service span:last-child,
+    .status-live,
+    #hero-status {
+      animation: statusPulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes statusPulse {
+      0%, 100% {
+        text-shadow: 0 0 8px rgba(165,199,54,0.35);
+      }
+      50% {
+        text-shadow: 0 0 18px rgba(165,199,54,0.95);
+      }
+    }
+
+    /* End Argus dashboard polish */
+
+  
+    /* Odysseus real image card */
+    .ody-figure {
+      min-height: 230px !important;
+      border: 1px solid rgba(165,199,54,0.35) !important;
+      background-image:
+        linear-gradient(180deg, rgba(3,4,5,0.05) 0%, rgba(3,4,5,0.55) 100%),
+        radial-gradient(circle at 50% 50%, rgba(165,199,54,0.10), transparent 55%),
+        url("/assets/odysseus-card-v2.png") !important;
+      background-size: cover !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      box-shadow:
+        inset 0 0 70px rgba(0,0,0,0.35),
+        0 0 45px rgba(165,199,54,0.08) !important;
+    }
+
+    .ody-figure::before {
+      display: none !important;
+      content: none !important;
+    }
+
+    .ody-figure::after {
+      content: "ODYSSEUS";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 18px;
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.20em;
+      text-align: center;
+      text-shadow: 0 0 18px rgba(165,199,54,0.55);
+    }
+
+    @media (max-width: 720px) {
+      .ody-figure {
+        min-height: 220px !important;
+        background-position: center top !important;
+      }
+    }
+    /* End Odysseus real image card */
+
+  
+    /* Remove Odysseus image text overlay */
+    .ody-figure::after {
+      content: none !important;
+      display: none !important;
+    }
+
+  
+    /* Force Odysseus label */
+    .ody-figure {
+      position: relative !important;
+      overflow: hidden !important;
+    }
+
+    .ody-figure::after {
+      content: "ODYSSEUS" !important;
+      display: block !important;
+      position: absolute !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 18px !important;
+      color: var(--green) !important;
+      font-family: var(--mono) !important;
+      font-size: 12px !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.34em !important;
+      text-align: center !important;
+      text-shadow:
+        0 0 10px rgba(165,199,54,0.85),
+        0 0 26px rgba(165,199,54,0.45) !important;
+      z-index: 99 !important;
+      pointer-events: none !important;
+    }
+    /* End force Odysseus label */
+
+  
+    /* Citadel brand font polish */
+    .brand-name {
+      font-family: Georgia, "Times New Roman", serif !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.14em !important;
+      text-transform: uppercase !important;
+      position: relative;
+      text-shadow: 0 0 16px rgba(255,255,255,0.06);
+    }
+
+    .brand-name::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -9px;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(165,199,54,0.75), transparent);
+      opacity: 0.75;
+      animation: brandLineDrift 3.6s ease-in-out infinite;
+    }
+
+    @keyframes brandLineDrift {
+      0%, 100% {
+        opacity: 0.25;
+        transform: scaleX(0.72);
+      }
+      50% {
+        opacity: 0.9;
+        transform: scaleX(1);
+      }
+    }
+
+    .brand-tag {
+      margin-top: 12px !important;
+    }
+    /* End Citadel brand font polish */
+
+  
+    /* Citadel atmosphere and Argus sweep */
+
+    @keyframes fogDrift {
+      0% {
+        transform: translateX(-8%) translateY(0);
+        opacity: 0.14;
+      }
+      50% {
+        transform: translateX(7%) translateY(-2%);
+        opacity: 0.28;
+      }
+      100% {
+        transform: translateX(-8%) translateY(0);
+        opacity: 0.14;
+      }
+    }
+
+    @keyframes castleLightBreath {
+      0%, 100% {
+        opacity: 0.18;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.34;
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes argusSweep {
+      0% {
+        transform: translateX(-120%);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.75;
+      }
+      70% {
+        opacity: 0.45;
+      }
+      100% {
+        transform: translateX(120%);
+        opacity: 0;
+      }
+    }
+
+    .hero-art::before {
+      content: "" !important;
+      display: block !important;
+      position: absolute !important;
+      inset: 0 !important;
+      background:
+        radial-gradient(circle at 58% 38%, rgba(255,255,255,0.20), transparent 12rem),
+        linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.08) 34%, transparent 62%);
+      mix-blend-mode: screen;
+      animation: castleLightBreath 6.5s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .hero-art::after {
+      content: "" !important;
+      display: block !important;
+      position: absolute !important;
+      inset: -8% -18% -8% -18% !important;
+      background:
+        radial-gradient(ellipse at 28% 68%, rgba(255,255,255,0.12), transparent 19rem),
+        radial-gradient(ellipse at 72% 52%, rgba(165,199,54,0.08), transparent 17rem),
+        linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.06) 44%, transparent 72%);
+      filter: blur(10px);
+      animation: fogDrift 9s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .metric,
+    .status-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric::after,
+    .status-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 46%;
+      left: 0;
+      background:
+        linear-gradient(90deg, transparent, rgba(165,199,54,0.10), rgba(165,199,54,0.24), transparent);
+      transform: translateX(-120%);
+      animation: argusSweep 5.4s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .metric:nth-child(2)::after { animation-delay: 0.4s; }
+    .metric:nth-child(3)::after { animation-delay: 0.8s; }
+    .metric:nth-child(4)::after { animation-delay: 1.2s; }
+    .metric:nth-child(5)::after { animation-delay: 1.6s; }
+    .status-card::after { animation-delay: 2s; }
+
+    .metric > *,
+    .status-card > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    @media (max-width: 720px) {
+      .hero-art::before {
+        opacity: 0.22;
+      }
+
+      .hero-art::after {
+        opacity: 0.18;
+        filter: blur(12px);
+      }
+
+      .metric::after,
+      .status-card::after {
+        animation-duration: 6.8s;
+      }
+    }
+
+    /* End Citadel atmosphere and Argus sweep */
+
+  
+    /* Clickable project card polish */
+
+    .pillar,
+    .road-step,
+    .story .btn,
+    .card-link {
+      cursor: pointer;
+    }
+
+    .pillar {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .pillar::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid transparent;
+      background:
+        linear-gradient(120deg, transparent 0%, rgba(165,199,54,0.10) 45%, rgba(165,199,54,0.22) 50%, transparent 56%);
+      transform: translateX(-130%);
+      transition: transform 0.65s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .pillar:hover::before,
+    .pillar:focus-visible::before {
+      transform: translateX(130%);
+    }
+
+    .pillar:hover,
+    .pillar:focus-visible {
+      outline: none;
+      transform: translateY(-6px);
+      border-color: rgba(165,199,54,0.65);
+      box-shadow:
+        0 20px 50px rgba(0,0,0,0.38),
+        0 0 32px rgba(165,199,54,0.08);
+    }
+
+    .pillar > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .pillar .card-link {
+      transition: transform 0.18s ease, color 0.18s ease, text-shadow 0.18s ease;
+    }
+
+    .pillar:hover .card-link,
+    .pillar:focus-visible .card-link {
+      color: var(--green);
+      transform: translateX(6px);
+      text-shadow: 0 0 16px rgba(165,199,54,0.55);
+    }
+
+    .pillar:hover .ghost-icon,
+    .pillar:focus-visible .ghost-icon {
+      color: rgba(165,199,54,0.72);
+      text-shadow: 0 0 24px rgba(165,199,54,0.32);
+    }
+
+    .road-step {
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .road-step:hover,
+    .road-step:focus-visible {
+      outline: none;
+      transform: translateY(-4px);
+      background: rgba(165,199,54,0.035);
+    }
+
+    .road-step:hover .circle,
+    .road-step:focus-visible .circle {
+      box-shadow: 0 0 18px rgba(165,199,54,0.45);
+    }
+
+    /* End clickable project card polish */
+
+  
+    /* Scroll reveal animation system */
+
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(34px);
+      transition:
+        opacity 0.75s ease,
+        transform 0.75s ease;
+    }
+
+    .reveal-on-scroll.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-on-scroll {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* End scroll reveal animation system */
+
+  
+
+
+  
+
+
+  
+
+
+  
+
+
+  
+    /* Premium Citadel logo refinement */
+
+    .site-header,
+    header {
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      gap: 18px !important;
+      align-items: center !important;
+    }
+
+    .brand-mark,
+    .brand-icon,
+    .logo-mark,
+    .site-mark {
+      width: 74px !important;
+      height: 74px !important;
+      flex: 0 0 74px !important;
+      background: url("/assets/citadel-mark.svg?v=premium3") center / contain no-repeat !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      filter:
+        drop-shadow(0 0 12px rgba(165,199,54,0.14))
+        drop-shadow(0 8px 16px rgba(0,0,0,0.45)) !important;
+      clip-path: none !important;
+      color: transparent !important;
+      font-size: 0 !important;
+    }
+
+    .brand-mark::before,
+    .brand-mark::after,
+    .brand-icon::before,
+    .brand-icon::after,
+    .logo-mark::before,
+    .logo-mark::after,
+    .site-mark::before,
+    .site-mark::after {
+      content: none !important;
+      display: none !important;
+    }
+
+    .brand-mark > *,
+    .brand-icon > *,
+    .logo-mark > *,
+    .site-mark > * {
+      display: none !important;
+    }
+
+    .brand-name {
+      font-size: clamp(28px, 2.2vw, 42px) !important;
+      letter-spacing: 0.17em !important;
+      font-weight: 800 !important;
+      line-height: 1 !important;
+    }
+
+    .brand-tag {
+      margin-top: 12px !important;
+      font-size: 11px !important;
+      letter-spacing: 0.30em !important;
+      opacity: 0.68 !important;
+    }
+
+    .brand-text {
+      position: relative !important;
+      padding-bottom: 2px !important;
+    }
+
+    .brand-text::after {
+      content: "" !important;
+      position: absolute !important;
+      left: 2px !important;
+      bottom: -8px !important;
+      width: 84px !important;
+      height: 1px !important;
+      background: linear-gradient(90deg, rgba(165,199,54,0.8), transparent) !important;
+      box-shadow: 0 0 12px rgba(165,199,54,0.35) !important;
+    }
+
+    @media (max-width: 720px) {
+      .brand {
+        gap: 14px !important;
+      }
+
+      .brand-mark,
+      .brand-icon,
+      .logo-mark,
+      .site-mark {
+        width: 62px !important;
+        height: 62px !important;
+        flex-basis: 62px !important;
+      }
+
+      .brand-name {
+        font-size: 29px !important;
+        letter-spacing: 0.13em !important;
+      }
+
+      .brand-tag {
+        font-size: 10px !important;
+        letter-spacing: 0.22em !important;
+      }
+    }
+
+    /* End premium Citadel logo refinement */
+
+  
+
+
+  
+
+
+  
+
+
+  
+    /* Left hero looping video */
+
+    .hero-left-video {
+      position: absolute !important;
+      left: 0 !important;
+      top: 0 !important;
+      width: 66% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      opacity: 1 !important;
+      filter: grayscale(1) contrast(1.35) brightness(1.45) !important;
+      pointer-events: none !important;
+      z-index: 3 !important;
+      mix-blend-mode: normal !important;
+      -webkit-mask-image: linear-gradient(90deg, black 0%, black 74%, transparent 100%) !important;
+      mask-image: linear-gradient(90deg, black 0%, black 74%, transparent 100%) !important;
+    }
+
+    .hero-art {
+      z-index: 1 !important;
+    }
+
+    .hero::before {
+      z-index: 2 !important;
+    }
+
+    .hero-content {
+      position: relative !important;
+      z-index: 4 !important;
+      text-shadow: 0 2px 18px rgba(0,0,0,0.85) !important;
+    }
+
+    @media (max-width: 720px) {
+      .hero-left-video {
+        width: 100% !important;
+        opacity: 0.72 !important;
+        filter: grayscale(1) contrast(1.30) brightness(1.25) !important;
+        z-index: 3 !important;
+        -webkit-mask-image: linear-gradient(180deg, black 0%, black 62%, transparent 100%) !important;
+        mask-image: linear-gradient(180deg, black 0%, black 62%, transparent 100%) !important;
+      }
+    }
+
+    /* End left hero looping video */
+
   </style>
 </head>
 
@@ -1152,6 +1744,12 @@
 
     <main>
       <section class="hero" id="overview">
+
+
+        <video class="hero-left-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+          <source src="/assets/citadel-left-loop.mp4?v=video3" type="video/mp4">
+        </video>
+
         <div class="hero-art" aria-hidden="true"></div>
 
         <div class="wrap hero-content">
@@ -1509,6 +2107,21 @@
       return String(value).replace("Status:", "").trim();
     }
 
+
+    function compactUptime(value) {
+      if (!value) return "Unknown";
+
+      let text = String(value).replace(/^up\s+/, "").trim();
+
+      text = text
+        .replace(/ days?/g, "d")
+        .replace(/ hours?/g, "h")
+        .replace(/ minutes?/g, "m")
+        .replace(/,/g, "");
+
+      return text;
+    }
+
     function firstCpu(value) {
       if (!value) return "Unknown";
       return String(value).split(",")[0].trim();
@@ -1556,7 +2169,7 @@
         setText("hero-status", "Online");
         setText("live-status", "Online");
 
-        setText("live-uptime", data.uptime || "Unknown");
+        setText("live-uptime", compactUptime(data.uptime));
         setText("live-cpu", firstCpu(data.cpu_load));
         setText("live-memory-percent", memPct ? memPct + "%" : "Live");
         setText("live-memory", data.memory || "Memory data");
@@ -1599,6 +2212,38 @@
     }
 
     loadStatus();
+  
+    // Scroll reveal animation system
+    function initScrollReveal() {
+      const targets = document.querySelectorAll(
+        ".panel, .story, .pillar, .road-step, .metric, .status-card"
+      );
+
+      targets.forEach((el, index) => {
+        el.classList.add("reveal-on-scroll");
+
+        if (index % 4 === 1) el.classList.add("reveal-delay-1");
+        if (index % 4 === 2) el.classList.add("reveal-delay-2");
+        if (index % 4 === 3) el.classList.add("reveal-delay-3");
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12
+      });
+
+      targets.forEach((el) => observer.observe(el));
+    }
+
+    document.addEventListener("DOMContentLoaded", initScrollReveal);
+    // End scroll reveal animation system
+
   </script>
 </body>
 </html>

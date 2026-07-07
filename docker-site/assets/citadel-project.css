@@ -1,0 +1,841 @@
+:root {
+  --bg: #050607;
+  --panel: rgba(8, 9, 10, 0.92);
+  --line: rgba(255, 255, 255, 0.15);
+  --line-soft: rgba(255, 255, 255, 0.08);
+  --text: #f3f2ec;
+  --muted: #aeb3aa;
+  --dim: #73786f;
+  --green: #a5c736;
+  --blue: #5bbcff;
+  --yellow: #d8c157;
+  --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 75% 10%, rgba(165,199,54,0.10), transparent 25rem),
+    radial-gradient(circle at 18% 0%, rgba(91,188,255,0.07), transparent 22rem),
+    linear-gradient(180deg, #070809 0%, #030404 100%);
+  color: var(--text);
+  font-family: var(--font);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.10;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: linear-gradient(to bottom, black 0%, transparent 75%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+main,
+section,
+header,
+footer,
+.container,
+.project-page,
+.project,
+.content,
+.page {
+  position: relative;
+  z-index: 1;
+}
+
+.container,
+.wrapper,
+.wrap,
+main {
+  width: min(1180px, calc(100% - 56px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+header,
+nav {
+  border-bottom: 1px solid var(--line-soft);
+}
+
+h1 {
+  font-size: clamp(44px, 6vw, 82px);
+  line-height: 0.96;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+  margin: 42px 0 24px;
+}
+
+h2 {
+  margin-top: 34px;
+  font-family: var(--mono);
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+h3 {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+p,
+li {
+  color: #bec4ba;
+  line-height: 1.75;
+  font-size: 15px;
+}
+
+code,
+pre {
+  font-family: var(--mono);
+}
+
+pre {
+  padding: 22px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  background: rgba(0,0,0,0.34);
+  color: #b7c0b2;
+}
+
+.card,
+.panel,
+.project-card,
+section > div,
+article {
+  border-color: var(--line);
+}
+
+article,
+.card,
+.panel,
+.project-card {
+  background: rgba(8,9,10,0.78);
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+button,
+.btn,
+.back-link,
+a[href="/"],
+a[href="../"],
+a[href*="index"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: 0.18s ease;
+}
+
+button:hover,
+.btn:hover,
+.back-link:hover,
+a[href="/"]:hover,
+a[href="../"]:hover,
+a[href*="index"]:hover {
+  border-color: rgba(165,199,54,0.65);
+  color: var(--green);
+  transform: translateY(-2px);
+}
+
+.status,
+.badge,
+.tag,
+.pill {
+  color: var(--green);
+  border: 1px solid rgba(165,199,54,0.35);
+  background: rgba(165,199,54,0.055);
+  font-family: var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@keyframes pageFadeRise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main,
+.container,
+.wrapper,
+.wrap {
+  animation: pageFadeRise 0.75s ease-out both;
+}
+
+@media (max-width: 720px) {
+  .container,
+  .wrapper,
+  .wrap,
+  main {
+    width: min(100% - 28px, 1180px);
+  }
+
+  h1 {
+    font-size: clamp(38px, 13vw, 58px);
+  }
+}
+
+
+
+/* Citadel project page animations */
+
+@keyframes pageRise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes citadelFog {
+  0%, 100% {
+    transform: translateX(-4%) translateY(0);
+    opacity: 0.12;
+  }
+  50% {
+    transform: translateX(5%) translateY(-2%);
+    opacity: 0.22;
+  }
+}
+
+@keyframes greenScan {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  22% {
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}
+
+@keyframes pulseGreen {
+  0%, 100% {
+    text-shadow: 0 0 6px rgba(165,199,54,0.35);
+    border-color: rgba(165,199,54,0.28);
+  }
+  50% {
+    text-shadow: 0 0 18px rgba(165,199,54,0.85);
+    border-color: rgba(165,199,54,0.65);
+  }
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: -10% -15%;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 22% 28%, rgba(255,255,255,0.08), transparent 22rem),
+    radial-gradient(ellipse at 78% 20%, rgba(165,199,54,0.08), transparent 20rem),
+    linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.045) 44%, transparent 68%);
+  filter: blur(12px);
+  animation: citadelFog 10s ease-in-out infinite;
+}
+
+h1,
+h2,
+h3,
+p,
+li,
+article,
+.card,
+.panel,
+.project-card,
+pre,
+.terminal,
+.btn,
+.back-link {
+  animation: pageRise 0.7s ease-out both;
+}
+
+h1 { animation-delay: 0.05s; }
+h2 { animation-delay: 0.10s; }
+article,
+.card,
+.panel,
+.project-card { animation-delay: 0.14s; }
+
+article,
+.card,
+.panel,
+.project-card,
+pre,
+.terminal {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    background 0.22s ease;
+}
+
+article::after,
+.card::after,
+.panel::after,
+.project-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 42%;
+  background: linear-gradient(90deg, transparent, rgba(165,199,54,0.10), rgba(165,199,54,0.22), transparent);
+  transform: translateX(-120%);
+  animation: greenScan 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+article:hover,
+.card:hover,
+.panel:hover,
+.project-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(165,199,54,0.58);
+  box-shadow:
+    0 22px 58px rgba(0,0,0,0.35),
+    0 0 32px rgba(165,199,54,0.08);
+  background:
+    radial-gradient(circle at 70% 100%, rgba(165,199,54,0.055), transparent 14rem),
+    rgba(8,9,10,0.86);
+}
+
+pre,
+.terminal {
+  box-shadow:
+    inset 0 0 38px rgba(165,199,54,0.025),
+    0 0 24px rgba(0,0,0,0.22);
+}
+
+pre::before,
+.terminal::before {
+  content: "ARGUS TRACE";
+  display: block;
+  margin-bottom: 14px;
+  color: var(--green);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.status,
+.badge,
+.tag,
+.pill {
+  animation: pulseGreen 2.8s ease-in-out infinite;
+}
+
+button,
+.btn,
+.back-link,
+a[href="/"],
+a[href="../"],
+a[href*="index"] {
+  position: relative;
+  overflow: hidden;
+}
+
+button::after,
+.btn::after,
+.back-link::after,
+a[href="/"]::after,
+a[href="../"]::after,
+a[href*="index"]::after {
+  content: "→";
+  margin-left: 10px;
+  transition: transform 0.18s ease;
+}
+
+button:hover::after,
+.btn:hover::after,
+.back-link:hover::after,
+a[href="/"]:hover::after,
+a[href="../"]:hover::after,
+a[href*="index"]:hover::after {
+  transform: translateX(5px);
+}
+
+.project-reveal {
+  opacity: 0;
+  transform: translateY(34px);
+  transition:
+    opacity 0.75s ease,
+    transform 0.75s ease;
+}
+
+.project-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .project-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* End Citadel project page animations */
+
+/* Citadel project HUD layer */
+
+@keyframes hudGridShift {
+  0% {
+    background-position: 0 0, 0 0;
+    opacity: 0.12;
+  }
+  50% {
+    opacity: 0.22;
+  }
+  100% {
+    background-position: 80px 40px, -60px 90px;
+    opacity: 0.12;
+  }
+}
+
+@keyframes railPulse {
+  0%, 100% {
+    opacity: 0.18;
+    box-shadow: 0 0 10px rgba(165,199,54,0.12);
+  }
+  50% {
+    opacity: 0.55;
+    box-shadow: 0 0 22px rgba(165,199,54,0.38);
+  }
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(18px) translateX(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateY(-80px) translateX(24px);
+    opacity: 0;
+  }
+}
+
+@keyframes bannerScan {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+@keyframes blinkCursor {
+  0%, 45% {
+    opacity: 1;
+  }
+  46%, 100% {
+    opacity: 0;
+  }
+}
+
+.project-data-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(165,199,54,0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(165,199,54,0.035) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px;
+  mask-image:
+    radial-gradient(circle at 50% 20%, black 0%, transparent 72%);
+  animation: hudGridShift 14s linear infinite;
+}
+
+.project-side-rail {
+  position: fixed;
+  top: 120px;
+  bottom: 70px;
+  width: 1px;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(165,199,54,0.35),
+    transparent
+  );
+  animation: railPulse 3.6s ease-in-out infinite;
+}
+
+.project-side-rail.left {
+  left: 24px;
+}
+
+.project-side-rail.right {
+  right: 24px;
+}
+
+.project-side-rail::before,
+.project-side-rail::after {
+  content: "";
+  position: absolute;
+  left: -5px;
+  width: 11px;
+  height: 1px;
+  background: rgba(165,199,54,0.72);
+  box-shadow: 0 0 12px rgba(165,199,54,0.5);
+}
+
+.project-side-rail::before {
+  top: 18%;
+}
+
+.project-side-rail::after {
+  bottom: 22%;
+}
+
+.project-particle {
+  position: fixed;
+  z-index: 1;
+  pointer-events: none;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(165,199,54,0.72);
+  box-shadow: 0 0 14px rgba(165,199,54,0.8);
+  animation: particleFloat 5.5s ease-in-out infinite;
+}
+
+.project-command-banner {
+  width: min(1180px, calc(100% - 56px));
+  margin: 28px auto 0;
+  position: relative;
+  z-index: 3;
+  overflow: hidden;
+  border: 1px solid rgba(165,199,54,0.26);
+  background:
+    linear-gradient(90deg, rgba(165,199,54,0.07), rgba(255,255,255,0.015), rgba(91,188,255,0.035));
+  padding: 14px 18px;
+  color: var(--green);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.project-command-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 38%;
+  background: linear-gradient(90deg, transparent, rgba(165,199,54,0.18), transparent);
+  animation: bannerScan 4.8s ease-in-out infinite;
+}
+
+.project-command-banner span {
+  position: relative;
+  z-index: 2;
+}
+
+.project-command-banner span::after {
+  content: "_";
+  margin-left: 6px;
+  animation: blinkCursor 1s steps(1) infinite;
+}
+
+h2 {
+  position: relative;
+  padding-left: 18px;
+}
+
+h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  bottom: 0.2em;
+  width: 3px;
+  background: var(--green);
+  box-shadow: 0 0 18px rgba(165,199,54,0.65);
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: 1px;
+  margin-top: 12px;
+  background: linear-gradient(90deg, rgba(165,199,54,0.75), transparent);
+}
+
+article::before,
+.card::before,
+.panel::before,
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: 11px;
+  pointer-events: none;
+  border-top: 1px solid rgba(165,199,54,0.20);
+  border-left: 1px solid rgba(165,199,54,0.16);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 2;
+}
+
+article:hover::before,
+.card:hover::before,
+.panel:hover::before,
+.project-card:hover::before {
+  opacity: 1;
+}
+
+pre,
+.terminal {
+  border-color: rgba(165,199,54,0.25);
+}
+
+pre code::after,
+.terminal::after {
+  content: "_";
+  color: var(--green);
+  animation: blinkCursor 1s steps(1) infinite;
+}
+
+@media (max-width: 720px) {
+  .project-command-banner {
+    width: min(100% - 28px, 1180px);
+    font-size: 9px;
+    line-height: 1.5;
+  }
+
+  .project-side-rail {
+    display: none;
+  }
+
+  .project-particle {
+    display: none;
+  }
+}
+
+/* End Citadel project HUD layer */
+
+/* Citadel project switchboard */
+
+.project-switchboard {
+  width: min(1180px, calc(100% - 56px));
+  margin: 46px auto 72px;
+  position: relative;
+  z-index: 3;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 85% 15%, rgba(165,199,54,0.07), transparent 18rem),
+    rgba(8,9,10,0.82);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.32);
+}
+
+.project-switchboard-head {
+  padding: 22px 26px;
+  border-bottom: 1px solid var(--line-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.project-switchboard-title {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.project-switchboard-status {
+  color: var(--green);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  animation: pulseGreen 2.8s ease-in-out infinite;
+}
+
+.project-switchboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+
+.project-module-link {
+  min-height: 142px;
+  padding: 22px;
+  border-right: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  background: rgba(255,255,255,0.012);
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.project-module-link:nth-child(4n) {
+  border-right: 0;
+}
+
+.project-module-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent, rgba(165,199,54,0.13), transparent);
+  transform: translateX(-130%);
+  transition: transform 0.65s ease;
+}
+
+.project-module-link:hover::before,
+.project-module-link:focus-visible::before {
+  transform: translateX(130%);
+}
+
+.project-module-link:hover,
+.project-module-link:focus-visible {
+  outline: none;
+  transform: translateY(-4px);
+  background:
+    radial-gradient(circle at 70% 100%, rgba(165,199,54,0.075), transparent 12rem),
+    rgba(255,255,255,0.025);
+  border-color: rgba(165,199,54,0.45);
+}
+
+.project-module-num {
+  position: relative;
+  z-index: 2;
+  color: rgba(255,255,255,0.24);
+  font-family: var(--mono);
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.08em;
+  margin-bottom: 18px;
+}
+
+.project-module-name {
+  position: relative;
+  z-index: 2;
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.project-module-desc {
+  position: relative;
+  z-index: 2;
+  color: #aeb4ab;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.project-module-open {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  margin-top: 18px;
+  color: var(--green);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 920px) {
+  .project-switchboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .project-module-link:nth-child(4n) {
+    border-right: 1px solid var(--line-soft);
+  }
+
+  .project-module-link:nth-child(2n) {
+    border-right: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .project-switchboard {
+    width: min(100% - 28px, 1180px);
+  }
+
+  .project-switchboard-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .project-switchboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-module-link,
+  .project-module-link:nth-child(2n),
+  .project-module-link:nth-child(4n) {
+    border-right: 0;
+  }
+}
+
+/* End Citadel project switchboard */

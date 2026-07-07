@@ -1,64 +1,543 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B-MAK</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>B-MAK Private Operations | The Citadel</title>
+
+  <link rel="stylesheet" href="/assets/citadel-project.css?v=bmak-rebuild1" />
+
+  <style>
+    .bmak-hero {
+      width: min(1180px, calc(100% - 56px));
+      margin: 54px auto 28px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .bmak-title-card,
+    .odin-card {
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 80% 20%, rgba(165,199,54,0.08), transparent 18rem),
+        rgba(8,9,10,0.82);
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bmak-eyebrow {
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .bmak-title {
+      margin: 0;
+      font-size: clamp(48px, 7vw, 92px);
+      line-height: 0.9;
+      letter-spacing: -0.06em;
+      text-transform: uppercase;
+    }
+
+    .bmak-subtitle {
+      color: #c2c8bf;
+      max-width: 760px;
+      font-size: 17px;
+      line-height: 1.75;
+      margin-top: 26px;
+    }
+
+    .privacy-lock {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 24px;
+      padding: 12px 14px;
+      border: 1px solid rgba(165,199,54,0.35);
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(165,199,54,0.055);
+    }
+
+    .odin-card {
+      display: grid;
+      place-items: center;
+      text-align: center;
+    }
+
+    .odin-logo {
+      width: 150px;
+      height: 150px;
+      filter: drop-shadow(0 0 28px rgba(165,199,54,0.22));
+      margin-bottom: 20px;
+    }
+
+    .odin-title {
+      font-family: var(--mono);
+      color: var(--text);
+      font-size: 18px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .odin-status {
+      font-family: var(--mono);
+      color: var(--green);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .bmak-dashboard {
+      width: min(1180px, calc(100% - 56px));
+      margin: 0 auto 34px;
+      border: 1px solid var(--line);
+      background: rgba(8,9,10,0.78);
+    }
+
+    .bmak-dashboard-head {
+      padding: 22px 26px;
+      border-bottom: 1px solid var(--line-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .bmak-dashboard-title {
+      font-family: var(--mono);
+      font-size: 14px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .sample-badge {
+      color: var(--yellow);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .bmak-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+
+    .bmak-panel {
+      min-height: 230px;
+      padding: 26px;
+      border-right: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
+      background:
+        radial-gradient(circle at 80% 100%, rgba(165,199,54,0.045), transparent 14rem),
+        rgba(255,255,255,0.012);
+    }
+
+    .bmak-panel:nth-child(3n) {
+      border-right: 0;
+    }
+
+    .panel-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .panel-value {
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 28px;
+      letter-spacing: -0.04em;
+      margin-bottom: 10px;
+    }
+
+    .panel-note {
+      color: #b9beb6;
+      line-height: 1.65;
+      font-size: 14px;
+    }
+
+    .sample-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .sample-row {
+      display: grid;
+      grid-template-columns: 70px 1fr auto;
+      gap: 12px;
+      color: #c5cbc1;
+      font-family: var(--mono);
+      font-size: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .sample-row span:first-child {
+      color: var(--green);
+    }
+
+    .sample-row span:last-child {
+      color: var(--muted);
+    }
+
+    .bmak-case-study {
+      width: min(1180px, calc(100% - 56px));
+      margin: 34px auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--line);
+      background: rgba(8,9,10,0.72);
+    }
+
+    .case-card {
+      padding: 28px;
+      min-height: 260px;
+      border-right: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
+      background: rgba(255,255,255,0.012);
+    }
+
+    .case-card:nth-child(3n) {
+      border-right: 0;
+    }
+
+    .case-num {
+      color: rgba(255,255,255,0.22);
+      font-family: var(--mono);
+      font-size: 34px;
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      margin-bottom: 20px;
+    }
+
+    .case-card h2 {
+      margin-top: 0;
+      padding-left: 0;
+    }
+
+    .case-card h2::before,
+    .case-card h2::after {
+      display: none;
+    }
+
+    .case-card p,
+    .case-card li {
+      color: #bec4ba;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .privacy-warning {
+      width: min(1180px, calc(100% - 56px));
+      margin: 34px auto;
+      border: 1px solid rgba(216,193,87,0.4);
+      background:
+        radial-gradient(circle at 90% 10%, rgba(216,193,87,0.08), transparent 18rem),
+        rgba(8,9,10,0.82);
+      padding: 28px;
+    }
+
+    .privacy-warning h2 {
+      color: var(--yellow);
+      margin-top: 0;
+    }
+
+    .bmak-actions {
+      width: min(1180px, calc(100% - 56px));
+      margin: 34px auto 72px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .bmak-hero,
+      .bmak-grid,
+      .bmak-case-study {
+        grid-template-columns: 1fr;
+      }
+
+      .bmak-panel,
+      .case-card {
+        border-right: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .bmak-hero,
+      .bmak-dashboard,
+      .bmak-case-study,
+      .privacy-warning,
+      .bmak-actions {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .sample-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  
+    /* ODIN card polish */
+    .odin-card {
+      min-height: 360px;
+      align-content: center;
+      padding: 30px 24px;
+      background:
+        radial-gradient(circle at 50% 30%, rgba(165,199,54,0.10), transparent 8rem),
+        rgba(8,9,10,0.82);
+    }
+
+    .odin-logo {
+      width: 128px;
+      height: 128px;
+      margin-bottom: 24px;
+      filter:
+        drop-shadow(0 0 14px rgba(165,199,54,0.34))
+        drop-shadow(0 0 34px rgba(165,199,54,0.12));
+    }
+
+    .odin-title {
+      margin-top: 8px;
+      margin-bottom: 26px;
+      font-size: 17px;
+      letter-spacing: 0.22em;
+    }
+
+    .odin-status {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-shadow: 0 0 14px rgba(165,199,54,0.45);
+    }
+    /* End ODIN card polish */
+
+  </style>
 </head>
+
 <body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="/">
+        <div class="crest">♜</div>
+        <div>
+          <div class="brand-name">The Citadel</div>
+          <div class="brand-tag">Build. Harden. Monitor. Defend.</div>
+        </div>
+      </a>
 
-<h1>♜ B-MAK</h1>
-<h2>Swartz Family Operations</h2>
+      <nav class="nav-links">
+        <a href="/">Overview</a>
+        <a href="/#platform">Platform</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#dashboard">Dashboard</a>
+      </nav>
+    </div>
+  </header>
 
-<p><strong>Powered by ODIN</strong></p>
+  <main>
+    <section class="bmak-hero">
+      <div class="bmak-title-card">
+        <div class="bmak-eyebrow">Private Operations Case Study // Sanitized</div>
+        <h1 class="bmak-title">B-MAK Operations<span class="green-square"></span></h1>
 
-<hr>
+        <p class="bmak-subtitle">
+          B-MAK is a private household operations concept built inside the Citadel ecosystem.
+          The real system is private. This public page uses sanitized sample data only to demonstrate
+          dashboard design, automation planning, privacy decisions, and operational structure.
+        </p>
 
-<h3>ODIN STATUS</h3>
-<p>ONLINE</p>
+        <div class="privacy-lock">No real family data displayed</div>
+      </div>
 
-<hr>
+      <aside class="odin-card">
+        <img class="odin-logo" src="/assets/odin-logo.png" alt="ODIN watchdog logo" />
+        <div class="odin-title">ODIN</div>
+        <div class="odin-status">Watchdog Layer Online</div>
+      </aside>
+    </section>
 
-<h3>NEXT PAYDAYS</h3>
+    <section class="bmak-dashboard">
+      <div class="bmak-dashboard-head">
+        <h2 class="bmak-dashboard-title">Sample Dashboard // Public Safe View</h2>
+        <div class="sample-badge">Synthetic Data</div>
+      </div>
 
-<p>
-Blake<br>
-Jun 11
-</p>
+      <div class="bmak-grid">
+        <article class="bmak-panel">
+          <div class="panel-label">
+            <span>ODIN Status</span>
+            <span>01</span>
+          </div>
+          <div class="panel-value">Online</div>
+          <div class="panel-note">
+            Sample watchdog layer monitoring upcoming obligations, calendar checkpoints, document reminders,
+            and household operations tasks.
+          </div>
+        </article>
 
-<p>
-Makayla<br>
-Jun 12
-</p>
+        <article class="bmak-panel">
+          <div class="panel-label">
+            <span>Pay Schedule</span>
+            <span>02</span>
+          </div>
+          <div class="sample-list">
+            <div class="sample-row"><span>Role A</span><span>Primary Income</span><span>Next Cycle</span></div>
+            <div class="sample-row"><span>Role B</span><span>Secondary Income</span><span>Next Cycle</span></div>
+            <div class="sample-row"><span>Forecast</span><span>Projected household window</span><span>Sample</span></div>
+          </div>
+        </article>
 
-<hr>
+        <article class="bmak-panel">
+          <div class="panel-label">
+            <span>Upcoming Obligations</span>
+            <span>03</span>
+          </div>
+          <div class="sample-list">
+            <div class="sample-row"><span>Day 15</span><span>Recurring payment</span><span>Tracked</span></div>
+            <div class="sample-row"><span>Day 21</span><span>Subscription review</span><span>Tracked</span></div>
+            <div class="sample-row"><span>Day 27</span><span>Vehicle-related item</span><span>Tracked</span></div>
+          </div>
+        </article>
 
-<h3>UPCOMING BILLS</h3>
+        <article class="bmak-panel">
+          <div class="panel-label">
+            <span>Vault</span>
+            <span>04</span>
+          </div>
+          <div class="panel-value">Organized</div>
+          <div class="panel-note">
+            Document categories are modeled around household, insurance, school, tax, medical,
+            and emergency planning needs. Public version excludes file paths and sensitive records.
+          </div>
+        </article>
 
-<ul>
-    <li>Jun 15 - Student Loan</li>
-    <li>Jun 21 - BowTied Cyber</li>
-    <li>Jun 23 - Phone Bill</li>
-</ul>
+        <article class="bmak-panel">
+          <div class="panel-label">
+            <span>Calendar</span>
+            <span>05</span>
+          </div>
+          <div class="sample-list">
+            <div class="sample-row"><span>Event</span><span>School / family placeholder</span><span>Sample</span></div>
+            <div class="sample-row"><span>Reminder</span><span>Maintenance checkpoint</span><span>Sample</span></div>
+            <div class="sample-row"><span>Task</span><span>Weekly review</span><span>Sample</span></div>
+          </div>
+        </article>
 
-<hr>
+        <article class="bmak-panel">
+          <div class="panel-label">
+            <span>Alerts</span>
+            <span>06</span>
+          </div>
+          <div class="panel-value">Planned</div>
+          <div class="panel-note">
+            Future ODIN automations can notify on upcoming deadlines, missing documents,
+            payment windows, calendar conflicts, and weekly planning reviews.
+          </div>
+        </article>
+      </div>
+    </section>
 
-<h3>UPCOMING EVENTS</h3>
+    <section class="bmak-case-study">
+      <article class="case-card">
+        <div class="case-num">01 //</div>
+        <h2>Purpose</h2>
+        <p>
+          B-MAK was designed to explore how personal operations can be organized with the same discipline
+          used in technical systems: clear dashboards, repeatable workflows, and private source-of-truth records.
+        </p>
+      </article>
 
-<p>No Events Scheduled</p>
+      <article class="case-card">
+        <div class="case-num">02 //</div>
+        <h2>Privacy Model</h2>
+        <p>
+          The live system is private. Public portfolio material uses synthetic examples only. Personal names,
+          real obligations, real account details, medical data, school information, and document links are excluded.
+        </p>
+      </article>
 
-<hr>
+      <article class="case-card">
+        <div class="case-num">03 //</div>
+        <h2>ODIN Role</h2>
+        <p>
+          ODIN is the planned watchdog layer: reminders, alerts, document checks, weekly reviews,
+          and automation triggers that help keep the household operating smoothly.
+        </p>
+      </article>
 
-<h3>HOUSEHOLD</h3>
+      <article class="case-card">
+        <div class="case-num">04 //</div>
+        <h2>System Areas</h2>
+        <ul>
+          <li>Calendar and event awareness</li>
+          <li>Recurring obligation tracking</li>
+          <li>Family vault structure</li>
+          <li>Private document organization</li>
+          <li>Future automation hooks</li>
+        </ul>
+      </article>
 
-<ul>
-    <li>Blake</li>
-    <li>Makayla</li>
-    <li>Liam</li>
-    <li>Bennett</li>
-    <li>Everett</li>
-    <li>Odin</li>
-</ul>
+      <article class="case-card">
+        <div class="case-num">05 //</div>
+        <h2>Security Decisions</h2>
+        <ul>
+          <li>Do not expose the real dashboard publicly</li>
+          <li>Use sanitized case-study data only</li>
+          <li>Keep sensitive files outside public web paths</li>
+          <li>Separate portfolio visuals from private operations</li>
+        </ul>
+      </article>
 
+      <article class="case-card">
+        <div class="case-num">06 //</div>
+        <h2>Roadmap</h2>
+        <ul>
+          <li>Private dashboard MVP</li>
+          <li>Calendar integration</li>
+          <li>Document checklist automation</li>
+          <li>ODIN weekly household briefings</li>
+          <li>Alerting through private channels</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="privacy-warning">
+      <h2>Security Note</h2>
+      <p>
+        This page is intentionally sanitized. B-MAK belongs to the private side of the Citadel ecosystem.
+        The purpose of this public page is to demonstrate systems thinking, dashboard architecture,
+        privacy-aware design, and automation planning without exposing real household data.
+      </p>
+    </section>
+
+    <div class="bmak-actions">
+      <a class="btn primary" href="/">← Back To The Citadel</a>
+      <a class="btn" href="/#projects">View Project Modules</a>
+      <a class="btn" href="/projects/odysseus-memory-core.html">View Odysseus</a>
+    </div>
+  </main>
+
+  <script defer src="/assets/citadel-project.js?v=bmak-rebuild1"></script>
 </body>
 </html>

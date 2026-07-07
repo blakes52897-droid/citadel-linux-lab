@@ -1,9 +1,23 @@
 {
-  "updated": "2026-06-01 13:39:19",
-  "uptime": "up 15 hours, 45 minutes",
-  "cpu_load": "0.00, 0.03, 0.75",
-  "memory": "1520MB / 15476MB",
-  "disk": "64%",
-  "apache": "active",
-  "last_commit": "d9dc597 - Document local AI model testing and dashboard troubleshooting"
+  "updated": "2026-06-13 15:10:49",
+  "uptime": "up 1 day, 18 hours, 28 minutes",
+  "cpu_load": "0.87, 0.79, 0.86",
+  "memory": "2111MB / 15475MB",
+  "disk": "51%",
+  "services": {
+    "apache": "active",
+    "cloudflared": "active",
+    "fail2ban": "active",
+    "tailscale": "active",
+    "docker": "active"
+  },
+  "security": {
+    "ssh_failed_today": "0",
+    "fail2ban_banned": "0",
+    "failed_systemd_units": "0"
+  },
+  "docker": {
+    "running_containers": "0"
+  },
+  "last_commit": "47dc174 - Add Python Citadel health report script"
 }

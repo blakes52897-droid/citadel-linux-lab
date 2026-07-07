@@ -1,0 +1,86 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="160" height="160" fill="transparent"/>
+
+  <!-- Tactical ring -->
+  <circle cx="80" cy="82" r="58" stroke="#a5c736" stroke-opacity="0.22" stroke-width="2"/>
+
+  <!-- K9 head outline -->
+  <path d="M42 58
+           L55 30
+           L70 58
+           L80 51
+           L90 58
+           L105 30
+           L118 58
+           L112 94
+           L94 122
+           L80 130
+           L66 122
+           L48 94
+           Z"
+        fill="#080b0d"
+        stroke="#a5c736"
+        stroke-width="5"
+        stroke-linejoin="round"/>
+
+  <!-- Inner ear planes -->
+  <path d="M55 30 L61 68 L70 58 Z"
+        fill="#151a1d"
+        stroke="#a5c736"
+        stroke-opacity="0.42"
+        stroke-width="2"
+        stroke-linejoin="round"/>
+
+  <path d="M105 30 L99 68 L90 58 Z"
+        fill="#151a1d"
+        stroke="#a5c736"
+        stroke-opacity="0.42"
+        stroke-width="2"
+        stroke-linejoin="round"/>
+
+  <!-- Face planes -->
+  <path d="M48 63 L72 78 L66 106 L49 94 Z"
+        fill="#12171a"
+        stroke="#a5c736"
+        stroke-opacity="0.32"
+        stroke-width="2"
+        stroke-linejoin="round"/>
+
+  <path d="M112 63 L88 78 L94 106 L111 94 Z"
+        fill="#12171a"
+        stroke="#a5c736"
+        stroke-opacity="0.32"
+        stroke-width="2"
+        stroke-linejoin="round"/>
+
+  <!-- Muzzle -->
+  <path d="M64 92
+           L80 80
+           L96 92
+           L91 114
+           L80 123
+           L69 114
+           Z"
+        fill="#050607"
+        stroke="#a5c736"
+        stroke-width="3"
+        stroke-linejoin="round"/>
+
+  <!-- Eyes -->
+  <path d="M59 72 L73 75" stroke="#f3f2ec" stroke-width="5" stroke-linecap="round"/>
+  <path d="M101 72 L87 75" stroke="#f3f2ec" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Nose -->
+  <path d="M73 98 L87 98 L80 107 Z" fill="#a5c736"/>
+
+  <!-- Lower guard mark -->
+  <path d="M62 123 L80 145 L98 123"
+        stroke="#a5c736"
+        stroke-width="4"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- Small HUD dots -->
+  <circle cx="52" cy="132" r="2" fill="#a5c736" opacity="0.7"/>
+  <circle cx="108" cy="132" r="2" fill="#a5c736" opacity="0.7"/>
+</svg>

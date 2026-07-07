@@ -1,0 +1,73 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="160" height="160" fill="transparent"/>
+
+  <!-- ODIN K9 sentinel mark -->
+  <path d="M34 88
+           L48 58
+           L64 34
+           L79 60
+           L103 62
+           L128 78
+           L116 91
+           L96 94
+           L84 112
+           L62 122
+           L46 111
+           Z"
+        fill="#080b0d"
+        stroke="#a5c736"
+        stroke-width="5"
+        stroke-linejoin="round"/>
+
+  <!-- Ear inner plane -->
+  <path d="M64 34 L69 68 L79 60 Z"
+        fill="#151a1d"
+        stroke="#a5c736"
+        stroke-opacity="0.45"
+        stroke-width="2"
+        stroke-linejoin="round"/>
+
+  <!-- Face plane -->
+  <path d="M48 58 L72 74 L64 103 L39 95 Z"
+        fill="#111518"
+        stroke="#a5c736"
+        stroke-opacity="0.38"
+        stroke-width="2"
+        stroke-linejoin="round"/>
+
+  <!-- Muzzle plane -->
+  <path d="M72 74 L104 75 L121 82 L108 88 L83 91 Z"
+        fill="#12171a"
+        stroke="#a5c736"
+        stroke-opacity="0.5"
+        stroke-width="2"
+        stroke-linejoin="round"/>
+
+  <!-- Nose -->
+  <path d="M121 82 L130 86 L119 91 Z"
+        fill="#a5c736"/>
+
+  <!-- Eye -->
+  <path d="M73 68 L88 70"
+        stroke="#f3f2ec"
+        stroke-width="5"
+        stroke-linecap="round"/>
+
+  <!-- Neck / chest -->
+  <path d="M62 122 L82 142 L99 112"
+        stroke="#a5c736"
+        stroke-width="4"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- Tactical ring -->
+  <circle cx="80" cy="82" r="58"
+          stroke="#a5c736"
+          stroke-opacity="0.18"
+          stroke-width="2"/>
+
+  <!-- Small signal dots -->
+  <circle cx="125" cy="56" r="2" fill="#a5c736" opacity="0.8"/>
+  <circle cx="133" cy="56" r="2" fill="#a5c736" opacity="0.45"/>
+  <circle cx="141" cy="56" r="2" fill="#a5c736" opacity="0.25"/>
+</svg>
