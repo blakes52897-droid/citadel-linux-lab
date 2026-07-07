@@ -472,3 +472,19 @@ Today’s Citadel priorities are:
 6. Prepare Sentinel as a future security detection and alerting module.
 7. Organize screenshots and evidence for portfolio documentation.
 8. Add architecture diagrams and recruiter-friendly project explanations.
+
+
+## Python Health Report Milestone
+
+Created a Python-based Citadel health report script at `~/python/citadel_health.py`.
+
+The script now:
+- Prints a formatted health report to terminal.
+- Creates `~/python/health_reports/` automatically.
+- Saves each run as a timestamped report file.
+- Checks uptime, CPU load, disk usage, memory usage, UFW, Fail2Ban, Apache, Cloudflared, and Citadel online status.
+
+Confirmed output file:
+`~/python/health_reports/2026-06-11_2333_report.txt`
+
+This is the first Python-based building block for Argus monitoring automation.
