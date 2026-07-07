@@ -1,2 +1,0 @@
-23:59:44 | May 25 23:20:00 blakelinuxlab sshd-session[8213]: Accepted password for blakes52897 from 10.0.0.102 port 57558 ssh2
-23:59:44 | May 25 23:20:00 blakelinuxlab sshd-session[8213]: pam_unix(sshd:session): session opened for user blakes52897(uid=1000) by blakes52897(uid=0)

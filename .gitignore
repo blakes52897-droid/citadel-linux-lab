@@ -6,3 +6,5 @@ __pycache__/
 *.pyc
 rag/venv/
 rag/vector-db/
+private-archive/
+*safely archived*
