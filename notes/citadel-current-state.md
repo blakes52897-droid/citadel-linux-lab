@@ -434,7 +434,7 @@ Completed feasibility work:
 - Located and started Odysseus UI from `/home/blakes52897/sandbox/odysseus`.
 - Confirmed Odysseus UI runs privately on port `7000`.
 - Connected Odysseus UI to local Ollama through Docker bridge endpoint:
-  - `http://172.17.0.1:11434/v1`
+  - `[local Ollama/OpenAI-compatible endpoint redacted]`
 - Confirmed Odysseus UI can see local models.
 
 Current conclusion:
